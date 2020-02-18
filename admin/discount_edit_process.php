@@ -67,7 +67,7 @@
             
 //            send("discount_create_view.php");
 //            var_dump($_SESSION);
-//            exit;
+            exit;
         }else{
         
 //         echo "active: $active<br>";
@@ -78,17 +78,22 @@
             
            setSuccess("Updated discount Nº " . $id); 
            send("discount_read_list_view.php"); 
+            exit;
         }
         
     }elseif(isset($_GET["edit"])){
         $get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
         $id = $get["edit"];
         
-        if(!is_numeric($id))
+        if(!is_numeric($id)){
             send("discount_read_list_view.php");
+            exit;
+        }
         else
-        if($id<=0)
+        if($id<=0){
             send("discount_read_list_view.php");
+            exit;
+        }
         
         
         //load values from db

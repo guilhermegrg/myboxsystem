@@ -65,7 +65,7 @@
             
 //            send("discount_create_view.php");
 //            var_dump($_SESSION);
-//            exit;
+            exit;
         }else{
         
         
@@ -77,6 +77,7 @@
             
            setSuccess("Created new Discount Nº " . $id); 
            send("discount_read_list_view.php"); 
+            exit;
         }
         
     }else{

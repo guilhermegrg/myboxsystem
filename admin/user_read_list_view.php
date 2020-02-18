@@ -24,7 +24,7 @@
     
 
 ?>
-   
+   <?php displayMessages(); ?>
    
    <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -48,7 +48,7 @@
 </div>
    
    
-     <?php displayMessages(); ?>
+     
    
    <?php  include "pagination.php"; ?>
    <?php   

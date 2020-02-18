@@ -93,7 +93,7 @@
             
 //            send("discount_create_view.php");
 //            var_dump($_SESSION);
-//            exit;
+            exit;
         }else{
         
 //        echo "No error!<br>";
@@ -105,6 +105,7 @@
             
            setSuccess("Created new user nº " . $id); 
            send("user_read_list_view.php"); 
+           exit;
         }
         
     }else{

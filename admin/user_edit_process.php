@@ -86,6 +86,7 @@
             
             setError("Please correct the form and submit again");
             setFormValidation("USER",$error);
+            exit;
             
 //            send("discount_create_view.php");
 //            var_dump($_SESSION);
@@ -100,6 +101,7 @@
             
            setSuccess("Updated User nº " . $id); 
            send("user_read_list_view.php"); 
+            exit;
         }
         
     }elseif(isset($_GET["edit"])){
