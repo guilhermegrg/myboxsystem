@@ -18,7 +18,7 @@
             DiscountsDAO::delete($deleteID);
             setSuccess("Deleted a discount!");
             echo "Deleted a discount!<br>";
-//            send("discount_read_list_view.php");
+            send("discount_read_list_view.php");
         }
     }
     

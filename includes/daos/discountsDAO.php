@@ -27,12 +27,21 @@ class DiscountsDAO  {
     
     public static function delete($id){
         try{
+            echo "before<br>";
         $conn = DiscountsDAO::getConn();
-        $stmt = $conn->prepare("DELETE * FROM discounts WHERE id=:id");
+        $stmt = $conn->prepare("DELETE FROM discounts WHERE id=:id");
         $stmt->bindValue(':id',$id, PDO::PARAM_INT);
         $result = $stmt->execute();
         $count = $stmt->rowCount();
+            
+//            echo "count: $count<br>";
+//            echo "after<br>";
+//            var_dump($result);   
+//            var_dump($stmt);
         return $count;
+            
+            
+            
         }catch(PDOException $e){
             echo "Error deleting!<br>";
             echo $e->getMessage();
@@ -90,7 +99,7 @@ class DiscountsDAO  {
 
 DiscountsDAO::getCount();
 DiscountsDAO::getTotalPages();
-DiscountsDAO::delete(-1);
-echo "hello";
+//DiscountsDAO::delete(7);
+//echo "hello";
 
 ?>
