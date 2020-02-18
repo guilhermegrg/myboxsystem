@@ -30,6 +30,9 @@
             $error["name"] = "Name cannot be empty!";
         }elseif(strlen($name)<=3){
             $error["name"] = "Name must have more than 3 characters!";
+        }elseif(!preg_match("/^[A-Za-z]{4,}$/",$name))
+        {
+            $error["name"] = "Format Error! More than 3 letters. No spaces!";
         }
         
         if(empty($value) || $value=="")
@@ -37,6 +40,9 @@
             $error["value"] = "Value cannot be empty!";
         }elseif(strlen($name)<1){
             $error["value"] = "Value must have more than one character!";
+        }elseif(!preg_match("/^[0-9.%]{1,}$/",$value))
+        {
+            $error["name"] = "Format Error! A number or a percentage only!";
         }
 
         
