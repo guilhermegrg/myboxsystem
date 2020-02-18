@@ -19,7 +19,8 @@
         
         if(isset($post['active']))
             $active = $post["active"];
-        
+        else
+            $active = "off";
 
         
         
@@ -35,6 +36,10 @@
         }elseif(!preg_match("/^[A-Za-z]{4,}$/",$name))
         {
             $error["name"] = "Format Error! More than 3 letters. No spaces!";
+        }else{
+            $result = DiscountsDAO::isDuplicateName($id,$name);
+            if($result)
+                $error["name"] = "Name already registered! Choose another one!";
         }
         
         if(empty($value) || $value=="")

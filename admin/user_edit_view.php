@@ -12,6 +12,8 @@ include "user_edit_process.php";
 //echo "active: " . $active;
 ?>
 
+  <?php displayMessages(); ?>
+
   <form action="user_edit_view.php" method="post" >
    
    

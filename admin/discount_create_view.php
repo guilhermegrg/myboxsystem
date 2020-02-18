@@ -11,6 +11,8 @@ include "discount_create_process.php";
 //var_dump($_SESSION);
 //echo "active: " . $active;
 ?>
+  
+    <?php displayMessages(); ?>
 
   <form action="discount_create_view.php" method="post" >
    

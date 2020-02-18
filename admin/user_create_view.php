@@ -12,6 +12,8 @@ include "user_create_process.php";
 //echo "active: " . $active;
 ?>
 
+  <?php displayMessages(); ?>
+
   <form action="user_create_view.php" method="post" >
    
     <div class="form-group">

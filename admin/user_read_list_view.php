@@ -48,6 +48,8 @@
 </div>
    
    
+     <?php displayMessages(); ?>
+   
    <?php  include "pagination.php"; ?>
    <?php   
 

@@ -14,9 +14,42 @@
 
 <?php require_once "../includes/db.php"; ?>
 
+  
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <div class="container">
+          <a href="" class="navbar-brand">
+              MyBoxSystem
+          </a>
+          <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarNav" >
+              <ul class="navbar-nav">
+                  <li class="nav-item">
+                      <a href="" class="nav-link">Discounts</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Users</a>
+                      <div class="dropdown-menu">
+                          <a href="user_read_list_view.php" class="dropdown-item">Users</a>
+                          <a href="discount_read_list_view.php" class="dropdown-item">Discounts</a>
+                      </div>
+                  </li>
+
+              </ul>
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a href="" class="nav-link">Discounts</a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="" class="nav-link">Users</a>
+                  </li>
+                  
+              </ul>
+          </div>
+      </div>
+  </nav>
 
   <div class="container">
       <div class="row">
           <div class="col">
           
-       <?php displayMessages(); ?>
+     

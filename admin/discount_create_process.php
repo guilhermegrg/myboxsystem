@@ -34,6 +34,10 @@
         }elseif(!preg_match("/^[A-Za-z]{4,}$/",$name))
         {
             $error["name"] = "Format Error! More than 3 letters. No spaces!";
+        }else{
+            $result = DiscountsDAO::duplicateName($name);
+            if($result)
+                $error["name"] = "Name already registered! Choose another one!";
         }
         
         if(empty($value) || $value=="")

@@ -48,6 +48,10 @@
         }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL))
         {
             $error["email"] = "Format Error! Enter a valid email account!";
+        }else{
+            $result = UserDAO::duplicateEmail($email);
+            if($result)
+                $error["email"] = "Email already registered to another account! Choose another one!";
         }
         
         if(empty($mobile) || $mobile=="")

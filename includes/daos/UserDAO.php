@@ -112,6 +112,32 @@ class UserDAO  {
     }
     
     
+    public static function duplicateEmail($email){
+        $conn = UserDAO::getConn();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email LIKE :email");
+        $stmt->bindValue(":email","%".$email."%",PDO::PARAM_STR);
+        $out = $stmt->execute();
+        $result = $stmt->fetch();
+//        var_dump($result);
+        return $result;
+           
+    }
+    
+    public static function isDuplicateEmail($id, $email){
+        $result = UserDAO::duplicateEmail($email);
+        
+        if($result == null || empty($result) || count($result) == 0)
+            return false;
+        
+        $storedID = $result["id"];
+        if($id == $storedID)
+            return false;
+        
+        return true;
+           
+    }
+
+    
     public static function getCount(){
         $conn = UserDAO::getConn();
         $stmt = $conn->query("SELECT COUNT(*) FROM users");

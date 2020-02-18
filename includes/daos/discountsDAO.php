@@ -25,6 +25,10 @@ class DiscountsDAO  {
     }
     
     
+    
+    
+    
+    
     public static function delete($id){
         try{
 //            echo "before<br>";
@@ -109,6 +113,31 @@ class DiscountsDAO  {
         $result = $stmt->fetch();
 //        var_dump($result);
         return $result;
+           
+    }
+    
+    public static function duplicateName($name){
+        $conn = DiscountsDAO::getConn();
+        $stmt = $conn->prepare("SELECT * FROM discounts WHERE name LIKE :name");
+        $stmt->bindValue(":name","%".$name."%",PDO::PARAM_STR);
+        $out = $stmt->execute();
+        $result = $stmt->fetch();
+//        var_dump($result);
+        return $result;
+           
+    }
+    
+    public static function isDuplicateName($id, $name){
+        $result = DiscountsDAO::duplicateName($name);
+        
+        if($result == null || empty($result) || count($result) == 0)
+            return false;
+        
+        $storedID = $result["id"];
+        if($id == $storedID)
+            return false;
+        
+        return true;
            
     }
     
