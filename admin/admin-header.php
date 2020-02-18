@@ -9,3 +9,21 @@
 <body>
 <?php session_start(); ?>
 <?php require_once "../includes/db.php"; ?>
+
+
+  <div class="container">
+      <div class="row">
+          <div class="col">
+          
+       <?php if(isError()): ?>
+        <div class="alert alert-danger" role="alert">
+           <?php  echo getError(); ?>
+        </div>
+        <?php endif; ?>
+    
+      
+      <?php if(isSuccess()): ?>
+       <div class="alert alert-success" role="alert">
+           <?php  echo getSuccess(); ?>
+        </div>
+        <?php endif; ?>

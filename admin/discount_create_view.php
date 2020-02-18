@@ -3,9 +3,7 @@
 
   <?php include "admin-header.php"; ?>
 
-  <div class="container">
-      <div class="row">
-          <div class="col">
+
 
   <form action="discount_create.php" method="post" >
    
@@ -20,8 +18,8 @@
     </div>
     
     <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" name="active" >
-        <label for="active" class="form-check-label">Active:</label>
+        <input type="checkbox" class="form-check-input" name="active" checked>
+        <label for="active" class="form-check-label" >Active:</label>
     </div>
     
     <div class="form-group">
@@ -31,11 +29,7 @@
     
 </form>   
               
-              
-          </div>
-      </div>
-      
-  </div>
+       
   
    
    
