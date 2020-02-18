@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
-   
-   
-   
-   
+<?php include_once("includes/functions.php") ?>
+
+<?php include path() . "includes/public-header.php"; ?>   
     
     
     
     
     
     
-    
-    
-    
-</body>
-</html>
+<?php include path() . "includes/public-footer.php"; ?>
