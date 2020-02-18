@@ -34,13 +34,7 @@ class UserDAO  {
         $result = $stmt->execute();
         $count = $stmt->rowCount();
             
-//            echo "count: $count<br>";
-//            echo "after<br>";
-//            var_dump($result);   
-//            var_dump($stmt);
         return $count;
-            
-            
             
         }catch(PDOException $e){
             echo "Error deleting!<br>";
@@ -48,23 +42,26 @@ class UserDAO  {
         }
            
     }
-     public static function create($name, $value, $active){
+     public static function create($name, $email, $mobile, $birthday, $active){
         try{
 //            echo "before<br>";
         $conn = UserDAO::getConn();
     
     
-     $query = "INSERT INTO user(name,value,active) VALUES (:name, :value, :active)";
+     $query = "INSERT INTO users(name, email, mobile, birthday, active) VALUES (:name, :email, :mobile, :birthday, :active)";
         $stmt = $conn->prepare($query);
-        $stmt->bindValue("name",$name);
-        $stmt->bindValue("value",$value);
-        $stmt->bindValue("active",$active);
+        $stmt->bindValue(":name",$name,PDO::PARAM_STR);
+        $stmt->bindValue(":email",$email,PDO::PARAM_STR);
+        $stmt->bindValue(":mobile",$mobile,PDO::PARAM_STR);
+        $stmt->bindValue(":birthday",$birthday,PDO::PARAM_STR);
+        $stmt->bindValue(":active",$active,PDO::PARAM_BOOL);
         
         $stmt->execute();
         
         $id = $conn->lastInsertId();
     
-          
+        return $id;
+            
         }catch(PDOException $e){
             echo "Error DB" . $e->getMessage();
         }
@@ -72,18 +69,20 @@ class UserDAO  {
     }
     
     
-    public static function update($id, $name, $value, $active){
+    public static function update($id, $name, $email, $mobile, $birthday, $active){
         try{
             echo "active: $active<br>";
         $conn = UserDAO::getConn();
     
     
-     $query = "UPDATE users SET name=:name, VALUE=:value, ACTIVE=:active WHERE id=:id";
+     $query = "UPDATE users SET name=:name, email=:email, mobile=:mobile, birthday=:birthday, active=:active WHERE id=:id";
         $stmt = $conn->prepare($query);
-        $stmt->bindValue("name",$name);
-        $stmt->bindValue("value",$value);
-        $stmt->bindValue("active",$active);
-        $stmt->bindValue("id",$id);
+        $stmt->bindValue(":name",$name,PDO::PARAM_STR);
+        $stmt->bindValue(":email",$email,PDO::PARAM_STR);
+        $stmt->bindValue(":mobile",$mobile, PDO::PARAM_STR);
+        $stmt->bindValue(":birthday",$birthday, PDO::PARAM_STR);
+        $stmt->bindValue(":active",$active, PDO::PARAM_BOOL);
+        $stmt->bindValue(":id",$id,PDO::PARAM_INT);
         
         $result = $stmt->execute();
         
@@ -160,8 +159,8 @@ class UserDAO  {
 }
 
 
-UserDAO::getCount();
-UserDAO::getTotalPages();
+//UserDAO::getCount();
+//UserDAO::getTotalPages();
 //DiscountsDAO::delete(7);
 //echo "hello";
 //DiscountsDAO::getById(1);

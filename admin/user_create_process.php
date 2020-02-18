@@ -1,6 +1,6 @@
 <?php include_once("../includes/db.php") ?>
 
-
+<?php include "../includes/daos/UserDAO.php"; ?>
 
 
 <?php
@@ -35,7 +35,7 @@
             $error["name"] = "Name cannot be empty!";
         }elseif(strlen($name)<=3){
             $error["name"] = "Name must have two or more names of at least 2 characters each";
-        }elseif(!preg_match("/^([\p{L}]{2,})([ ]+([\p{L}]{2,}))+$/",$name))
+        }elseif(!preg_match("/([\p{L}]{2,})([ ]+([\p{L}]{2,}))+/u",$name))
         {
             $error["name"] = "Name must have two or more names of at least 2 characters each";
         }
@@ -61,15 +61,16 @@
         }
         
         
-//        if(empty($birthday) || $birthday=="")
-//        {
-//            $error["birthday"] = "Birthday cannot be empty!";
-//        }elseif(strlen($birthday)<1){
-//            $error["birthday"] = "Birthday must have more than one character!";
-//        }elseif(!preg_match("/^[0-9.%]{1,}$/",$birthday))
-//        {
-//            $error["birthday"] = "Format Error! A number or a percentage only!";
-//        }
+        if(empty($birthday) || $birthday=="")
+        {
+            $error["birthday"] = "Birthday cannot be empty!";
+        }elseif(strlen($birthday)<1){
+            $error["birthday"] = "Birthday must have more than one character!";
+        }else
+        {
+            if(!strtotime($birthday))
+                $error["birthday"] = "Format Error! Enter a valid date1!";
+        }
 
         
         //todo check for uniqueness of name
@@ -80,6 +81,8 @@
         
         if(!empty($error))
         {
+        
+//            echo "Error!<br>";
             
             setError("Please correct the form and submit again");
             setFormValidation("USER",$error);
@@ -89,15 +92,15 @@
 //            exit;
         }else{
         
-        
+//        echo "No error!<br>";
             $active= ($active=="on"?1:0);
             
-            UserDAO::create($name,$value, $active);
+            $id = UserDAO::create($name, $email, $mobile, $birthday, $active);
             
 //           cleanFormValues("DISCOUNT");
             
            setSuccess("Created new user nº " . $id); 
-           send("user_create_view.php"); 
+           send("user_read_list_view.php"); 
         }
         
     }else{

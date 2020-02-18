@@ -68,7 +68,9 @@
            <th>#</th>
            <th>Active</th>
            <th>Name</th>
-           <th>Value</th>
+           <th>Email</th>
+           <th>Mobile</th>
+           <th>Birthday</th>
            <th>Actions</th>
            </tr>
        </thead>
@@ -85,7 +87,9 @@
                    <td><?php echo  $user["id"];?> </td>
                    <td><?php echo $user["active"]==1?"<i class='fas fa-check text-success'></i>":"<i class='fas fa-times text-danger'></i>";?></td>
                    <td><?php echo  $user["name"];?></td>
-                   <td><?php echo  $user["value"];?></td>
+                   <td><?php echo  $user["email"];?></td>
+                   <td><?php echo  $user["mobile"];?></td>
+                   <td><?php echo  $user["birthday"];?></td>
                    <td>
                       <a  class="btn btn-primary btn-sm" href="user_edit_view.php?edit=<?php echo  $user["id"];?>" >Edit</a>
                       <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdrop" data-id="<?php echo  $user["id"];?>">

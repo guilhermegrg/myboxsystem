@@ -1,6 +1,6 @@
 <?php include_once("../includes/db.php") ?>
 
-
+<?php include "../includes/daos/discountsDAO.php"; ?>
 
 
 <?php
@@ -72,7 +72,7 @@
 //           cleanFormValues("DISCOUNT");
             
            setSuccess("Created new Discount Nº " . $id); 
-           send("discount_create_view.php"); 
+           send("discount_read_list_view.php"); 
         }
         
     }else{

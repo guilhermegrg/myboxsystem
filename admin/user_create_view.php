@@ -41,7 +41,7 @@ include "user_create_process.php";
     
     <div class="form-group">
         <label for="value">Birthday:</label>
-        <input type="date" class="form-control <?php echo isValid("USER","birthday")?"":"is-invalid";?>" name="birthday" placeholder="Enter the birthdate" value="<?php echo $mobile; ?>"  >
+        <input type="date" class="form-control <?php echo isValid("USER","birthday")?"":"is-invalid";?>" name="birthday" placeholder="Enter the birthdate" value="<?php echo $birthday; ?>" required>
         <div class="invalid-feedback">
           <?php echo getFormValidationField("USER","birthday"); ?>
         </div>
@@ -49,7 +49,7 @@ include "user_create_process.php";
     
     <div class="form-group form-check">
         <input type="checkbox" class="form-check-input" name="active" <?php  echo $active == "on"? "checked":"";?>>
-        <label for="active" class="form-check-label" >Active:</label>
+        <label for="active" class="form-check-label" >Active</label>
     </div>
     
     <div class="form-group">
