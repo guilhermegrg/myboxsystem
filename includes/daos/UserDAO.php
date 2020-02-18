@@ -9,7 +9,7 @@
 
 
 
-class DiscountsDAO  {
+class UserDAO  {
     
     public static $itemsPerPage = 10;
     
@@ -28,8 +28,8 @@ class DiscountsDAO  {
     public static function delete($id){
         try{
 //            echo "before<br>";
-        $conn = DiscountsDAO::getConn();
-        $stmt = $conn->prepare("DELETE FROM discounts WHERE id=:id");
+        $conn = UserDAO::getConn();
+        $stmt = $conn->prepare("DELETE FROM users WHERE id=:id");
         $stmt->bindValue(':id',$id, PDO::PARAM_INT);
         $result = $stmt->execute();
         $count = $stmt->rowCount();
@@ -51,10 +51,10 @@ class DiscountsDAO  {
      public static function create($name, $value, $active){
         try{
 //            echo "before<br>";
-        $conn = DiscountsDAO::getConn();
+        $conn = UserDAO::getConn();
     
     
-     $query = "INSERT INTO discounts(name,value,active) VALUES (:name, :value, :active)";
+     $query = "INSERT INTO user(name,value,active) VALUES (:name, :value, :active)";
         $stmt = $conn->prepare($query);
         $stmt->bindValue("name",$name);
         $stmt->bindValue("value",$value);
@@ -75,10 +75,10 @@ class DiscountsDAO  {
     public static function update($id, $name, $value, $active){
         try{
             echo "active: $active<br>";
-        $conn = DiscountsDAO::getConn();
+        $conn = UserDAO::getConn();
     
     
-     $query = "UPDATE discounts SET name=:name, VALUE=:value, ACTIVE=:active WHERE id=:id";
+     $query = "UPDATE users SET name=:name, VALUE=:value, ACTIVE=:active WHERE id=:id";
         $stmt = $conn->prepare($query);
         $stmt->bindValue("name",$name);
         $stmt->bindValue("value",$value);
@@ -102,8 +102,8 @@ class DiscountsDAO  {
     
     
     public static function getById($id){
-        $conn = DiscountsDAO::getConn();
-        $stmt = $conn->prepare("SELECT * FROM discounts WHERE id=:id");
+        $conn = UserDAO::getConn();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE id=:id");
         $stmt->bindValue(":id",$id,PDO::PARAM_INT);
         $out = $stmt->execute();
         $result = $stmt->fetch();
@@ -114,8 +114,8 @@ class DiscountsDAO  {
     
     
     public static function getCount(){
-        $conn = DiscountsDAO::getConn();
-        $stmt = $conn->query("SELECT COUNT(*) FROM discounts");
+        $conn = UserDAO::getConn();
+        $stmt = $conn->query("SELECT COUNT(*) FROM users");
         $result = $stmt->fetch();
         //var_dump($result);
         return $result[0];
@@ -123,24 +123,24 @@ class DiscountsDAO  {
     }
     
     public static function getTotalPages(){
-        $count = DiscountsDAO::getCount();
-        return ceil($count/DiscountsDAO::$itemsPerPage);
+        $count = UserDAO::getCount();
+        return ceil($count/UserDAO::$itemsPerPage);
     }
     
     
     
     public static function getList($page){
         
-        $conn = DiscountsDAO::getConn();
+        $conn = UserDAO::getConn();
         
         
-        $items = DiscountsDAO::$itemsPerPage;
+        $items = UserDAO::$itemsPerPage;
         $index=($page-1)*$items;
         
 //        echo "index: $index <br>";
 //        echo "items: $items <br>";
         
-        $stmt = $conn->prepare("SELECT * FROM discounts LIMIT :index, :items");
+        $stmt = $conn->prepare("SELECT * FROM users LIMIT :index, :items");
 //        $stmt->bindValue("itemsPerPage",$items);
 //        var_dump($stmt);
 //        $stmt->bindValue(':index',0, PDO::PARAM_INT);
@@ -160,8 +160,8 @@ class DiscountsDAO  {
 }
 
 
-DiscountsDAO::getCount();
-DiscountsDAO::getTotalPages();
+UserDAO::getCount();
+UserDAO::getTotalPages();
 //DiscountsDAO::delete(7);
 //echo "hello";
 //DiscountsDAO::getById(1);

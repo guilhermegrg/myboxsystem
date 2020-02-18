@@ -20,7 +20,7 @@ class Pagination {
     $totalPages = $className::getTotalPages();
     ?>
    
-   
+   <?php if($totalPages>=1): ?>
 <nav>
   <ul class="pagination">
     <li class="page-item <?php echo $page==1?"disabled":"";?>">
@@ -44,7 +44,7 @@ class Pagination {
 </nav>
 
 
-
+<?php endif;?>
 
 
 
