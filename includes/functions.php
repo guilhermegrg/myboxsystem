@@ -23,7 +23,8 @@ function setSessionValue($key, $value){
 }
 
 function getSessionValue($key){
-    return $_SESSION[$key];
+    if(isset($_SESSION[$key]))
+        return $_SESSION[$key];
 }
 
 function deleteSessionValue($key){
@@ -32,17 +33,80 @@ function deleteSessionValue($key){
     
 }
 
+
+function setFormValue($formName,$field,$value){
+    $values = getSessionValue($formName."-VALUES");
+    if(!isset($values)){
+        $values = [];
+        
+    }
+    $values[$field] = $value;
+    setSessionValue($formName."-VALUES",$values);
+    
+}
+
+function getFormValue($formName,$field){
+    $values = getSessionValue($formName."-VALUES");
+    if(!isset($values) || empty($values))
+        return "";
+    
+    return getSessionValue($formName."-VALUES")[$field];
+}
+
+function isThereFormValue($formName,$field){
+    $value = getSessionValue($formName."-VALUES".$field);
+    return isset($value) && !empty($value);
+}
+
+
+function cleanFormValues($form){
+    deleteSessionValue($form."-VALUES");
+}
+
+
 function setFormValidation($formId,$messageArray){
-    setSessionValue($formId,$messageArray);
+    setSessionValue($formId."-VALIDATION",$messageArray);
 }
 
 function getFormValidation($formId){
-    getSessionValue($formId);
+    return getSessionValue($formId."-VALIDATION");
+}
+
+function getFormValidationField($formId, $field){
+    $formArray =  getSessionValue($formId."-VALIDATION");
+    if(isset($formArray)){
+        return $formArray[$field];
+    }
+}
+
+
+function cleanFormValidation($form){
+    deleteSessionValue($form."-VALIDATION");
+}
+
+
+
+function isValid($formId, $field){
+    $formArray =  getSessionValue($formId."-VALIDATION");
+    if(isset($formArray)){
+        if(isset($formArray[$field]))
+        {
+            $fieldError = $formArray[$field];
+            
+            if(empty($fieldError))
+                return true;
+            else
+                return false;
+            
+        }else
+            return true;
+    }else 
+        return true;
 }
 
 function isFormValid($formId){
  
-    $value = getSessionValue($formId);
+    $value = getSessionValue($formId."-VALIDATION");
     if(!isset($value))
         return true;
     
@@ -76,7 +140,7 @@ function setSuccess($msg){
 }
 
 function isSuccess(){
-    return isset($_SESSION["ERROR_MESSAGE"]);
+    return isset($_SESSION["SUCCESS_MESSAGE"]);
 }
 
 
@@ -85,6 +149,33 @@ function getSuccess(){
     return getSessionValue("SUCCESS_MESSAGE");
 }
 
+
+function cleanMessages(){
+    deleteSessionValue("ERROR_MESSAGE");
+    deleteSessionValue("SUCCESS_MESSAGE");
+
+}
+
+function displayMessages(){
+    
+    ?>
+    
+    <?php if(isError()): ?>
+        <div class="alert alert-danger" role="alert">
+           <?php  echo getError(); ?>
+        </div>
+        <?php endif; ?>
+    
+      
+      <?php if(isSuccess()): ?>
+       <div class="alert alert-success" role="alert">
+           <?php  echo getSuccess(); ?>
+        </div>
+        <?php endif; ?>
+    
+    <?php
+    cleanMessages();
+}
 
 
 ?>
