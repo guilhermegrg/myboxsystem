@@ -83,11 +83,11 @@
                
                <tr>
                    <td><?php echo  $discount["id"];?> </td>
-                   <td><?php echo  $discount["active"];?></td>
+                   <td><?php echo $discount["active"]==1?"<i class='fas fa-check text-success'></i>":"<i class='fas fa-times text-danger'></i>";?></td>
                    <td><?php echo  $discount["name"];?></td>
                    <td><?php echo  $discount["value"];?></td>
                    <td>
-                      <a  class="btn btn-primary btn-sm" href="?id=<?php echo  $discount["id"];?>" >Edit</a>
+                      <a  class="btn btn-primary btn-sm" href="discount_edit_view.php?edit=<?php echo  $discount["id"];?>" >Edit</a>
                       <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdrop" data-id="<?php echo  $discount["id"];?>">
                       Delete
                       </button>

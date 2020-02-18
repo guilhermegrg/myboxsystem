@@ -1,6 +1,6 @@
 <?php include_once("../includes/db.php") ?>
 
-
+<?php include "../includes/daos/discountsDAO.php"; ?>
 
 
 <?php
@@ -8,11 +8,12 @@
     $value="";
     $active="off";
     
-    if(isset($_POST["createDiscount"])){
+    if(isset($_POST["editDiscount"])){
 //        echo "post!";
         
         $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 //        var_dump($post);
+        $id = $post["id"];
         $name = $post["name"];
         $value = $post["value"];
         
@@ -64,22 +65,36 @@
 //            exit;
         }else{
         
-        
-            $active= ($active=="on"?1:0);
-            
-            DiscountsDAO::create($name,$value, $active);
-            
+//         echo "active: $active<br>";
+        $input_active= ($active=="on"?1:0);
+//             echo "active 4: $active<br>";
+            DiscountsDAO::update($id, $name,$value, $input_active);
 //           cleanFormValues("DISCOUNT");
             
-           setSuccess("Created new Discount Nº " . $id); 
-           send("discount_create_view.php"); 
+           setSuccess("Updated discount Nº " . $id); 
+           send("discount_read_list_view.php"); 
         }
         
-    }else{
-//        echo "No POST!<br>";
-//         $name="";
-//    $value="";
-//    $active="off";
+    }elseif(isset($_GET["edit"])){
+        $get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+        $id = $get["edit"];
+        
+        if(!is_numeric($id))
+            send("discount_read_list_view.php");
+        else
+        if($id<=0)
+            send("discount_read_list_view.php");
+        
+        
+        //load values from db
+        $discount = DiscountsDAO::getById($id);
+        $name = $discount["name"];
+        $value = $discount["value"];
+        $active = $discount["active"];
+        
+//         echo "active 2: $active<br>";
+        $active = ($active == 1?"on":"off");
+//         echo "active 3: $active<br>";
     }
     
 

@@ -27,7 +27,7 @@ class DiscountsDAO  {
     
     public static function delete($id){
         try{
-            echo "before<br>";
+//            echo "before<br>";
         $conn = DiscountsDAO::getConn();
         $stmt = $conn->prepare("DELETE FROM discounts WHERE id=:id");
         $stmt->bindValue(':id',$id, PDO::PARAM_INT);
@@ -46,6 +46,69 @@ class DiscountsDAO  {
             echo "Error deleting!<br>";
             echo $e->getMessage();
         }
+           
+    }
+     public static function create($name, $value, $active){
+        try{
+//            echo "before<br>";
+        $conn = DiscountsDAO::getConn();
+    
+    
+     $query = "INSERT INTO discounts(name,value,active) VALUES (:name, :value, :active)";
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue("name",$name);
+        $stmt->bindValue("value",$value);
+        $stmt->bindValue("active",$active);
+        
+        $stmt->execute();
+        
+        $id = $conn->lastInsertId();
+    
+          
+        }catch(PDOException $e){
+            echo "Error DB" . $e->getMessage();
+        }
+           
+    }
+    
+    
+    public static function update($id, $name, $value, $active){
+        try{
+            echo "active: $active<br>";
+        $conn = DiscountsDAO::getConn();
+    
+    
+     $query = "UPDATE discounts SET name=:name, VALUE=:value, ACTIVE=:active WHERE id=:id";
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue("name",$name);
+        $stmt->bindValue("value",$value);
+        $stmt->bindValue("active",$active);
+        $stmt->bindValue("id",$id);
+        
+        $result = $stmt->execute();
+        
+        
+        $count = $stmt->rowCount();
+            
+        return $count;
+    
+          
+        }catch(PDOException $e){
+            echo "Error DB" . $e->getMessage();
+        }
+           
+    }
+    
+    
+    
+    public static function getById($id){
+        $conn = DiscountsDAO::getConn();
+        $stmt = $conn->prepare("SELECT * FROM discounts WHERE id=:id");
+        $stmt->bindValue(":id",$id,PDO::PARAM_INT);
+        $out = $stmt->execute();
+        $result = $stmt->fetch();
+        var_dump($result);
+        return $result;
            
     }
     
@@ -101,5 +164,6 @@ DiscountsDAO::getCount();
 DiscountsDAO::getTotalPages();
 //DiscountsDAO::delete(7);
 //echo "hello";
+//DiscountsDAO::getById(1);
 
 ?>
