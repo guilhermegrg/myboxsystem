@@ -4,38 +4,32 @@
 
 class RU{
     
-    public static function getClassNotes($object){
-        $class_name = get_class($object);
-        $rc = new ReflectionClass($class_name);
-        return $rc->getDocComment();
-//        var_dump($rc);
-    }
     
     
-    public static function getClassTableName($object){
-        $comment = RU::getClassNotes($object);
+    public static function getClassTableName($class){
+        $comment = $class->getDocComment();
 //        var_dump($comment);
         return RU::getDocField("TABLE:", $comment);
     }    
     
-    public static function getTableName($object){
-        $tableName = RU::getClassTableName($object);
+    public static function getTableName($class){
+        $tableName = RU::getClassTableName($class);
         if($tableName == null){
-            $class_name = strtolower(get_class($object));
+            $class_name = strtolower($class->getName());
             return $class_name;
         }
         
         return $tableName;
     }
     
-    public static function getProperties($object){
-        $class_name = get_class($object);
-        $rc = new ReflectionClass($class_name);
-        $props = $rc->getProperties();
-        /*var_dump($props);*/
-        return $props;
-    }
-    
+//    public static function getProperties($class){
+////        $class_name = get_class($object);
+////        $rc = new ReflectionClass($class_name);
+//        $props = $class->getProperties();
+//        /*var_dump($props);*/
+//        return $props;
+//    }
+//    
     public static function getDocField($tag, $comment){
 
         $index = strpos($comment,$tag);
@@ -55,11 +49,11 @@ class RU{
         return trim($type);
     }
     
-    public static function getSQLCRUDExceptions($object){
+    public static function getSQLCRUDExceptions($class){
         $instructions = [];
         $count = 0;
         
-        $props = RU::getProperties($object);
+        $props = $class->getProperties();
         
         foreach($props as $prop){
             
@@ -105,7 +99,9 @@ class RU{
         $types = [];
         $count = 0;
         
-        $props = RU::getProperties($object);
+        $class = new ReflectionClass(get_class($object));
+        $props = $class->getProperties();
+        
         foreach($props as $prop){
             $type = RU::getType($prop);
             
@@ -121,11 +117,13 @@ class RU{
         return [$values,$types];
     }
     
-     public static function getPropertiesAndTypesArray($object){
+     public static function getPropertiesAndTypesArray($class){
         $types = [];
         $count = 0;
         
-        $props = RU::getProperties($object);
+//        $class = new ReflectionClass(get_class($object));
+        $props = $class->getProperties();
+
         foreach($props as $prop){
             $type = RU::getType($prop);
             
@@ -143,7 +141,9 @@ class RU{
         $array = [];
         $count = 0;
         
-        $props = RU::getProperties($object);
+        $class = new ReflectionClass(get_class($object));
+        $props = $class->getProperties();
+
         foreach($props as $prop){
             $prop->getDocComment();
             $key = $prop->getName();
@@ -157,6 +157,6 @@ class RU{
     
 }
 
-RU::getTableName(new RU());
+//RU::getTableName(new RU());
 
 ?>

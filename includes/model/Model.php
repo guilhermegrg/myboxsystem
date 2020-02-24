@@ -14,49 +14,79 @@ class Model {
     public $id = 0;
     
    
-    public function create(){
-       $array =  RU::getPropertiesAndTypesArray($this);
-//       var_dump($array);
+    public static function create(){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
         
-       $tablename = RU::getTableName($this);
+        
+       $array =  RU::getPropertiesAndTypesArray($class);
+//       var_dump($array);
+//        $class = new ReflectionClass(get_class($this));
+        
+       $tablename = RU::getTableName($class);
 //        echo "Table: $tablename<br>";
         DBU::create($tablename,$array);
         
     }
     
-    public function drop(){
+    public static function drop(){
+        
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        
+        
 //       $array =  RU::getPropertiesAndTypesArray($this);
 //       var_dump($array);
-        
-       $tablename = RU::getTableName($this);
+//        $class = new ReflectionClass(get_class($this));
+       $tablename = RU::getTableName($class);
 //        echo "Table: $tablename<br>";
         DBU::drop($tablename);
         
     }
     
-    public function delete(){
-        $tablename = RU::getTableName($this);
+    public static function delete($id){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        
+        $tablename = RU::getTableName($class);
         DBU::delete($tablename,$id);
     }
     
+    
+    public static function get($id){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        $tablename = RU::getTableName($class);
+
+        
+//        echo "Calling class: $classname<br>";
+//        echo "ID: $id<br>";
+//        echo "Table: $tablename<br>";
+
+        
+        return DBU::getClassObjectById($tablename,$id, $classname);
+    }
+ 
   
     
     public function insert(){
-        $tablename = RU::getTableName($this);
-        $instructions = RU::getSQLCRUDExceptions($this);
+        $class = new ReflectionClass(get_class($this));
+        $tablename = RU::getTableName($class);
+        $instructions = RU::getSQLCRUDExceptions($class);
         $array =  RU::getPropertiesAndValuesArray($this);
 //        $values = $array[0];
 //        $types = $array[1];
-        DBU::insert($tablename, $array, $instructions);
+        $this->id = DBU::insert($tablename, $array, $instructions);
     }
     
     public function update(){
-        $tablename = RU::getTableName($this);
-        $instructions = RU::getSQLCRUDExceptions($this);
+        $class = new ReflectionClass(get_class($this));
+        $tablename = RU::getTableName($class);
+        $instructions = RU::getSQLCRUDExceptions($class);
         $array =  RU::getPropertiesAndValuesArray($this);
 //        $values = $array[0];
 //        $types = $array[1];
-        $id =  DBU::update($tablename, $array, $instructions, $id);
+        DBU::update($tablename, $array, $instructions, $this->id);
     }
     
     public function save(){
@@ -64,26 +94,37 @@ class Model {
         //echo "ID: {$this->id}<br>";
         
            if($this->id<=0){
+//               echo "INSERT!<br>";
                $this->insert();
            }else{
+//               echo "UPDATE!<br>";
                $this->update();
            }
     }
     
+    //object or array as parameter
+    public function import($object)
+    {   
+        $vars=is_object($object)?get_object_vars($object):$object;
+        if(!is_array($vars)) throw Exception('no props to import into the object!');
+        foreach ($vars as $key => $value) {
+            $this->$key = $value;
+        }
+    }  
     
     public function fresh(){
-//        return new ;
+        return static::get($this->id);
     }
     
     public function refresh(){
-        
+        $dbObject = static::get($this->id);
+        $this->import($dbObject);
     }
     
-    public static function get($id){
-        
-    }
+     
+
     
- 
+    
 }
 
 
@@ -105,14 +146,57 @@ class Test extends Model {
 
 
 
-$test = new Test();
-//$test->create();
-$test->save();
+//Test::drop();
+//Test::create();
 
-$test->hello = true;
-$test->wtf = "Ka lindusss páaaa";
+Test::delete(1);
 
-$test->save();
+$test = Test::get(1);
+var_dump($test);
+
+//$test = new Test();
+//$test->save();
+//
+//$test->hello = true;
+//$test->wtf = "Ka lindusss páaaa";
+//
+//$test->save();
+//
+//$first = $test::get(20);
+//$copy = $first->fresh();
+//
+//var_dump($first);
+//echo "<br>";
+//var_dump($copy);
+//echo "<br>";echo "<br>";echo "<br>";
+//
+//
+//$first->wtf = "hello!";
+//$first->save();
+//
+//var_dump($first);
+//echo "<br>";
+//var_dump($copy);
+//echo "<br>";echo "<br>";echo "<br>";
+//
+//
+//$copy->refresh();
+//
+//var_dump($first);
+//echo "<br>";
+//var_dump($copy);
+//echo "<br>";echo "<br>";echo "<br>";
+
+
+
+
+
+//$test->wtf = "Ka lindusss páaaa";
+
+
+
+
+
 
 
 

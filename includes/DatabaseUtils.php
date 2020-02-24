@@ -118,7 +118,7 @@ class DBU {
        public static function update($tablename, $fields, $sqlExceptions, $id){
         $valuesList = "";
         
-        $instructions = RU::getSQLCRUDExceptions($this);
+//        $instructions = RU::getSQLCRUDExceptions($this);
         
         foreach($fields as $key=>$value){
             if($value == null)
@@ -161,29 +161,47 @@ class DBU {
         $stmt->bindValue(':id',$id, PDO::PARAM_INT);
            
            
-        $stmt->execute();
-        $id = $conn->rowCount();
+        $result = $stmt->execute();
+        $rowCount = $stmt->rowCount();
+           
+//        echo "Row Count: $id<br>";
         
-        return $id;
+        return $rowCount;
     }
     
     
     
     
-       public static function getById($id){
-        $conn = UserDAO::getConn();
-        $stmt = $conn->prepare("SELECT * FROM users WHERE id=:id");
+       public static function getAssocById($tablename, $id){
+        $conn = Database::getConnection();
+        $stmt = $conn->prepare("SELECT * FROM {$tablename} WHERE id=:id");
         $stmt->bindValue(":id",$id,PDO::PARAM_INT);
         $out = $stmt->execute();
-        $result = $stmt->fetch();
-//        var_dump($result);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
         return $result;
            
     }
+
+      public static function getClassObjectById($tablename, $id, $classname){
+        $conn = Database::getConnection();
+        $stmt = $conn->prepare("SELECT * FROM {$tablename} WHERE id=:id");
+        $stmt->bindValue(":id",$id,PDO::PARAM_INT);
+        $out = $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, $classname);
+        $object = $stmt->fetch();
+
+        return $object;
+           
+    }
+
+    
+   
+
     
       
     public static function duplicateEmail($email){
-        $conn = UserDAO::getConn();
+        $conn = Database::getConnection();
         $stmt = $conn->prepare("SELECT * FROM users WHERE email LIKE :email");
         $stmt->bindValue(":email","%".$email."%",PDO::PARAM_STR);
         $out = $stmt->execute();
@@ -209,7 +227,7 @@ class DBU {
 
     
      public static function getCount(){
-        $conn = UserDAO::getConn();
+        $conn = Database::getConnection();
         $stmt = $conn->query("SELECT COUNT(*) FROM users");
         $result = $stmt->fetch();
         //var_dump($result);
@@ -218,7 +236,7 @@ class DBU {
     }
     
     public static function getTotalPages(){
-        $count = UserDAO::getCount();
+        $conn = Database::getConnection();
         return ceil($count/UserDAO::$itemsPerPage);
     }
     
@@ -226,7 +244,7 @@ class DBU {
     
     public static function getList($page){
         
-        $conn = UserDAO::getConn();
+        $conn = Database::getConnection();
         
         
         $items = UserDAO::$itemsPerPage;
