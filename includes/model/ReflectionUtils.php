@@ -55,7 +55,38 @@ class RU{
         return trim($type);
     }
     
-
+    public static function getSQLCRUDExceptions($object){
+        $instructions = [];
+        $count = 0;
+        
+        $props = RU::getProperties($object);
+        
+        foreach($props as $prop){
+            
+            $key = $prop->getName();
+            
+            $array = RU::getSQLCRUDInstructions($prop);
+            
+            $instructions[$key] = $array;
+            
+            ++$count;
+        }
+        
+        return $instructions;
+        
+    }
+    
+    public static function getSQLCRUDInstructions($prop){
+        $comment = $prop->getDocComment();
+        $methods =  RU::getDocField("NOT-USED:",$comment);
+        
+        if($methods==null)
+            return null;
+        
+        $array = explode(', ', $methods);
+        
+        return $array;
+    }
     
     
     public static function getType($prop){

@@ -9,7 +9,7 @@ class Model {
     
     /** 
     TYPE: int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT
-
+    NOT-USED: INSERT, UPDATE
     */
     public $id = 0;
     
@@ -24,14 +24,47 @@ class Model {
         
     }
     
+    public function drop(){
+//       $array =  RU::getPropertiesAndTypesArray($this);
+//       var_dump($array);
+        
+       $tablename = RU::getTableName($this);
+//        echo "Table: $tablename<br>";
+        DBU::drop($tablename);
+        
+    }
+    
     public function delete(){
         $tablename = RU::getTableName($this);
         DBU::delete($tablename,$id);
     }
     
+  
+    
+    public function insert(){
+        $tablename = RU::getTableName($this);
+        $instructions = RU::getSQLCRUDExceptions($this);
+        $array =  RU::getPropertiesAndValuesArray($this);
+//        $values = $array[0];
+//        $types = $array[1];
+        DBU::insert($tablename, $array, $instructions);
+    }
+    
+    public function update(){
+        $tablename = RU::getTableName($this);
+        $instructions = RU::getSQLCRUDExceptions($this);
+        $array =  RU::getPropertiesAndValuesArray($this);
+//        $values = $array[0];
+//        $types = $array[1];
+        $id =  DBU::update($tablename, $array, $instructions, $id);
+    }
+    
     public function save(){
+        
+        echo "ID: {$this->$id}<br>";
+        
            if($id<=0){
-               create();
+               $this->insert();
            }else{
                update();
            }
@@ -54,7 +87,7 @@ class Model {
 
 
 /** 
-TABLE: salieri
+TABLE: tests
 
 */
 class Test extends Model {
@@ -71,7 +104,8 @@ class Test extends Model {
 
 
 $test = new Test();
-$test->create();
+//$test->create();
+$test->save();
 
 
 
