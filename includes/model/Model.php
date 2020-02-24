@@ -13,7 +13,7 @@ class Model {
     */
     public $id = 0;
     
-    
+   
     public function create(){
        $array =  RU::getPropertiesAndTypesArray($this);
 //       var_dump($array);
@@ -61,12 +61,12 @@ class Model {
     
     public function save(){
         
-        echo "ID: {$this->$id}<br>";
+        //echo "ID: {$this->id}<br>";
         
-           if($id<=0){
+           if($this->id<=0){
                $this->insert();
            }else{
-               update();
+               $this->update();
            }
     }
     
@@ -79,9 +79,11 @@ class Model {
         
     }
     
+    public static function get($id){
+        
+    }
     
-    
-    
+ 
 }
 
 
@@ -105,6 +107,11 @@ class Test extends Model {
 
 $test = new Test();
 //$test->create();
+$test->save();
+
+$test->hello = true;
+$test->wtf = "Ka lindusss páaaa";
+
 $test->save();
 
 

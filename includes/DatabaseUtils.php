@@ -166,6 +166,92 @@ class DBU {
         
         return $id;
     }
+    
+    
+    
+    
+       public static function getById($id){
+        $conn = UserDAO::getConn();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE id=:id");
+        $stmt->bindValue(":id",$id,PDO::PARAM_INT);
+        $out = $stmt->execute();
+        $result = $stmt->fetch();
+//        var_dump($result);
+        return $result;
+           
+    }
+    
+      
+    public static function duplicateEmail($email){
+        $conn = UserDAO::getConn();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email LIKE :email");
+        $stmt->bindValue(":email","%".$email."%",PDO::PARAM_STR);
+        $out = $stmt->execute();
+        $result = $stmt->fetch();
+//        var_dump($result);
+        return $result;
+           
+    }
+    
+    public static function isDuplicateEmail($id, $email){
+        $result = UserDAO::duplicateEmail($email);
+        
+        if($result == null || empty($result) || count($result) == 0)
+            return false;
+        
+        $storedID = $result["id"];
+        if($id == $storedID)
+            return false;
+        
+        return true;
+           
+    }
+
+    
+     public static function getCount(){
+        $conn = UserDAO::getConn();
+        $stmt = $conn->query("SELECT COUNT(*) FROM users");
+        $result = $stmt->fetch();
+        //var_dump($result);
+        return $result[0];
+           
+    }
+    
+    public static function getTotalPages(){
+        $count = UserDAO::getCount();
+        return ceil($count/UserDAO::$itemsPerPage);
+    }
+    
+    
+    
+    public static function getList($page){
+        
+        $conn = UserDAO::getConn();
+        
+        
+        $items = UserDAO::$itemsPerPage;
+        $index=($page-1)*$items;
+        
+//        echo "index: $index <br>";
+//        echo "items: $items <br>";
+        
+        $stmt = $conn->prepare("SELECT * FROM users LIMIT :index, :items");
+//        $stmt->bindValue("itemsPerPage",$items);
+//        var_dump($stmt);
+//        $stmt->bindValue(':index',0, PDO::PARAM_INT);
+//        $stmt->bindValue(':items',10, PDO::PARAM_INT);
+        
+        $stmt->bindValue(':index',$index, PDO::PARAM_INT);
+        $stmt->bindValue(':items',$items, PDO::PARAM_INT);
+//        var_dump($stmt);
+        
+        $result = $stmt->execute();
+        $rows = $stmt->fetchAll();
+//        var_dump($rows);
+        return $rows;
+    }
+    
+    
 }
 
 
