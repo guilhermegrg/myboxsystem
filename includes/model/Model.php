@@ -68,6 +68,40 @@ class Model {
     }
  
   
+    public static function getCount(){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        $tablename = RU::getTableName($class);
+
+        
+        return DBU::getCount($tablename);
+    }
+    
+    public static function getTotalPages(){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        $tablename = RU::getTableName($class);
+
+        
+        return DBU::getTotalPages($tablename);
+    }
+    
+    public static function getPageObjects($page){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        $tablename = RU::getTableName($class);
+
+        return DBU::getPageItemsClassObjects($tablename,$classname, $page);
+    }
+    
+    
+    public static function getPageAssoc($page){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        $tablename = RU::getTableName($class);
+
+        return DBU::getPageItemsAssocArray($tablename,$page);
+    }
     
     public function insert(){
         $class = new ReflectionClass(get_class($this));
@@ -149,13 +183,29 @@ class Test extends Model {
 //Test::drop();
 //Test::create();
 
-Test::delete(1);
+//Test::delete(1);
 
-$test = Test::get(1);
-var_dump($test);
+//$test = Test::get(1);
+//var_dump($test);
 
-//$test = new Test();
-//$test->save();
+$test = new Test();
+$test->save();
+
+
+echo "Count: " . Test::getCount() . "<br>";
+echo "Total Pages: " . Test::getTotalPages() . "<br>";
+
+
+//$page = Test::getPageObjects(1);
+$page = Test::getPageAssoc(1);
+
+
+var_dump($page);
+
+
+
+
+
 //
 //$test->hello = true;
 //$test->wtf = "Ka lindusss páaaa";
