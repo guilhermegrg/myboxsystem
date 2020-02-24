@@ -103,6 +103,48 @@ class Model {
         return DBU::getPageItemsAssocArray($tablename,$page);
     }
     
+    
+    public static function getFirstResultLike($fieldName, $fieldValue){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        $tablename = RU::getTableName($class);
+        
+        return DBU::getFirstResultLike($tablename, $fieldName, $fieldValue);
+    }
+    
+    public function getRowLikeField($fieldName){
+        $class = new ReflectionClass(get_class($this));
+
+        $prop = $class->getProperty($fieldName);
+        $fieldValue = $prop->getValue($this);
+        
+        return static::getFirstResultLike($fieldName,$fieldValue);
+    }
+    
+    
+    public static function isFieldDuplicated($id, $fieldname, $fieldValue){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        $tablename = RU::getTableName($class);
+        
+        return DBU::isDuplicateField($id, $tablename, $fieldname, $fieldValue);
+    }
+    
+    
+    
+    public function isFieldValueDuplicated($fieldname){
+        $class = new ReflectionClass(get_class($this));
+
+        $prop = $class->getProperty($fieldname);
+        $fieldValue = $prop->getValue($this);
+        
+        return static::isFieldDuplicated($this->id, $fieldname, $fieldValue);
+    }
+    
+    
+    
+    
+    
     public function insert(){
         $class = new ReflectionClass(get_class($this));
         $tablename = RU::getTableName($class);
@@ -189,7 +231,7 @@ class Test extends Model {
 //var_dump($test);
 
 $test = new Test();
-$test->save();
+//$test->save();
 
 
 echo "Count: " . Test::getCount() . "<br>";
@@ -198,11 +240,21 @@ echo "Total Pages: " . Test::getTotalPages() . "<br>";
 
 //$page = Test::getPageObjects(1);
 $page = Test::getPageAssoc(1);
+//var_dump($page);
+echo "<br><br><br>";
 
 
-var_dump($page);
+$result = Test::getFirstResultLike("wtf","wazzza");
+var_dump($result);
+
+echo "(static) First repetition of wtf: " . $result['id'] . "<br><br>";
+
+echo "(instance) First repetition of wtf: " . $test->getRowLikeField("wtf")['id'] . "<br><br>";
 
 
+echo "(static) is wtf duplicated: " . Test::isFieldDuplicated(2,"wtf","wazzza") . "<br><br>";
+
+echo "(instance) is wtf duplicated: " . $test->isFieldValueDuplicated("wtf") . "<br><br>";
 
 
 

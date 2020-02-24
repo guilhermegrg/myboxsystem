@@ -279,10 +279,10 @@ class DBU {
     }
     
     
-       public static function duplicateEmail($email){
+       public static function getFirstResultLike($tablename, $fieldname, $fieldValue){
         $conn = Database::getConnection();
-        $stmt = $conn->prepare("SELECT * FROM users WHERE email LIKE :email");
-        $stmt->bindValue(":email","%".$email."%",PDO::PARAM_STR);
+        $stmt = $conn->prepare("SELECT * FROM {$tablename} WHERE {$fieldname} LIKE :{$fieldname}");
+        $stmt->bindValue(":{$fieldname}","%".$fieldValue."%");
         $out = $stmt->execute();
         $result = $stmt->fetch();
 //        var_dump($result);
@@ -290,13 +290,16 @@ class DBU {
            
     }
     
-    public static function isDuplicateEmail($id, $email){
-        $result = UserDAO::duplicateEmail($email);
+    public static function isDuplicateField($id, $tablename, $fieldname, $fieldValue){
+        $result = DBU::getFirstResultLike($tablename, $fieldname, $fieldValue);
         
         if($result == null || empty($result) || count($result) == 0)
             return false;
         
         $storedID = $result["id"];
+        
+        echo "search id: $id, retrieved id: $storedID <br>";
+        
         if($id == $storedID)
             return false;
         
