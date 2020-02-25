@@ -1,12 +1,8 @@
-<?php include_once("../includes/db.php") ?>
+<?php include "models/Discount.php"; ?>
 
-<?php include "../includes/daos/discountsDAO.php"; ?>
 
 
 <?php
-    $name="";
-    $value="";
-    $active="off";
     
     if(isset($_POST["editDiscount"])){
 //        echo "post!";
@@ -22,35 +18,15 @@
         else
             $active = "off";
 
+        $discount = new Discount();
+        $discount->id = $id;
+        $discount->name = $name;
+        $discount->value = $value;
+        $discount->active = $active;
         
         
-        
-        
-        $error = [];
-        //todo check if name and valuea are not empty and valid
-        if(empty($name) || $name=="")
-        {
-            $error["name"] = "Name cannot be empty!";
-        }elseif(strlen($name)<=3){
-            $error["name"] = "Name must have more than 3 characters!";
-        }elseif(!preg_match("/^[A-Za-z]{4,}$/",$name))
-        {
-            $error["name"] = "Format Error! More than 3 letters. No spaces!";
-        }else{
-            $result = DiscountsDAO::isDuplicateName($id,$name);
-            if($result)
-                $error["name"] = "Name already registered! Choose another one!";
-        }
-        
-        if(empty($value) || $value=="")
-        {
-            $error["value"] = "Value cannot be empty!";
-        }elseif(strlen($name)<1){
-            $error["value"] = "Value must have more than one character!";
-        }elseif(!preg_match("/^[0-9.%]{1,}$/",$value))
-        {
-            $error["name"] = "Format Error! A number or a percentage only!";
-        }
+        $errors = $discount->validate();
+ 
 
         
         //todo check for uniqueness of name
@@ -59,21 +35,21 @@
 
 
         
-        if(!empty($error))
+        if(!empty($errors))
         {
             
             setError("Please correct the form and submit again");
-            setFormValidation("DISCOUNT",$error);
+            setFormValidation("DISCOUNT",$errors);
             
 //            send("discount_create_view.php");
 //            var_dump($_SESSION);
-            exit;
+//            exit;
         }else{
         
 //         echo "active: $active<br>";
-        $input_active= ($active=="on"?1:0);
+//        $input_active= ($active=="on"?1:0);
 //             echo "active 4: $active<br>";
-            DiscountsDAO::update($id, $name,$value, $input_active);
+            $discount->save();
 //           cleanFormValues("DISCOUNT");
             
            setSuccess("Updated discount Nº " . $id); 
@@ -97,13 +73,13 @@
         
         
         //load values from db
-        $discount = DiscountsDAO::getById($id);
-        $name = $discount["name"];
-        $value = $discount["value"];
-        $active = $discount["active"];
-        
-//         echo "active 2: $active<br>";
-        $active = ($active == 1?"on":"off");
+        $discount = Discount::get($id);
+//        $name = $discount["name"];
+//        $value = $discount["value"];
+//        $active = $discount["active"];
+//        
+////         echo "active 2: $active<br>";
+//        $active = ($active == 1?"on":"off");
 //         echo "active 3: $active<br>";
     }
     

@@ -14,18 +14,20 @@ include "discount_edit_process.php";
 
   <?php displayMessages(); ?>
 
+    <h4>Edit Discount</h4>
+
   <form action="discount_edit_view.php" method="post" >
    
    
    <div class="form-group">
         <label for="name">Id:</label>
-        <input type="text" class="form-control" name="id" value="<?php echo $id; ?>" readonly>
+        <input type="text" class="form-control" name="id" value="<?php echo $discount->id; ?>" readonly>
     </div>
    
    
     <div class="form-group">
         <label for="name">Name:</label>
-        <input type="text" class="form-control <?php echo isValid("DISCOUNT","name")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $discount->name; ?>" pattern="[A-Za-z]{4,}"  title="More than 3 letters. No spaces!" required>
+        <input type="text" class="form-control <?php echo isValid("DISCOUNT","name")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $discount->name; ?>" >
         <div class="invalid-feedback">
           <?php echo getFormValidationField("DISCOUNT","name"); ?>
         </div>
@@ -33,7 +35,7 @@ include "discount_edit_process.php";
 
     <div class="form-group">
         <label for="value">Value:</label>
-        <input type="text" class="form-control <?php echo isValid("DISCOUNT","value")?"":"is-invalid";?>" name="value" placeholder="Enter the value or percentage"  value="<?php echo $discount->value; ?>" pattern="[0-9.%]{1,}" title="A number or a percentage" required>
+        <input type="text" class="form-control <?php echo isValid("DISCOUNT","value")?"":"is-invalid";?>" name="value" placeholder="Enter the value or percentage"  value="<?php echo $discount->value; ?>" >
         <div class="invalid-feedback">
           <?php echo getFormValidationField("DISCOUNT","value"); ?>
         </div>
@@ -45,6 +47,7 @@ include "discount_edit_process.php";
     </div>
     
     <div class="form-group">
+       <a href="discount_read_list_view.php" class="btn btn-secondary text-white">Cancel</a>
         <input type="submit" class="btn btn-primary" name="editDiscount" value="Save">
     </div>
 
