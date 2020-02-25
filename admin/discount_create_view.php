@@ -49,7 +49,7 @@ var_dump($rule);
 
     <div class="form-group">
         <label for="value">Value:</label>
-        <input type="text" class="form-control <?php echo isValid("DISCOUNT","value")?"":"is-invalid";?>" name="value" placeholder="Enter the value or percentage"  value="<?php echo $discount->value; ?>" >
+        <input type="text" class="form-control <?php echo isValid("DISCOUNT","value")?"":"is-invalid";?>" name="value" placeholder="Enter the value or percentage"  value="<?php echo $discount->value; ?>" <?php echo Discount::getHTMLValidationRule("value"); ?>>
         <div class="invalid-feedback">
           <?php echo getFormValidationField("DISCOUNT","value"); ?>
         </div>
