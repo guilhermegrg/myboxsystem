@@ -74,8 +74,16 @@ class VU{
 //        $index = $index+strlen($tag);
 //        $warning = substr($comment,$index); //start on the new position
 //        $length = strpos($rule,PHP_EOL); //get the position of the first new line after the tag
-        $warning = substr($rule,$index, strlen($rule)-1);
+        
+        $lastIndex = strrpos($rule, '"', $index+1);
+
+        
+        $length = $lastIndex-$index-2;
+        
+        $warning = substr($rule,$index+1, $length);
         $rule = substr($rule,0,$index);
+        
+//        echo "Warning: $warning<br>";
         
         return [$rule,$warning];
         

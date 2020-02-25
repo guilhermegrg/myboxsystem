@@ -214,6 +214,16 @@ class Model {
     }
     
     
+    public static function getFieldValidationRule($fieldName){
+        $vals = static::getValidations();
+        return $vals[$fieldName];
+    }
+    
+    public function getFieldValidation($fieldName){
+        $vals = $this->getValidations();
+        return $vals[$fieldName];
+    }
+    
     
     public static function validateObject($object){
         return VE::validate($object);
@@ -226,7 +236,16 @@ class Model {
     
     
     
+    public static function getHTMLValidationRule($fieldName){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        return VE::getHTMLValidation($class,$fieldName);
+    }
     
+    public function getHTMLValidation($fieldName){
+        $class = new ReflectionClass(get_class($this));
+        return VE::getHTMLValidation($class, $fieldName);
+    }
     
 }
 

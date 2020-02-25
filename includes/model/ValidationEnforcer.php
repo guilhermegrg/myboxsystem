@@ -12,6 +12,8 @@ abstract class ValidationTester {
     
     public abstract function validate($validationRule, $fieldName, $fieldValue, $object);
     
+    public abstract function getHTMLValidation($validationRule);
+    
 }
 
 abstract class DefaultValidationTester extends ValidationTester {
@@ -36,6 +38,12 @@ class NotNullTester extends DefaultValidationTester{
         return true;
     }
     
+    public function getHTMLValidation($validationRule){
+        return " required ";
+    }
+    
+    
+    
 }
 
 
@@ -50,6 +58,11 @@ class NameTester extends DefaultValidationTester{
         return preg_match("/([\p{L}]{2,})([ ]+([\p{L}]{2,}))+/u",$fieldValue);
     }
     
+    public function getHTMLValidation($validationRule){
+        return " pattern='/([\p{L}]{2,})([ ]+([\p{L}]{2,}))+/u' title='{$validationRule->message}' ";
+    }
+
+    
 }
 
 class EmailTester extends DefaultValidationTester{
@@ -58,6 +71,10 @@ class EmailTester extends DefaultValidationTester{
     
     public function validate($validationRule, $fieldName, $fieldValue, $object){
         return filter_var($fieldValue, FILTER_VALIDATE_EMAIL);
+    }
+    
+    public function getHTMLValidation($validationRule){
+        return " pattern='(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])' title='{$validationRule->message}' ";
     }
     
 }
@@ -71,6 +88,10 @@ class URLTester extends DefaultValidationTester{
         return filter_var($fieldValue, FILTER_VALIDATE_URL);
     }
     
+     public function getHTMLValidation($validationRule){
+        return " pattern='(\b(https?|ftp|file)://)?[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]' title='{$validationRule->message}' ";
+    }
+    
 }
 
 //weak password 
@@ -82,6 +103,10 @@ class PasswordTester extends DefaultValidationTester{
        
          return preg_match("/^[a-zA-Z0-9.!]{4,}$/",$fieldValue);
         
+    }
+    
+     public function getHTMLValidation($validationRule){
+        return " pattern='[a-zA-Z0-9.!]{4,}' title='{$validationRule->message}' ";
     }
     
 }
@@ -108,6 +133,10 @@ class RegexTester extends DefaultValidationTester{
         
     }
     
+     public function getHTMLValidation($validationRule){
+        return " pattern='{$validationRule->conditions}' title='{$validationRule->message}' ";
+    }
+    
 }
 
 class NotDuplicate extends DefaultValidationTester{
@@ -120,9 +149,11 @@ class NotDuplicate extends DefaultValidationTester{
         
         return !$result;
         
-        
-        
     }
+    
+     public function getHTMLValidation($validationRule){
+         return "";
+     }
     
 }
 
@@ -140,6 +171,11 @@ class LengthTester extends DefaultValidationTester{
         
         return true;
     }
+    
+    public function getHTMLValidation($validationRule){
+         return "";
+     }
+
     
 }
 
@@ -201,10 +237,39 @@ class VE {
         return $messages;
     }
     
+    public static function getHTMLValidation($class, $fieldName){
+        
+        $html = "";
+        
+//        $class = new ReflectionClass(get_class($object));
+        $vals = VU::getValidations($class);
+        
+        $rules = $vals[$fieldName];
+        
+        foreach($rules as $rule){
+            $tester = VE::getTester($rule->type);
+            
+            if($tester == null)
+                return "";
+            else
+            {
+               $html.= $tester->getHTMLValidation($rule);
+            }
+            
+            
+            
+        }
+        
+//        echo "HTML Validation: $html<br><br>";
+        
+        return $html;
+    }
     
-    
+        
+        
     
 }
+    
 
 $notNull = new NotNullTester();
 $regex = new RegexTester();

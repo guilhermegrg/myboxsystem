@@ -15,10 +15,24 @@ include "discount_create_process.php";
 
 //echo "Errors: " . getFormValidationField("DISCOUNT","name"); 
 
+//$vals = Discount::getValidations();
+//var_dump($vals);
+
+$rule = Discount::getHTMLValidationRule("name");
+var_dump($rule);
 ?>
   
     <?php displayMessages(); ?>
+<?php 
 
+
+
+//$val = $discount->getHTMLValidation("name");
+//var_dump($val);
+
+//->getHTMLValidation();
+
+?>
 
 <h4>Create Discount</h4>
  
@@ -26,7 +40,7 @@ include "discount_create_process.php";
    
     <div class="form-group">
         <label for="name">Name:</label>
-        <input type="text" class="form-control <?php echo isValid("DISCOUNT","name")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $discount->name; ?>" >
+        <input type="text" class="form-control <?php echo isValid("DISCOUNT","name")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $discount->name; ?>" <?php echo Discount::getHTMLValidationRule("name"); ?> >
 <!--        pattern="[A-Za-z]{4,}"  title="More than 3 letters. No spaces!" required-->
         <div class="invalid-feedback">
           <?php echo getFormValidationField("DISCOUNT","name"); ?>
