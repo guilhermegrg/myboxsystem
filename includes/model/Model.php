@@ -2,6 +2,7 @@
 <?php include_once("../DatabaseUtils.php"); ?>
 <?php include_once("ReflectionUtils.php"); ?>
 <?php include_once("ValidationUtils.php"); ?>
+<?php include_once("ValidationEnforcer.php"); ?>
 
 <?php
 
@@ -207,6 +208,24 @@ class Model {
     }
      
 
+    public function getValidationRules(){
+        $class = new ReflectionClass(get_class($this));
+        return VU::getValidations($class);
+    }
+    
+    
+    
+    public static function validateObject($object){
+        return VE::validate($object);
+    }
+     
+
+    public function validate(){
+         return VE::validate($this);
+    }
+    
+    
+    
     
     
 }
@@ -219,7 +238,7 @@ TABLE: tests
 */
 class Test extends Model {
     /** TYPE: VARCHAR(255) NOT NULL
-    VALIDATION: NOT_NULL, NOT_DUPLICATE, LENGTH>2, REGEX=[A-Za-z]{4,} "Name must have two or more names of at least 2 characters each"
+    VALIDATION: NOT_NULL, NOT_DUPLICATED, LENGTH>2, REGEX=[A-Za-z]{4,} "Name must have two or more names of at least 2 characters each"
     */
     var $wtf = "wazzza";
     
@@ -236,7 +255,7 @@ class Test extends Model {
 
 //Test::delete(1);
 
-//$test = Test::get(1);
+$test = Test::get(2);
 //var_dump($test);
 
 //$test = new Test();
@@ -264,11 +283,20 @@ class Test extends Model {
 //echo "(static) is wtf duplicated: " . Test::isFieldDuplicated(2,"wtf","wazzza") . "<br><br>";
 //
 //echo "(instance) is wtf duplicated: " . $test->isFieldValueDuplicated("wtf") . "<br><br>";
+//$test = new Test();
+$vals = $test->getValidationRules();
+//$vals = Test::getValidations();
+//echo "<br><pre>";
+//var_dump($vals);
+//echo "</pre><br>";
 
-$vals = Test::getValidations();
-echo "<pre>";
-var_dump($vals);
-echo "</pre>";
+$results = $test->validate();
+
+echo "<br><pre>";
+var_dump($results);
+echo "</pre><br>";
+
+
 
 //
 //$test->hello = true;

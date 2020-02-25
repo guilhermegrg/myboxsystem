@@ -88,7 +88,7 @@ class VU{
         if($index<0)
             return null;
         
-        $regex = trim(substr($rule,$index));
+        $regex = trim(substr($rule,$index+1));
         
         return $regex;
         
@@ -128,37 +128,43 @@ class VU{
 
             $valRule = new ValidationRule();
             
-            if(strpos($rule, 'NOT_NULL') !== false)
+            if(strpos($rule, VU::NOT_NULL) !== false)
             {
                 if($warning == null)
                     $warning = "Can't be null!";
                 
                 $valRule->type = VU::NOT_NULL;
-            }elseif(strpos($rule, 'NOT_DUPLICATE') !== false)
+            }elseif(strpos($rule, VU::NOT_DUPLICATED) !== false)
             {
                 if($warning == null)
                     $warning = "Already exists! Pick another one!";
 
                 $valRule->type = VU::NOT_DUPLICATED;
-            }elseif(strpos($rule, 'NAME') !== false)
+            }elseif(strpos($rule, VU::NAME) !== false)
             {
                 if($warning == null)
                     $warning = "Choose a valid name!";
 
                 $valRule->type = VU::NAME;
-            }elseif(strpos($rule, 'URL') !== false)
+            }elseif(strpos($rule, VU::EMAIL) !== false)
+            {
+                if($warning == null)
+                    $warning = "Input a proper email!";
+
+                $valRule->type = VU::EMAIL;
+            }elseif(strpos($rule, VU::URL) !== false)
             {
                 if($warning == null)
                     $warning = "Input a proper URL!";
 
                 $valRule->type = VU::URL;
-            }elseif(strpos($rule, 'PASSWORD') !== false)
+            }elseif(strpos($rule, VU::PASSWORD) !== false)
             {
                 if($warning == null)
                     $warning = "Chooser a proper password!";
 
                 $valRule->type = VU::PASSWORD;
-            }elseif(strpos($rule, 'LENGTH') !== false)
+            }elseif(strpos($rule, VU::LENGTH) !== false)
             {
                 if($warning == null)
                     $warning = "Has to be longer than"; //TODO get length
@@ -168,7 +174,7 @@ class VU{
                 $regex = VU::getLengthConditions($rule);
                 $valRule->conditions = $regex;
                 
-            }elseif(strpos($rule, 'REGEX') !== false)
+            }elseif(strpos($rule, VU::REGEX) !== false)
             {
                 if($warning == null)
                     $warning = "Invalid format! ";
@@ -177,6 +183,9 @@ class VU{
                 $valRule->type = VU::REGEX;
                 
                 $regex = VU::getRegex($rule);
+                
+//                echo "Got a new Regex rule: $regex <br>";
+                
                 $valRule->conditions = $regex;
             }
             

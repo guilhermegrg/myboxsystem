@@ -291,6 +291,10 @@ class DBU {
     }
     
     public static function isDuplicateField($id, $tablename, $fieldname, $fieldValue){
+        
+        echo "id = $id table: $tablename Field: $fieldname Value: $fieldValue<br>";
+        
+        
         $result = DBU::getFirstResultLike($tablename, $fieldname, $fieldValue);
         
         if($result == null || empty($result) || count($result) == 0)
