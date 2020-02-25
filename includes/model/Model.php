@@ -1,6 +1,7 @@
 
 <?php include_once("../DatabaseUtils.php"); ?>
 <?php include_once("ReflectionUtils.php"); ?>
+<?php include_once("ValidationUtils.php"); ?>
 
 <?php
 
@@ -197,6 +198,13 @@ class Model {
         $this->import($dbObject);
     }
     
+    
+    //validations
+    public static function getValidations(){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        return VU::getValidations($class);
+    }
      
 
     
@@ -211,6 +219,7 @@ TABLE: tests
 */
 class Test extends Model {
     /** TYPE: VARCHAR(255) NOT NULL
+    VALIDATION: NOT_NULL, NOT_DUPLICATE, LENGTH>2, REGEX=[A-Za-z]{4,} "Name must have two or more names of at least 2 characters each"
     */
     var $wtf = "wazzza";
     
@@ -230,33 +239,36 @@ class Test extends Model {
 //$test = Test::get(1);
 //var_dump($test);
 
-$test = new Test();
+//$test = new Test();
 //$test->save();
 
 
-echo "Count: " . Test::getCount() . "<br>";
-echo "Total Pages: " . Test::getTotalPages() . "<br>";
+//echo "Count: " . Test::getCount() . "<br>";
+//echo "Total Pages: " . Test::getTotalPages() . "<br>";
+//
+//
+////$page = Test::getPageObjects(1);
+//$page = Test::getPageAssoc(1);
+////var_dump($page);
+//echo "<br><br><br>";
+//
+//
+//$result = Test::getFirstResultLike("wtf","wazzza");
+//var_dump($result);
+//
+//echo "(static) First repetition of wtf: " . $result['id'] . "<br><br>";
+//
+//echo "(instance) First repetition of wtf: " . $test->getRowLikeField("wtf")['id'] . "<br><br>";
+//
+//
+//echo "(static) is wtf duplicated: " . Test::isFieldDuplicated(2,"wtf","wazzza") . "<br><br>";
+//
+//echo "(instance) is wtf duplicated: " . $test->isFieldValueDuplicated("wtf") . "<br><br>";
 
-
-//$page = Test::getPageObjects(1);
-$page = Test::getPageAssoc(1);
-//var_dump($page);
-echo "<br><br><br>";
-
-
-$result = Test::getFirstResultLike("wtf","wazzza");
-var_dump($result);
-
-echo "(static) First repetition of wtf: " . $result['id'] . "<br><br>";
-
-echo "(instance) First repetition of wtf: " . $test->getRowLikeField("wtf")['id'] . "<br><br>";
-
-
-echo "(static) is wtf duplicated: " . Test::isFieldDuplicated(2,"wtf","wazzza") . "<br><br>";
-
-echo "(instance) is wtf duplicated: " . $test->isFieldValueDuplicated("wtf") . "<br><br>";
-
-
+$vals = Test::getValidations();
+echo "<pre>";
+var_dump($vals);
+echo "</pre>";
 
 //
 //$test->hello = true;
