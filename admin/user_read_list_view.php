@@ -1,8 +1,10 @@
 
 <?php include_once("../includes/functions.php") ?>
 
- <?php include "admin-header.php"; ?>
-<?php include "../includes/daos/UserDAO.php"; ?>
+<?php include "models/User.php"; ?>
+
+<?php include "admin-header.php"; ?>
+
 
    
    <?php 
@@ -15,7 +17,7 @@
         
         if(is_numeric($deleteID))
         {
-            UserDAO::delete($deleteID);
+            User::delete($deleteID);
             setSuccess("Deleted a user!");
 //            echo "Deleted a user!<br>";
             send("user_read_list_view.php");
@@ -53,9 +55,9 @@
    <?php  include "pagination.php"; ?>
    <?php   
 
-        $totalPages = UserDAO::getTotalPages();
+        $totalPages = User::getTotalPages();
 
-        $page = Pagination::show("UserDAO");
+        $page = Pagination::show("User");
 
     ?>
    
@@ -81,20 +83,20 @@
            <?php 
            
 
-           $users = UserDAO::getList($page);
+           $users = User::getPageObjects($page);
            
            foreach($users as $user): ?>
                
                <tr>
-                   <td><?php echo  $user["id"];?> </td>
-                   <td><?php echo $user["active"]==1?"<i class='fas fa-check text-success'></i>":"<i class='fas fa-times text-danger'></i>";?></td>
-                   <td><?php echo  $user["name"];?></td>
-                   <td><?php echo  $user["email"];?></td>
-                   <td><?php echo  $user["mobile"];?></td>
-                   <td><?php echo  $user["birthday"];?></td>
+                   <td><?php echo  $user->id;?> </td>
+                   <td><?php echo $user->active==1?"<i class='fas fa-check text-success'></i>":"<i class='fas fa-times text-danger'></i>";?></td>
+                   <td><?php echo  $user->name;?></td>
+                   <td><?php echo  $user->email;?></td>
+                   <td><?php echo  $user->mobile;?></td>
+                   <td><?php echo  $user->birthday;?></td>
                    <td>
-                      <a  class="btn btn-primary btn-sm" href="user_edit_view.php?edit=<?php echo  $user["id"];?>" >Edit</a>
-                      <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdrop" data-id="<?php echo  $user["id"];?>">
+                      <a  class="btn btn-primary btn-sm" href="user_edit_view.php?edit=<?php echo  $user->id;?>" >Edit</a>
+                      <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdrop" data-id="<?php echo  $user->id;?>">
                       Delete
                       </button>
 
@@ -117,7 +119,7 @@
    </table>
    
     <?php   
-        Pagination::show("UserDAO");
+        Pagination::show("User");
     ?>
     
     

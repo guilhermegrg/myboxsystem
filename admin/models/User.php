@@ -36,7 +36,7 @@ class User extends Model {
     
     /** TYPE: boolean NOT NULL default true
     */
-    public $active;
+    public $active = true;
     
 }
 

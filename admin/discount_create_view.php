@@ -17,9 +17,9 @@ include "discount_create_process.php";
 
 //$vals = Discount::getValidations();
 //var_dump($vals);
-
-$rule = Discount::getHTMLValidationRule("name");
-var_dump($rule);
+//
+//$rule = Discount::getHTMLValidationRule("name");
+//var_dump($rule);
 ?>
   
     <?php displayMessages(); ?>
