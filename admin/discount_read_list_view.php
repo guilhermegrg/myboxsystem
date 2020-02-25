@@ -50,9 +50,14 @@
 </div>
    
    
+<h4>Discounts</h4>
+   
      <?php displayMessages(); ?>
    
    <?php  include "pagination.php"; ?>
+<!--   <div class="container">-->
+   <div class="row">
+   <div class="col mr-auto">
    <?php   
 
         $totalPages = Discount::getTotalPages();
@@ -60,7 +65,12 @@
         $page = Pagination::show("Discount");
 
     ?>
-   
+    </div>
+    <div class="col ml-auto text-right">
+        <a href="discount_create_view.php" class="btn btn-primary text-white">Create new Discount</a>
+    </div>
+    </div>
+<!--   </div>-->
    
    
    

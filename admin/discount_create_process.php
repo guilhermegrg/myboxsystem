@@ -16,9 +16,9 @@
         $discount->value = $post["value"];
         
         if(isset($post['active']))
-        $discount->active = $post["active"];
-        
-
+            $discount->active = ($post["active"]=="on");
+        else
+            $discount->active = false;
         
         
                 
@@ -55,7 +55,7 @@
         }
         
     }else{
-        echo "No POST!<br>";
+//        echo "No POST!<br>";
 //         $name="";
 //    $value="";
 //    $active="off";

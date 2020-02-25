@@ -13,16 +13,17 @@
         $name = $post["name"];
         $value = $post["value"];
         
-        if(isset($post['active']))
-            $active = $post["active"];
-        else
-            $active = "off";
-
+        
         $discount = new Discount();
+        
+        if(isset($post['active']))
+            $discount->active = ($post["active"] == "on");
+        else
+            $discount->active = false;
+
         $discount->id = $id;
         $discount->name = $name;
         $discount->value = $value;
-        $discount->active = $active;
         
         
         $errors = $discount->validate();
@@ -31,7 +32,7 @@
         
         //todo check for uniqueness of name
         
-//        var_dump($error);
+//        var_dump($discount);
 
 
         

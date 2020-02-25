@@ -67,7 +67,7 @@ class DBU {
         
         
         foreach($fields as $key=>$value){
-            if($value == null)
+            if($value === null)
                 continue;
             
             $exceptions = $sqlExceptions[$key];
@@ -97,7 +97,7 @@ class DBU {
         
         
         foreach($fields as $key=>$value){
-            if($value == null)
+            if($value === null)
                 continue;
             
             $exceptions = $sqlExceptions[$key];
@@ -121,10 +121,13 @@ class DBU {
         $valuesList = "";
         
 //        $instructions = RU::getSQLCRUDExceptions($this);
-        
+//        var_dump($fields);
+           
         foreach($fields as $key=>$value){
-            if($value == null)
+            if($value === null){
+//                echo "Field $key has a null value: $value <br>";
                 continue;
+            }
             
             $exceptions = $sqlExceptions[$key];
             if($exceptions != null){
@@ -143,11 +146,15 @@ class DBU {
         $conn = Database::getConnection();
     
         $query = "UPDATE {$tablename} SET " . $valuesList  ." WHERE id=:id";
+           
+           
+//        echo "SQL Query: $query<br>";
+           
         $stmt = $conn->prepare($query);
         
         
         foreach($fields as $key=>$value){
-            if($value == null)
+            if($value === null)
                 continue;
             
             $exceptions = $sqlExceptions[$key];
