@@ -24,14 +24,10 @@
           <div class="collapse navbar-collapse" id="navbarNav" >
               <ul class="navbar-nav">
                   <li class="nav-item">
-                      <a href="" class="nav-link">Discounts</a>
+                      <a href="discount_read_list_view.php" class="nav-link">Discounts</a>
                   </li>
                   <li class="nav-item dropdown">
-                      <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Users</a>
-                      <div class="dropdown-menu">
-                          <a href="user_read_list_view.php" class="dropdown-item">Users</a>
-                          <a href="discount_read_list_view.php" class="dropdown-item">Discounts</a>
-                      </div>
+                      <a href="user_read_list_view.php" class="nav-link">Users</a>
                   </li>
 
               </ul>

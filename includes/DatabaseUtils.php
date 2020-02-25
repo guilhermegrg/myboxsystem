@@ -292,7 +292,7 @@ class DBU {
     
     public static function isDuplicateField($id, $tablename, $fieldname, $fieldValue){
         
-        echo "id = $id table: $tablename Field: $fieldname Value: $fieldValue<br>";
+//        echo "id = $id table: $tablename Field: $fieldname Value: $fieldValue<br>";
         
         
         $result = DBU::getFirstResultLike($tablename, $fieldname, $fieldValue);
@@ -302,7 +302,7 @@ class DBU {
         
         $storedID = $result["id"];
         
-        echo "search id: $id, retrieved id: $storedID <br>";
+//        echo "search id: $id, retrieved id: $storedID <br>";
         
         if($id == $storedID)
             return false;

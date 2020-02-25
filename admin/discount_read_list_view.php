@@ -1,8 +1,10 @@
 
 <?php include_once("../includes/functions.php") ?>
 
- <?php include "admin-header.php"; ?>
-<?php include "../includes/daos/discountsDAO.php"; ?>
+<?php include "models/Discount.php"; ?>
+
+<?php include "admin-header.php"; ?>
+
 
    
    <?php 
@@ -15,7 +17,7 @@
         
         if(is_numeric($deleteID))
         {
-            DiscountsDAO::delete($deleteID);
+            Discount::delete($deleteID);
             setSuccess("Deleted a discount!");
             echo "Deleted a discount!<br>";
             send("discount_read_list_view.php");
@@ -53,9 +55,9 @@
    <?php  include "pagination.php"; ?>
    <?php   
 
-        $totalPages = DiscountsDAO::getTotalPages();
+        $totalPages = Discount::getTotalPages();
 
-        $page = Pagination::show("DiscountsDAO");
+        $page = Pagination::show("Discount");
 
     ?>
    
@@ -79,18 +81,18 @@
            <?php 
            
 
-           $discounts = DiscountsDAO::getList($page);
+           $discounts = Discount::getPageObjects($page);
            
            foreach($discounts as $discount): ?>
                
                <tr>
-                   <td><?php echo  $discount["id"];?> </td>
-                   <td><?php echo $discount["active"]==1?"<i class='fas fa-check text-success'></i>":"<i class='fas fa-times text-danger'></i>";?></td>
-                   <td><?php echo  $discount["name"];?></td>
-                   <td><?php echo  $discount["value"];?></td>
+                   <td><?php echo  $discount->id;?> </td>
+                   <td><?php echo $discount->active==1?"<i class='fas fa-check text-success'></i>":"<i class='fas fa-times text-danger'></i>";?></td>
+                   <td><?php echo  $discount->name;?></td>
+                   <td><?php echo  $discount->value;?></td>
                    <td>
-                      <a  class="btn btn-primary btn-sm" href="discount_edit_view.php?edit=<?php echo  $discount["id"];?>" >Edit</a>
-                      <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdrop" data-id="<?php echo  $discount["id"];?>">
+                      <a  class="btn btn-primary btn-sm" href="discount_edit_view.php?edit=<?php echo  $discount->id;?>" >Edit</a>
+                      <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdrop" data-id="<?php echo  $discount->id;?>">
                       Delete
                       </button>
 
@@ -113,7 +115,7 @@
    </table>
    
     <?php   
-        Pagination::show("DiscountsDAO");
+        Pagination::show("Discount");
     ?>
     
     

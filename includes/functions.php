@@ -75,7 +75,13 @@ function getFormValidation($formId){
 function getFormValidationField($formId, $field){
     $formArray =  getSessionValue($formId."-VALIDATION");
     if(isset($formArray)){
-        return $formArray[$field];
+        $errorMessage = $formArray[$field];
+        
+//        echo "<br><br>Error Message:<pre>";
+//        var_dump($errorMessage);
+//        echo "</pre><br><br>";
+        
+        return $errorMessage;
     }
 }
 
@@ -88,6 +94,13 @@ function cleanFormValidation($form){
 
 function isValid($formId, $field){
     $formArray =  getSessionValue($formId."-VALIDATION");
+    
+//        echo "<br><br><pre>";
+//        var_dump($formArray);
+//        echo "</pre><br><br>";
+
+    
+    
     if(isset($formArray)){
         if(isset($formArray[$field]))
         {

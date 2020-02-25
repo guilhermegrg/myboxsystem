@@ -1,6 +1,6 @@
 <?php include_once("ValidationUtils.php"); ?>
 <?php include_once("ReflectionUtils.php"); ?>
-<?php include_once("../DatabaseUtils.php"); ?>
+<?php include_once($_SERVER['DOCUMENT_ROOT']."/myboxsystem/includes/DatabaseUtils.php"); ?>
 
 <?php
 
@@ -162,6 +162,9 @@ class VE {
     
     
     public static function validate($object){
+        
+//        echo "Begin validating!<br>";
+        
         $class = new ReflectionClass(get_class($object));
         $vals = VU::getValidations($class);
         
@@ -180,9 +183,9 @@ class VE {
                 $fieldValue = $prop->getValue($object);
                 
                 
-                echo "Rule Type: {$rule->type} Value: $fieldValue <br>";
+//                echo "Rule Type: {$rule->type} Value: $fieldValue <br>";
                 
-                
+//                echo "Validating value!<br>";
                 
                 $result = $tester->validate($rule,$fieldName,$fieldValue,$object);
                 
@@ -192,6 +195,8 @@ class VE {
                 }
             }
         }
+        
+//        echo "Done validating!<br>";
         
         return $messages;
     }
