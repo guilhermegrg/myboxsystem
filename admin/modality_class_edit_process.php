@@ -1,4 +1,5 @@
 <?php include "models/ModalityClass.php"; ?>
+<?php include "models/Modality.php"; ?>
 
 
 
@@ -16,6 +17,8 @@
         $class->id = $post["id"];
         $class->name = $post["name"];
         $class->urlName = $post["urlName"];
+        
+        $class->modality_id = $post["modality_id"];
         
         if(isset($post['active']))
             $class->active = ($post["active"]=="on");

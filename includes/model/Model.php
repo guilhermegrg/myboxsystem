@@ -63,12 +63,13 @@ class Model {
     public static function getSelectQuery($class){
         $query = RU::getCustomSelectQuery($class);
         if(!$query || empty($query)){
-            $query = "SELECT * FROM {$tablename} ";
+            $tableName = RU::getTableName($class);
+            $query = "SELECT * FROM $tableName ";
         }else{
             $query = Model::getFilledInCustomSelectQuery($class, $query);
         }
         
-        echo "<br><br>Query: " . $query. "<br><br>";
+//        echo "<br><br>Query: " . $query. "<br><br>";
         
         return $query;
     }

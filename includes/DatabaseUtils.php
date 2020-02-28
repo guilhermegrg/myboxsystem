@@ -200,9 +200,9 @@ class DBU {
         $stmt->setFetchMode(PDO::FETCH_CLASS, $classname);
         $object = $stmt->fetch();
 
-          echo "<br>";
-          var_dump($object);
-          echo "<br>";
+//          echo "<br>";
+//          var_dump($object);
+//          echo "<br>";
           
           
         return $object;

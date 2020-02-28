@@ -35,6 +35,10 @@
                   <li class="nav-item dropdown">
                       <a href="modality_read_list_view.php" class="nav-link">Modality</a>
                   </li>
+                  <li class="nav-item dropdown">
+                      <a href="modality_class_read_list_view.php" class="nav-link">Classes</a>
+                  </li>
+
 
               </ul>
               <ul class="navbar-nav ml-auto">

@@ -50,7 +50,7 @@
 </div>
    
    
-<h4>Modalitties</h4>
+<h4>Modalities</h4>
    
      <?php displayMessages(); ?>
    
