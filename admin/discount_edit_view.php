@@ -50,7 +50,7 @@ include "discount_edit_process.php";
     
     <div class="form-group">
        <a href="discount_read_list_view.php" class="btn btn-secondary text-white">Cancel</a>
-        <input type="submit" class="btn btn-primary" name="editDiscount" value="Save">
+        <input type="submit" class="btn btn-primary" name="edit" value="Save">
     </div>
 
     

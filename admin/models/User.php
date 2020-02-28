@@ -9,7 +9,7 @@ TABLE: users
 class User extends Model {
     
     /** TYPE: VARCHAR(255) NOT NULL
-    VALIDATION: NOT_NULL
+    VALIDATION: NAME, NOT_NULL
     */
     public $name;
 

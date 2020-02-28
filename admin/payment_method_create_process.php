@@ -1,5 +1,5 @@
 
-<?php include "models/Discount.php"; ?>
+<?php include "models/PaymentMethod.php"; ?>
 
 
 <?php
@@ -11,20 +11,20 @@
         $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 //        var_dump($post);
         
-        $discount = new Discount();
-        $discount->name = $post["name"];
-        $discount->value = $post["value"];
+        $paymentMethod = new PaymentMethod();
+        $paymentMethod->name = $post["name"];
+        $paymentMethod->instructions = $post["instructions"];
         
         if(isset($post['active']))
-            $discount->active = ($post["active"]=="on");
+            $paymentMethod->active = ($post["active"]=="on");
         else
-            $discount->active = false;
+            $paymentMethod->active = false;
         
         
                 
 //        $discount->import($post);
         
-        $errors = $discount->validate();
+        $errors = $paymentMethod->validate();
         
 //        echo "<br><br><pre>";
 //        var_dump($errors);
@@ -36,21 +36,21 @@
         {
 //            echo "sending back to form to revalidate!<br>";
             setError("Please correct the form and submit again");
-            setFormValidation("DISCOUNT",$errors);
+            setFormValidation("PAYMENT_METHOD",$errors);
             
 //            send("discount_create_view.php");
 //            var_dump($_SESSION);
 //            exit;
         }else{
         
-        echo "Creating Discount!!<br>";
+        echo "Creating Payment Method!!<br>";
 //            $active= ($active=="on"?1:0);
             
-            $discount->save();
+            $paymentMethod->save();
             
             
-           setSuccess("Created new Discount Nº " . $id); 
-           send("discount_read_list_view.php"); 
+           setSuccess("Created new Payment Method Nº " . $id); 
+           send("payment_method_read_list_view.php"); 
             exit;
         }
         
@@ -59,7 +59,7 @@
 //         $name="";
 //    $value="";
 //    $active="off";
-        $discount = new Discount();
+        $paymentMethod = new PaymentMethod();
     }
 //echo "hello!";
 

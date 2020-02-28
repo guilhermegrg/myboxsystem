@@ -58,11 +58,11 @@ class NameTester extends DefaultValidationTester{
         if($fieldValue==null)
             return true;
         
-        return preg_match("/([\p{L}]{2,})([ ]+([\p{L}]{2,}))+/u",$fieldValue);
+        return preg_match("/^([\p{L}]{2,})([ ]+([\p{L}]{2,}))+$/",$fieldValue);
     }
     
     public function getHTMLValidation($validationRule){
-        return " pattern='/([\p{L}]{2,})([ ]+([\p{L}]{2,}))+/u' title='{$validationRule->message}' ";
+        return " pattern='([\p{L}]{2,})([ ]+([\p{L}]{2,}))+' title='{$validationRule->message}' ";
     }
 
     

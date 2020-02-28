@@ -1,4 +1,4 @@
-<?php include "models/Discount.php"; ?>
+<?php include "models/PaymentMethod.php"; ?>
 
 
 
@@ -11,22 +11,22 @@
 //        var_dump($post);
         $id = $post["id"];
         $name = $post["name"];
-        $value = $post["value"];
+        $instructions = $post["instructions"];
         
         
-        $discount = new Discount();
+        $paymentMethod = new PaymentMethod();
         
         if(isset($post['active']))
-            $discount->active = ($post["active"] == "on");
+            $paymentMethod->active = ($post["active"] == "on");
         else
-            $discount->active = false;
+            $paymentMethod->active = false;
 
-        $discount->id = $id;
-        $discount->name = $name;
-        $discount->value = $value;
+        $paymentMethod->id = $id;
+        $paymentMethod->name = $name;
+        $paymentMethod->instructions = $instructions;
         
         
-        $errors = $discount->validate();
+        $errors = $paymentMethod->validate();
  
 
         
@@ -40,7 +40,7 @@
         {
             
             setError("Please correct the form and submit again");
-            setFormValidation("DISCOUNT",$errors);
+            setFormValidation("PAYMENT_METHOD",$errors);
             
 //            send("discount_create_view.php");
 //            var_dump($_SESSION);
@@ -50,11 +50,11 @@
 //         echo "active: $active<br>";
 //        $input_active= ($active=="on"?1:0);
 //             echo "active 4: $active<br>";
-            $discount->save();
+            $paymentMethod->save();
 //           cleanFormValues("DISCOUNT");
             
-           setSuccess("Updated discount Nº " . $id); 
-           send("discount_read_list_view.php"); 
+           setSuccess("Updated payment method Nº " . $id); 
+           send("payment_method_read_list_view.php"); 
             exit;
         }
         
@@ -63,18 +63,18 @@
         $id = $get["edit"];
         
         if(!is_numeric($id)){
-            send("discount_read_list_view.php");
+            send("payment_method_read_list_view.php");
             exit;
         }
         else
         if($id<=0){
-            send("discount_read_list_view.php");
+            send("payment_method_read_list_view.php");
             exit;
         }
         
         
         //load values from db
-        $discount = Discount::get($id);
+        $paymentMethod = PaymentMethod::get($id);
 //        $name = $discount["name"];
 //        $value = $discount["value"];
 //        $active = $discount["active"];

@@ -5,7 +5,7 @@
 
 <?php
 
-include "discount_create_process.php";
+include "payment_method_create_process.php";
                           
 
 //var_dump($discount);
@@ -22,7 +22,7 @@ include "discount_create_process.php";
 //var_dump($rule);
 ?>
  
- <h4>Create Discount</h4>
+ <h4>Create Payment Method</h4>
  
   
     <?php displayMessages(); ?>
@@ -38,32 +38,32 @@ include "discount_create_process.php";
 ?>
 
 
-  <form action="discount_create_view.php" method="post" >
+  <form action="payment_method_create_view.php" method="post" >
    
     <div class="form-group">
         <label for="name">Name:</label>
-        <input type="text" class="form-control <?php echo isValid("DISCOUNT","name")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $discount->name; ?>" <?php echo Discount::getHTMLValidationRule("name"); ?> >
+        <input type="text" class="form-control <?php echo isValid("PAYMENT_METHOD","name")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $paymentMethod->name; ?>" <?php echo PaymentMethod::getHTMLValidationRule("name"); ?> >
 <!--        pattern="[A-Za-z]{4,}"  title="More than 3 letters. No spaces!" required-->
         <div class="invalid-feedback">
-          <?php echo getFormValidationField("DISCOUNT","name"); ?>
+          <?php echo getFormValidationField("PAYMENT_METHOD","name"); ?>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="value">Value:</label>
-        <input type="text" class="form-control <?php echo isValid("DISCOUNT","value")?"":"is-invalid";?>" name="value" placeholder="Enter the value or percentage"  value="<?php echo $discount->value; ?>" <?php echo Discount::getHTMLValidationRule("value"); ?>>
+        <label for="value">Instructions:</label>
+        <input type="text" class="form-control <?php echo isValid("PAYMENT_METHOD","instructions")?"":"is-invalid";?>" name="instructions" placeholder="Enter the payment instructions"  value="<?php echo $paymentMethod->instructions; ?>" <?php echo PaymentMethod::getHTMLValidationRule("instructions"); ?>>
         <div class="invalid-feedback">
-          <?php echo getFormValidationField("DISCOUNT","value"); ?>
+          <?php echo getFormValidationField("PAYMENT_METHOD","instructions"); ?>
         </div>
     </div>
     
     <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" name="active" <?php  echo $discount->active? "checked":"";?>>
+        <input type="checkbox" class="form-check-input" name="active" <?php  echo $paymentMethod->active? "checked":"";?>>
         <label for="active" class="form-check-label" >Active:</label>
     </div>
     
     <div class="form-group">
-        <a href="discount_read_list_view.php" class="btn btn-secondary text-white">Cancel</a>
+        <a href="payment_method_read_list_view.php" class="btn btn-secondary text-white">Cancel</a>
         <input type="submit" class="btn btn-primary" name="create" value="Create">
     </div>
 
@@ -71,7 +71,7 @@ include "discount_create_process.php";
 </form>   
               
        
-<?php cleanFormValidation("DISCOUNT"); ?>
+<?php cleanFormValidation("PAYMENT_METHOD"); ?>
 
     
 <?php include "admin-footer.php"; ?>

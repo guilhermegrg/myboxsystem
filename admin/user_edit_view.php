@@ -21,7 +21,7 @@ include "user_edit_process.php";
    
    <div class="form-group">
         <label for="name">Id:</label>
-        <input type="text" class="form-control" name="id" value="<?php echo $id; ?>" readonly>
+        <input type="text" class="form-control" name="id" value="<?php echo $user->id; ?>" readonly>
     </div>
    
    

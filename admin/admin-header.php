@@ -29,6 +29,9 @@
                   <li class="nav-item dropdown">
                       <a href="user_read_list_view.php" class="nav-link">Users</a>
                   </li>
+                  <li class="nav-item dropdown">
+                      <a href="payment_method_read_list_view.php" class="nav-link">Payment Methods</a>
+                  </li>
 
               </ul>
               <ul class="navbar-nav ml-auto">
