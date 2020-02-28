@@ -272,7 +272,7 @@ class VE {
                 $fieldValue = $prop->getValue($object);
                 
                 
-                echo "Rule Type: {$rule->type} Value: $fieldValue <br>";
+//                echo "Rule Type: {$rule->type} Value: $fieldValue <br>";
                 
 //                echo "Validating value!<br>";
                 
