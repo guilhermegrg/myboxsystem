@@ -5,6 +5,14 @@
 class RU{
     
     
+        
+    public static function getCustomSelectQuery($class){
+        $comment = $class->getDocComment();
+//        var_dump($comment);
+        return RU::getDocField("CUSTOM_SELECT_QUERY:", $comment);
+    }    
+
+        
     
     public static function getClassTableName($class){
         $comment = $class->getDocComment();

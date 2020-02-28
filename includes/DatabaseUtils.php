@@ -102,7 +102,7 @@ class DBU {
             
             $exceptions = $sqlExceptions[$key];
             if($exceptions != null){
-                if(in_array("UPDATE",$exceptions)){
+                if(in_array("INSERT",$exceptions)){
                     continue;
                 }
             }
@@ -229,7 +229,9 @@ class DBU {
     
     
     
-    public static function getPageItemsClassObjects($tablename,$classname, $page){
+//    LEFT JOIN modalities ON modality_classes.modality_id=modalities.id
+    
+    public static function getPageItemsClassObjects($query,$classname, $page){
         
         $conn = Database::getConnection();
         
@@ -240,7 +242,7 @@ class DBU {
 //        echo "index: $index <br>";
 //        echo "items: $items <br>";
         
-        $stmt = $conn->prepare("SELECT * FROM {$tablename} LIMIT :index, :items");
+        $stmt = $conn->prepare("{$query} LIMIT :index, :items");
 //        $stmt->bindValue("itemsPerPage",$items);
 //        var_dump($stmt);
 //        $stmt->bindValue(':index',0, PDO::PARAM_INT);
@@ -296,6 +298,10 @@ class DBU {
         return $result;
            
     }
+    
+    
+    
+
     
     public static function isDuplicateField($id, $tablename, $fieldname, $fieldValue){
         

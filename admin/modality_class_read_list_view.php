@@ -103,7 +103,7 @@
                    <td><?php echo  $class->id;?> </td>
                    <td><?php echo $class->active==1?"<i class='fas fa-check text-success'></i>":"<i class='fas fa-times text-danger'></i>";?></td>
                    <td><?php echo  $class->name;?></td>
-                   <td><?php echo  $class->modality_id;?></td>
+                   <td><?php echo  $class->modality_name;?></td>
                    <td><?php echo  $class->independentSchedule;?></td>
                    <td><?php echo  $class->visibleToUsers;?></td>
                    <td><?php echo  $class->publicSchedule;?></td>

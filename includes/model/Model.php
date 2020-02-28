@@ -15,6 +15,64 @@ class Model {
     */
     public $id = 0;
     
+    
+    
+    public static function getFieldListWithTableName($class){
+        $tableName = RU::getTableName($class);
+        $fields =  RU::getPropertiesAndTypesArray($class);
+        $instructions = RU::getSQLCRUDExceptions($class);
+        
+        $fieldList = "";
+        
+        foreach($fields as $key=>$value){
+            
+            
+            $exceptions = $instructions[$key];
+            if($exceptions != null){
+                if(in_array("QUERY",$exceptions)){
+                    continue;
+                }
+            }
+            
+            $fieldList .= $tableName.'.'.$key.", ";
+        }
+        
+        $length = strrpos($fieldList,", ");
+        $fieldList = substr($fieldList,0,$length);
+        
+        return $fieldList;
+    }
+    
+    public static function getFilledInCustomSelectQuery($class, $query){
+        
+        if(strrpos($query,"{tableName.fields}")!== false){
+            $fieldList = Model::getFieldListWithTableName($class);
+            $query = str_replace("{tableName.fields}",$fieldList,$query );
+        }
+        
+        if(strrpos($query,"{tableName}")!== false){
+            $tableName = RU::getTableName($class);
+            $query = str_replace("{tableName}",$tableName,$query );
+        }
+        
+        return $query;
+
+    }  
+    
+    
+    public static function getSelectQuery($class){
+        $query = RU::getCustomSelectQuery($class);
+        if(!$query || empty($query)){
+            $query = "SELECT * FROM {$tablename} ";
+        }else{
+            $query = Model::getFilledInCustomSelectQuery($class, $query);
+        }
+        
+        echo "<br><br>Query: " . $query. "<br><br>";
+        
+        return $query;
+    }
+    
    
     public static function create(){
         $classname = get_called_class();
@@ -92,8 +150,10 @@ class Model {
         $classname = get_called_class();
         $class = new ReflectionClass($classname);
         $tablename = RU::getTableName($class);
+        
+        $query = Model::getSelectQuery($class);
 
-        return DBU::getPageItemsClassObjects($tablename,$classname, $page);
+        return DBU::getPageItemsClassObjects($query,$classname, $page);
     }
     
     
