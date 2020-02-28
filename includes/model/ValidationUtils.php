@@ -11,7 +11,10 @@ class VU{
     
     public const NOT_NULL = 'NOT_NULL';
     public const NOT_DUPLICATED = 'NOT_DUPLICATED';
-    public const NAME = 'NAME';
+    public const SINGLE_NAME = 'SINGLE_NAME';
+    public const ONE_OR_MORE_NAMES = 'ONE_OR_MORE_NAMES';
+    public const PERSONAL_NAME = 'PERSONAL_NAME';
+    
     public const EMAIL = 'EMAIL';
     public const URL = 'URL';
     public const PASSWORD = 'PASSWORD';
@@ -148,12 +151,24 @@ class VU{
                     $warning = "Already exists! Pick another one!";
 
                 $valRule->type = VU::NOT_DUPLICATED;
-            }elseif(strpos($rule, VU::NAME) !== false)
+            }elseif(strpos($rule, VU::SINGLE_NAME) !== false)
             {
                 if($warning == null)
-                    $warning = "Choose a valid name!";
+                    $warning = "Choose a valid single name!";
 
-                $valRule->type = VU::NAME;
+                $valRule->type = VU::SINGLE_NAME;
+            }elseif(strpos($rule, VU::ONE_OR_MORE_NAMES) !== false)
+            {
+                if($warning == null)
+                    $warning = "Choose a valid name made up of one or more words!";
+
+                $valRule->type = VU::ONE_OR_MORE_NAMES;
+            }elseif(strpos($rule, VU::PERSONAL_NAME) !== false)
+            {
+                if($warning == null)
+                    $warning = "Choose a valid personal name!";
+
+                $valRule->type = VU::PERSONAL_NAME;
             }elseif(strpos($rule, VU::EMAIL) !== false)
             {
                 if($warning == null)

@@ -9,7 +9,7 @@ TABLE:  payment_methods
 class PaymentMethod extends Model {
     
      /** TYPE: VARCHAR(50) NOT NULL
-    VALIDATION: NOT_NULL, NOT_DUPLICATED, NAME
+    VALIDATION: NOT_NULL, NOT_DUPLICATED, ONE_OR_MORE_NAMES
     */
     public $name;
     

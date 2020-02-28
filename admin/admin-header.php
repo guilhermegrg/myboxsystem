@@ -32,6 +32,9 @@
                   <li class="nav-item dropdown">
                       <a href="payment_method_read_list_view.php" class="nav-link">Payment Methods</a>
                   </li>
+                  <li class="nav-item dropdown">
+                      <a href="modality_read_list_view.php" class="nav-link">Modality</a>
+                  </li>
 
               </ul>
               <ul class="navbar-nav ml-auto">

@@ -58,7 +58,7 @@ include "payment_method_edit_process.php";
 </form>   
               
        
-<?php cleanFormValidation("DISCOUNT"); ?>
+<?php cleanFormValidation("PAYMENT_METHOD"); ?>
    
 
    

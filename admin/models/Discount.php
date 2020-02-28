@@ -9,7 +9,7 @@ TABLE:  discounts
 class Discount extends Model {
     
      /** TYPE: VARCHAR(50) NOT NULL
-    VALIDATION: NOT_NULL, NOT_DUPLICATED, REGEX=[A-Za-z]{3,} "Name must be one word of at least 3 characters. No spaces!"
+    VALIDATION: NOT_NULL, NOT_DUPLICATED, SINGLE_NAME
     */
     public $name;
     

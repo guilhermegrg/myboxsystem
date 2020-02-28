@@ -1,7 +1,7 @@
 
 <?php include_once("../includes/functions.php") ?>
 
-<?php include "models/PaymentMethod.php"; ?>
+<?php include "models/Modality.php"; ?>
 
 <?php include "admin-header.php"; ?>
 
@@ -17,10 +17,10 @@
         
         if(is_numeric($deleteID))
         {
-            PaymentMethod::delete($deleteID);
-            setSuccess("Deleted a Payment Method!");
+            Modality::delete($deleteID);
+            setSuccess("Deleted a Modality!");
 //            echo "Deleted a discount!<br>";
-            send("payment_method_read_list_view.php");
+            send("modality_read_list_view.php");
         }
     }
     
@@ -39,7 +39,7 @@
         </button>
       </div>
       <div class="modal-body">
-        Are you sure you want to delete this Payment Method? This is definitive and Errors may occur!
+        Are you sure you want to delete this Modality? This is definitive and Errors may occur!
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -50,7 +50,7 @@
 </div>
    
    
-<h4>Payment Methods</h4>
+<h4>Modalitties</h4>
    
      <?php displayMessages(); ?>
    
@@ -60,14 +60,14 @@
    <div class="col mr-auto">
    <?php   
 
-        $totalPages = PaymentMethod::getTotalPages();
+        $totalPages = Modality::getTotalPages();
 
-        $page = Pagination::show("PaymentMethod");
+        $page = Pagination::show("Modality");
 
     ?>
     </div>
     <div class="col ml-auto text-right">
-        <a href="payment_method_create_view.php" class="btn btn-primary text-white">Create new Payment Method</a>
+        <a href="modality_create_view.php" class="btn btn-primary text-white">Create new Modality</a>
     </div>
     </div>
 <!--   </div>-->
@@ -82,7 +82,6 @@
            <th>#</th>
            <th>Active</th>
            <th>Name</th>
-           <th>Instructions</th>
            <th>Actions</th>
            </tr>
        </thead>
@@ -91,18 +90,17 @@
            <?php 
            
 
-           $paymentMethods = PaymentMethod::getPageObjects($page);
+           $modalities = Modality::getPageObjects($page);
            
-           foreach($paymentMethods as $payMethod): ?>
+           foreach($modalities as $modality): ?>
                
                <tr>
-                   <td><?php echo  $payMethod->id;?> </td>
-                   <td><?php echo $payMethod->active==1?"<i class='fas fa-check text-success'></i>":"<i class='fas fa-times text-danger'></i>";?></td>
-                   <td><?php echo  $payMethod->name;?></td>
-                   <td><?php echo  $payMethod->instructions;?></td>
+                   <td><?php echo  $modality->id;?> </td>
+                   <td><?php echo $modality->active==1?"<i class='fas fa-check text-success'></i>":"<i class='fas fa-times text-danger'></i>";?></td>
+                   <td><?php echo  $modality->name;?></td>
                    <td>
-                      <a  class="btn btn-primary btn-sm" href="payment_method_edit_view.php?edit=<?php echo  $payMethod->id;?>" >Edit</a>
-                      <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdrop" data-id="<?php echo  $payMethod->id;?>">
+                      <a  class="btn btn-primary btn-sm" href="modality_edit_view.php?edit=<?php echo  $modality->id;?>" >Edit</a>
+                      <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdrop" data-id="<?php echo  $modality->id;?>">
                       Delete
                       </button>
 
@@ -125,7 +123,7 @@
    </table>
    
     <?php   
-        Pagination::show("PaymentMethod");
+        Pagination::show("Modality");
     ?>
     
     

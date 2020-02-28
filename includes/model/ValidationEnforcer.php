@@ -50,9 +50,45 @@ class NotNullTester extends DefaultValidationTester{
 
 
 
-class NameTester extends DefaultValidationTester{
+class SingleNameTester extends DefaultValidationTester{
     
-    public $type = VU::NAME;
+    public $type = VU::SINGLE_NAME;
+    
+    public function validate($validationRule, $fieldName, $fieldValue, $object){
+        if($fieldValue==null)
+            return true;
+        
+        return preg_match("/^([\p{L}]{2,})$/",$fieldValue);
+    }
+    
+    public function getHTMLValidation($validationRule){
+        return " pattern='([\p{L}]{2,})' title='{$validationRule->message}' ";
+    }
+
+    
+}
+class ManyNameTester extends DefaultValidationTester{
+    
+    public $type = VU::ONE_OR_MORE_NAMES;
+    
+    public function validate($validationRule, $fieldName, $fieldValue, $object){
+        if($fieldValue==null)
+            return true;
+        
+        return preg_match("/^([\p{L}]{2,})([ ]+([\p{L}]{2,}))*$/",$fieldValue);
+    }
+    
+    public function getHTMLValidation($validationRule){
+        return " pattern='([\p{L}]{2,})([ ]+([\p{L}]{2,}))*' title='{$validationRule->message}' ";
+    }
+
+    
+}
+
+
+class PersonalNameTester extends DefaultValidationTester{
+    
+    public $type = VU::PERSONAL_NAME;
     
     public function validate($validationRule, $fieldName, $fieldValue, $object){
         if($fieldValue==null)
@@ -236,7 +272,7 @@ class VE {
                 $fieldValue = $prop->getValue($object);
                 
                 
-//                echo "Rule Type: {$rule->type} Value: $fieldValue <br>";
+                echo "Rule Type: {$rule->type} Value: $fieldValue <br>";
                 
 //                echo "Validating value!<br>";
                 
@@ -294,10 +330,12 @@ $length = new LengthTester();
 $password = new PasswordTester();
 $url = new URLTester();
 $email = new EmailTester();
-$name = new NameTester();  
+$singleName = new SingleNameTester(); 
+$manyNames = new ManyNameTester();
+$personalName = new PersonalNameTester();
 $notDuplicate = new NotDuplicate();
     
-VE::$testers = [$notNull, $name, $email, $url , $password, $length, $regex, $notDuplicate ];
+VE::$testers = [$notNull, $singleName,$manyNames, $personalName, $email, $url , $password, $length, $regex, $notDuplicate ];
 
 //var_dump(VE::$testers);
 

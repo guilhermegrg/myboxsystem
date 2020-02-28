@@ -9,7 +9,7 @@ TABLE:  modalities
 class Modality extends Model {
     
      /** TYPE: VARCHAR(50) NOT NULL
-    VALIDATION: NOT_NULL, NOT_DUPLICATED, NAME
+    VALIDATION: NOT_NULL, NOT_DUPLICATED, SINGLE_NAME
     */
     public $name;
     
