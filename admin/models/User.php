@@ -14,13 +14,13 @@ class User extends Model {
     public $name;
 
     /** TYPE: VARCHAR(255) NOT NULL
-    VALIDATION: NOT_NULL, EMAIL
+    VALIDATION: NOT_NULL, EMAIL, NOT_DUPLICATED
     */
     public $email;
     
     
     /** TYPE: VARCHAR(255) NOT NULL
-    VALIDATION: NOT_NULL, PASSWORD
+    VALIDATION: PASSWORD
     */
     public $password;
     

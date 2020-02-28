@@ -55,6 +55,9 @@ class NameTester extends DefaultValidationTester{
     public $type = VU::NAME;
     
     public function validate($validationRule, $fieldName, $fieldValue, $object){
+        if($fieldValue==null)
+            return true;
+        
         return preg_match("/([\p{L}]{2,})([ ]+([\p{L}]{2,}))+/u",$fieldValue);
     }
     
@@ -70,6 +73,9 @@ class EmailTester extends DefaultValidationTester{
     public $type = VU::EMAIL;
     
     public function validate($validationRule, $fieldName, $fieldValue, $object){
+                if($fieldValue==null)
+            return true;
+
         return filter_var($fieldValue, FILTER_VALIDATE_EMAIL);
     }
     
@@ -85,6 +91,9 @@ class URLTester extends DefaultValidationTester{
     public $type = VU::URL;
     
     public function validate($validationRule, $fieldName, $fieldValue, $object){
+                if($fieldValue==null)
+            return true;
+
         return filter_var($fieldValue, FILTER_VALIDATE_URL);
     }
     
@@ -100,7 +109,9 @@ class PasswordTester extends DefaultValidationTester{
     public $type = VU::PASSWORD;
     
     public function validate($validationRule, $fieldName, $fieldValue, $object){
-       
+               if($fieldValue==null)
+            return true;
+
          return preg_match("/^[a-zA-Z0-9.!]{4,}$/",$fieldValue);
         
     }
@@ -119,7 +130,9 @@ class RegexTester extends DefaultValidationTester{
     public $type = VU::REGEX;
     
     public function validate($validationRule, $fieldName, $fieldValue, $object){
-        
+                if($fieldValue==null)
+            return true;
+
         $regex = $validationRule->conditions;
         
         $regexRule = "/^{$regex}$/";
@@ -144,7 +157,9 @@ class NotDuplicate extends DefaultValidationTester{
     public $type = VU::NOT_DUPLICATED;
     
     public function validate($validationRule, $fieldName, $fieldValue, $object){
-        
+                if($fieldValue==null)
+            return true;
+
         $result = $object->isFieldValueDuplicated($fieldName);
         
         return !$result;
@@ -163,7 +178,9 @@ class LengthTester extends DefaultValidationTester{
     public $type = VU::LENGTH;
     
     public function validate($validationRule, $fieldName, $fieldValue, $object){
-        
+                if($fieldValue==null)
+            return true;
+
         $length = strlen($fieldValue);
         
 //        if($fieldValue == null || empty($fieldValue))

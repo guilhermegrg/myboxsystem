@@ -21,6 +21,9 @@ include "discount_create_process.php";
 //$rule = Discount::getHTMLValidationRule("name");
 //var_dump($rule);
 ?>
+ 
+ <h4>Create Discount</h4>
+ 
   
     <?php displayMessages(); ?>
 <?php 
@@ -34,8 +37,7 @@ include "discount_create_process.php";
 
 ?>
 
-<h4>Create Discount</h4>
- 
+
   <form action="discount_create_view.php" method="post" >
    
     <div class="form-group">

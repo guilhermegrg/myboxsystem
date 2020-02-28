@@ -49,10 +49,13 @@
   </div>
 </div>
    
-   
+   <h4>Users</h4>
      
    
    <?php  include "pagination.php"; ?>
+   
+    <div class="row">
+   <div class="col mr-auto">
    <?php   
 
         $totalPages = User::getTotalPages();
@@ -60,7 +63,11 @@
         $page = Pagination::show("User");
 
     ?>
-   
+   </div>
+    <div class="col ml-auto text-right">
+        <a href="user_create_view.php" class="btn btn-primary text-white">Create new User</a>
+    </div>
+    </div>
    
    
    

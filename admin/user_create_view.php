@@ -12,9 +12,11 @@ include "user_create_process.php";
 //echo "active: " . $active;
 ?>
 
+    <h4>Create User</h4>
+
   <?php displayMessages(); ?>
   
-  <h4>Create Discount</h4>
+  
 
   <form action="user_create_view.php" method="post" >
    
@@ -57,6 +59,7 @@ include "user_create_process.php";
     </div>
     
     <div class="form-group">
+       <a href="user_read_list_view.php" class="btn btn-secondary text-white">Cancel</a>
         <input type="submit" class="btn btn-primary" name="create" value="Create">
     </div>
 

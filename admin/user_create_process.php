@@ -30,7 +30,7 @@
         
         //todo check for uniqueness of name
         
-        var_dump($errors);
+//        var_dump($errors);
 
 
         
@@ -50,7 +50,7 @@
 //        echo "No error!<br>";
 //            $active= ($active=="on"?1:0);
             
-           $id = $user.save();
+           $id = $user->save();
             
 //           cleanFormValues("DISCOUNT");
             

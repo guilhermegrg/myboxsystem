@@ -12,9 +12,11 @@ include "discount_edit_process.php";
 //echo "active: " . $active;
 ?>
 
+<h4>Edit Discount</h4>
+
   <?php displayMessages(); ?>
 
-    <h4>Edit Discount</h4>
+    
 
   <form action="discount_edit_view.php" method="post" >
    
@@ -27,7 +29,7 @@ include "discount_edit_process.php";
    
     <div class="form-group">
         <label for="name">Name:</label>
-        <input type="text" class="form-control <?php echo isValid("DISCOUNT","name")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $discount->name; ?>" >
+        <input type="text" class="form-control <?php echo isValid("DISCOUNT","name")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $discount->name; ?>"  <?php echo Discount::getHTMLValidationRule("name"); ?> >
         <div class="invalid-feedback">
           <?php echo getFormValidationField("DISCOUNT","name"); ?>
         </div>
@@ -35,7 +37,7 @@ include "discount_edit_process.php";
 
     <div class="form-group">
         <label for="value">Value:</label>
-        <input type="text" class="form-control <?php echo isValid("DISCOUNT","value")?"":"is-invalid";?>" name="value" placeholder="Enter the value or percentage"  value="<?php echo $discount->value; ?>" >
+        <input type="text" class="form-control <?php echo isValid("DISCOUNT","value")?"":"is-invalid";?>" name="value" placeholder="Enter the value or percentage"  value="<?php echo $discount->value; ?>"  <?php echo Discount::getHTMLValidationRule("value"); ?>>
         <div class="invalid-feedback">
           <?php echo getFormValidationField("DISCOUNT","value"); ?>
         </div>

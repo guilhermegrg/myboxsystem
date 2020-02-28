@@ -11,6 +11,8 @@ include "user_edit_process.php";
 //var_dump($_SESSION);
 //echo "active: " . $active;
 ?>
+  
+  <h4>Edit User</h4>
 
   <?php displayMessages(); ?>
 
@@ -25,7 +27,7 @@ include "user_edit_process.php";
    
    <div class="form-group">
         <label for="name">Name:</label>
-        <input type="text" class="form-control <?php echo isValid("USER","name")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $name; ?>" pattern="([\p{L}]{2,})([ ]+([\p{L}]{2,}))+"  title="More than 3 letters. No spaces!" required>
+        <input type="text" class="form-control <?php echo isValid("USER","name")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $user->name; ?>" <?php echo User::getHTMLValidationRule("name"); ?>>
         <div class="invalid-feedback">
           <?php echo getFormValidationField("USER","name"); ?>
         </div>
@@ -33,7 +35,7 @@ include "user_edit_process.php";
 
     <div class="form-group">
         <label for="value">Email:</label>
-        <input type="email" class="form-control <?php echo isValid("USER","email")?"":"is-invalid";?>" name="email" placeholder="Enter the email"  value="<?php echo $email; ?>" pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])" title="A valid email account" required>
+        <input type="email" class="form-control <?php echo isValid("USER","email")?"":"is-invalid";?>" name="email" placeholder="Enter the email"  value="<?php echo $user->email; ?>"  <?php echo User::getHTMLValidationRule("email"); ?> >
         <div class="invalid-feedback">
           <?php echo getFormValidationField("USER","email"); ?>
         </div>
@@ -42,7 +44,7 @@ include "user_edit_process.php";
     
     <div class="form-group">
         <label for="value">Mobile:</label>
-        <input type="text" class="form-control <?php echo isValid("USER","mobile")?"":"is-invalid";?>" name="mobile" placeholder="Enter the mobile"  value="<?php echo $mobile; ?>" pattern="[0-9]{9,}" title="a valid mobile phone number" required>
+        <input type="text" class="form-control <?php echo isValid("USER","mobile")?"":"is-invalid";?>" name="mobile" placeholder="Enter the mobile"  value="<?php echo $user->mobile; ?>"  <?php echo User::getHTMLValidationRule("mobile"); ?> >
         <div class="invalid-feedback">
           <?php echo getFormValidationField("USER","mobile"); ?>
         </div>
@@ -50,18 +52,19 @@ include "user_edit_process.php";
     
     <div class="form-group">
         <label for="value">Birthday:</label>
-        <input type="date" class="form-control <?php echo isValid("USER","birthday")?"":"is-invalid";?>" name="birthday" placeholder="Enter the birthdate" value="<?php echo $birthday; ?>" required>
+        <input type="date" class="form-control <?php echo isValid("USER","birthday")?"":"is-invalid";?>" name="birthday" placeholder="Enter the birthdate" value="<?php echo $user->birthday; ?>"  <?php echo User::getHTMLValidationRule("birthday"); ?> >
         <div class="invalid-feedback">
           <?php echo getFormValidationField("USER","birthday"); ?>
         </div>
     </div>
     
     <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" name="active" <?php  echo $active == "on"? "checked":"";?>>
-        <label for="active" class="form-check-label" >Active:</label>
+        <input type="checkbox" class="form-check-input" name="active" <?php  echo $user->active? "checked":"";?>>
+        <label for="active" class="form-check-label" >Active</label>
     </div>
     
     <div class="form-group">
+       <a href="user_read_list_view.php" class="btn btn-secondary text-white">Cancel</a>
         <input type="submit" class="btn btn-primary" name="edit" value="Save">
     </div>
 

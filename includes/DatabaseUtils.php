@@ -289,7 +289,7 @@ class DBU {
        public static function getFirstResultLike($tablename, $fieldname, $fieldValue){
         $conn = Database::getConnection();
         $stmt = $conn->prepare("SELECT * FROM {$tablename} WHERE {$fieldname} LIKE :{$fieldname}");
-        $stmt->bindValue(":{$fieldname}","%".$fieldValue."%");
+        $stmt->bindValue(":{$fieldname}",$fieldValue);
         $out = $stmt->execute();
         $result = $stmt->fetch();
 //        var_dump($result);
