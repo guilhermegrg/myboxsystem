@@ -122,9 +122,10 @@ class Model {
 //        echo "Calling class: $classname<br>";
 //        echo "ID: $id<br>";
 //        echo "Table: $tablename<br>";
+        $query = Model::getSelectQuery($class);
 
         
-        return DBU::getClassObjectById($tablename,$id, $classname);
+        return DBU::getClassObjectById($query,$tablename, $id, $classname);
     }
  
   
@@ -161,8 +162,10 @@ class Model {
         $classname = get_called_class();
         $class = new ReflectionClass($classname);
         $tablename = RU::getTableName($class);
+        
+        $query = Model::getSelectQuery($class);
 
-        return DBU::getPageItemsAssocArray($tablename,$page);
+        return DBU::getPageItemsAssocArray($query,$page);
     }
     
     
@@ -171,25 +174,32 @@ class Model {
         $class = new ReflectionClass($classname);
         $tablename = RU::getTableName($class);
         
-        return DBU::getFirstResultLike($tablename, $fieldName, $fieldValue);
+        $query = Model::getSelectQuery($class);
+        
+        return DBU::getFirstResultLike($query, $tablename .'.'. $fieldName, $fieldValue);
     }
     
     public function getRowLikeField($fieldName){
         $class = new ReflectionClass(get_class($this));
-
+        $tablename = RU::getTableName($class);
+        
         $prop = $class->getProperty($fieldName);
         $fieldValue = $prop->getValue($this);
         
-        return static::getFirstResultLike($fieldName,$fieldValue);
+        $query = Model::getSelectQuery($class);
+        
+        return static::getFirstResultLike($query, $tablename.'.'.$fieldName,$fieldValue);
     }
     
     
-    public static function isFieldDuplicated($id, $fieldname, $fieldValue){
+    public static function isFieldDuplicated($id, $fieldName, $fieldValue){
         $classname = get_called_class();
         $class = new ReflectionClass($classname);
         $tablename = RU::getTableName($class);
         
-        return DBU::isDuplicateField($id, $tablename, $fieldname, $fieldValue);
+        $query = Model::getSelectQuery($class);
+        
+        return DBU::isDuplicateField($id, $query, $tablename.'.'.$fieldName, $fieldValue);
     }
     
     

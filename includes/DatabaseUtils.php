@@ -181,9 +181,9 @@ class DBU {
     
     
     
-       public static function getAssocById($tablename, $id){
+       public static function getAssocById($query, $tablename, $id){
         $conn = Database::getConnection();
-        $stmt = $conn->prepare("SELECT * FROM {$tablename} WHERE id=:id");
+        $stmt = $conn->prepare("{$query} WHERE {$tablename}.id=:id");
         $stmt->bindValue(":id",$id,PDO::PARAM_INT);
         $out = $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -192,14 +192,19 @@ class DBU {
            
     }
 
-      public static function getClassObjectById($tablename, $id, $classname){
+      public static function getClassObjectById($query, $tablename, $id, $classname){
         $conn = Database::getConnection();
-        $stmt = $conn->prepare("SELECT * FROM {$tablename} WHERE id=:id");
+        $stmt = $conn->prepare("{$query} WHERE {$tablename}.id=:id");
         $stmt->bindValue(":id",$id,PDO::PARAM_INT);
         $out = $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, $classname);
         $object = $stmt->fetch();
 
+          echo "<br>";
+          var_dump($object);
+          echo "<br>";
+          
+          
         return $object;
            
     }
@@ -259,7 +264,7 @@ class DBU {
         return $objectArray;
     }
     
-    public static function getPageItemsAssocArray($tablename, $page){
+    public static function getPageItemsAssocArray($query, $page){
         
         $conn = Database::getConnection();
         
@@ -270,7 +275,7 @@ class DBU {
 //        echo "index: $index <br>";
 //        echo "items: $items <br>";
         
-        $stmt = $conn->prepare("SELECT * FROM {$tablename} LIMIT :index, :items");
+        $stmt = $conn->prepare("{$query} LIMIT :index, :items");
 //        $stmt->bindValue("itemsPerPage",$items);
 //        var_dump($stmt);
 //        $stmt->bindValue(':index',0, PDO::PARAM_INT);
@@ -288,10 +293,15 @@ class DBU {
     }
     
     
-       public static function getFirstResultLike($tablename, $fieldname, $fieldValue){
+       public static function getFirstResultLike($query, $fieldname, $fieldValue){
         $conn = Database::getConnection();
-        $stmt = $conn->prepare("SELECT * FROM {$tablename} WHERE {$fieldname} LIKE :{$fieldname}");
-        $stmt->bindValue(":{$fieldname}",$fieldValue);
+           
+        $expression = "{$query} WHERE {$fieldname} LIKE :fieldvalue";
+           
+//        echo "<br><br>Query Like for duplicates: <br>$expression <br><br> ";
+           
+        $stmt = $conn->prepare($expression);
+        $stmt->bindValue(":fieldvalue",$fieldValue);
         $out = $stmt->execute();
         $result = $stmt->fetch();
 //        var_dump($result);
@@ -303,12 +313,12 @@ class DBU {
     
 
     
-    public static function isDuplicateField($id, $tablename, $fieldname, $fieldValue){
+    public static function isDuplicateField($id, $query, $fieldname, $fieldValue){
         
 //        echo "id = $id table: $tablename Field: $fieldname Value: $fieldValue<br>";
         
         
-        $result = DBU::getFirstResultLike($tablename, $fieldname, $fieldValue);
+        $result = DBU::getFirstResultLike($query, $fieldname, $fieldValue);
         
         if($result == null || empty($result) || count($result) == 0)
             return false;

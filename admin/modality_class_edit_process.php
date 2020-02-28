@@ -68,8 +68,8 @@
             $class->save();
 //           cleanFormValues("DISCOUNT");
             
-           setSuccess("Updated payment method Nº " . $id); 
-           send("modality_class_read_list_view.php"); 
+           setSuccess("Updated payment method Nº " . $class->id); 
+            send("modality_class_read_list_view.php"); 
             exit;
         }
         
