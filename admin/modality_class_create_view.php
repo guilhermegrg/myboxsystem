@@ -49,6 +49,27 @@ include "modality_class_create_process.php";
         </div>
     </div>
 
+       <div class="form-group">
+        <label for="modality">Modality:</label>
+        <select class="form-control" id="modality" name="modality_id">
+        <?php $mods = Modality::getPageObjects(1); 
+            
+            foreach($mods as $modality){
+                $selected ="";
+                if($modality->id == $class->modality_id)
+                    $selected = "selected";
+                
+                echo "<option $selected value={$modality->id} >{$modality->name}</option>";
+            };
+        ?>
+        </select>
+<!--        <input type="text" class="form-control <?php echo isValid("MODALITY_CLASS","name")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $class->name; ?>" <?php echo ModalityClass::getHTMLValidationRule("name"); ?> >-->
+<!--        pattern="[A-Za-z]{4,}"  title="More than 3 letters. No spaces!" required-->
+        <div class="invalid-feedback">
+          <?php echo getFormValidationField("MODALITY_CLASS","modality"); ?>
+        </div>
+    </div>
+   
     <div class="form-group">
         <label for="value">URL Name:</label>
         <input type="text" class="form-control <?php echo isValid("MODALITY_CLASS","urlName")?"":"is-invalid";?>" name="urlName" placeholder="Enter a one word name to use in the URL for this schedule"  value="<?php echo $class->urlName; ?>" <?php echo ModalityClass::getHTMLValidationRule("urlName"); ?>>
