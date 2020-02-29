@@ -12,9 +12,15 @@
 //        var_dump($post);
         
         ${{ singleObjectVariableName }} = new {{ className }}();
-        ${{ singleObjectVariableName }}->name = $post["name"];
-        ${{ singleObjectVariableName }}->title = $post["title"];
-        ${{ singleObjectVariableName }}->content = $post["content"];
+
+        {% for fieldname, type in createFields %}
+${{ singleObjectVariableName }}->{{ fieldname }} = $post["{{ fieldname }}"];
+        {% endfor %}
+         
+        
+//        ${{ singleObjectVariableName }}->name = $post["name"];
+//        ${{ singleObjectVariableName }}->title = $post["title"];
+//        ${{ singleObjectVariableName }}->content = $post["content"];
         
 //        if(isset($post['active']))
 //            $paymentMethod->active = ($post["active"]=="on");

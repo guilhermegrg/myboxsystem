@@ -9,23 +9,26 @@
         
         $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 //        var_dump($post);
-        $id = $post["id"];
-        $name = $post["name"];
-        $title = $post["title"];
-        $content = $post["content"];
-        
         
         $sms = new SMSTemplate();
+        
+        $sms->name = $post["name"];
+        $sms->content = $post["content"];
+        $sms->id = $post["id"];
+                
+//        $id = $post["id"];
+//        $name = $post["name"];
+//        $title = $post["title"];
+//        $content = $post["content"];
+        
+        
+        
         
 //        if(isset($post['active']))
 //            $paymentMethod->active = ($post["active"] == "on");
 //        else
 //            $paymentMethod->active = false;
 
-        $sms->id = $id;
-        $sms->name = $name;
-        $sms->title = $title;
-        $sms->content = $content;
         
         
         $errors = $sms->validate();

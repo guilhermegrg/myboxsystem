@@ -27,30 +27,33 @@ include "sms_template_edit_process.php";
     </div>
    
    
-    <div class="form-group">
+     
+
+<div class="form-group">
         <label for="name">Name:</label>
         <input type="text" class="form-control <?php echo isValid("SMS_TEMPLATE","name")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $sms->name; ?>" <?php echo SMSTemplate::getHTMLValidationRule("name"); ?> >
-<!--        pattern="[A-Za-z]{4,}"  title="More than 3 letters. No spaces!" required-->
         <div class="invalid-feedback">
           <?php echo getFormValidationField("SMS_TEMPLATE","name"); ?>
         </div>
-    </div>
+</div>
 
-    <div class="form-group">
-        <label for="value">Title:</label>
-        <input type="text" class="form-control <?php echo isValid("SMS_TEMPLATE","title")?"":"is-invalid";?>" name="title" placeholder="Enter the title"  value="<?php echo $sms->title; ?>" <?php echo SMSTemplate::getHTMLValidationRule("title"); ?>>
-        <div class="invalid-feedback">
-          <?php echo getFormValidationField("SMS_TEMPLATE","title"); ?>
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <label for="value">Content:</label>
-        <input type="text" class="form-control <?php echo isValid("SMS_TEMPLATE","content")?"":"is-invalid";?>" name="content" placeholder="Enter the content"  value="<?php echo $sms->content; ?>" <?php echo SMSTemplate::getHTMLValidationRule("content"); ?>>
+
+<div class="form-group">
+        <label for="content">Content:</label>
+        <input type="text" class="form-control <?php echo isValid("SMS_TEMPLATE","content")?"":"is-invalid";?>" name="content" placeholder="Enter the content" value="<?php echo $sms->content; ?>" <?php echo SMSTemplate::getHTMLValidationRule("content"); ?> >
         <div class="invalid-feedback">
           <?php echo getFormValidationField("SMS_TEMPLATE","content"); ?>
         </div>
-    </div>
+</div>
+
+
+
+
+
+
+
+
+
     
     <div class="form-group">
        <a href="sms_template_read_list_view.php" class="btn btn-secondary text-white">Cancel</a>
@@ -64,13 +67,6 @@ include "sms_template_edit_process.php";
 <?php cleanFormValidation("SMS_TEMPLATE"); ?>
    
 
-   
-    
-    
-    
-    
-    
-    
     
     
 <?php include "admin-footer.php"; ?>

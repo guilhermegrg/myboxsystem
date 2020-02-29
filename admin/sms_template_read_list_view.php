@@ -80,8 +80,11 @@
        <thead class="thead-dark">
            <tr>
            <th>#</th>
-           <th>Name</th>
-           <th>Title</th>
+           
+                          <th>#</th>
+                           <th>Name</th>
+                           <th>Content</th>
+                       
            <th>Actions</th>
            </tr>
        </thead>
@@ -95,9 +98,10 @@
            foreach($smsTemplates as $sms): ?>
                
                <tr>
-                   <td><?php echo  $sms->id;?> </td>
+                   <td><?php echo  $sms->id;?></td>
                    <td><?php echo  $sms->name;?></td>
-                   <td><?php echo  $sms->title;?></td>
+                   <td><?php echo  $sms->content;?></td>
+                                      
                    <td>
                       <a  class="btn btn-primary btn-sm" href="sms_template_edit_view.php?edit=<?php echo  $sms->id;?>" >Edit</a>
                       <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdrop" data-id="<?php echo  $sms->id;?>">

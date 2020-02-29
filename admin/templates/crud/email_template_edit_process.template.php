@@ -9,23 +9,26 @@
         
         $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 //        var_dump($post);
-        $id = $post["id"];
-        $name = $post["name"];
-        $title = $post["title"];
-        $content = $post["content"];
-        
         
         ${{ singleObjectVariableName }} = new {{ className }}();
+        
+        {% for fieldname, type in fields %}
+${{ singleObjectVariableName }}->{{ fieldname }} = $post["{{ fieldname }}"];
+        {% endfor %}
+        
+//        $id = $post["id"];
+//        $name = $post["name"];
+//        $title = $post["title"];
+//        $content = $post["content"];
+        
+        
+        
         
 //        if(isset($post['active']))
 //            $paymentMethod->active = ($post["active"] == "on");
 //        else
 //            $paymentMethod->active = false;
 
-        ${{ singleObjectVariableName }}->id = $id;
-        ${{ singleObjectVariableName }}->name = $name;
-        ${{ singleObjectVariableName }}->title = $title;
-        ${{ singleObjectVariableName }}->content = $content;
         
         
         $errors = ${{ singleObjectVariableName }}->validate();

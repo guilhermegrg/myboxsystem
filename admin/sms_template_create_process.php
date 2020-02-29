@@ -12,9 +12,14 @@
 //        var_dump($post);
         
         $sms = new SMSTemplate();
+
         $sms->name = $post["name"];
-        $sms->title = $post["title"];
         $sms->content = $post["content"];
+                 
+        
+//        $sms->name = $post["name"];
+//        $sms->title = $post["title"];
+//        $sms->content = $post["content"];
         
 //        if(isset($post['active']))
 //            $paymentMethod->active = ($post["active"]=="on");

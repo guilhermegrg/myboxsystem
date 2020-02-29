@@ -57,6 +57,32 @@ class RU{
         return trim($type);
     }
     
+    public static function getOnlyCreateFields($class){
+        $props = RU::getPropertiesAndTypesArray($class);
+        $exceptions = RU::getSQLCRUDExceptions($class);
+        
+//       var_dump($exceptions);
+        
+        $result = [];
+        foreach($props as $key => $value){
+            if(array_key_exists($key, $exceptions)){
+                
+//                echo "<br><br>IN ARRAY <br><br>";
+                
+                $exception = $exceptions[$key];
+                
+                 
+                
+                if($exception != null && in_array('INSERT',$exception))
+                    continue;
+            }
+            
+            $result[$key] = $value;
+        }
+        
+        return $result;
+    }
+    
     public static function getSQLCRUDExceptions($class){
         $instructions = [];
         $count = 0;

@@ -80,8 +80,11 @@
        <thead class="thead-dark">
            <tr>
            <th>#</th>
-           <th>Name</th>
-           <th>Title</th>
+           
+           {% for tableName, fieldName in tableFields %}
+               <th>{{ tableName }}</th>
+            {% endfor %}
+           
            <th>Actions</th>
            </tr>
        </thead>
@@ -95,9 +98,10 @@
            foreach(${{ listVariableName }} as ${{ singleObjectVariableName }}): ?>
                
                <tr>
-                   <td><?php echo  ${{ singleObjectVariableName }}->id;?> </td>
-                   <td><?php echo  ${{ singleObjectVariableName }}->name;?></td>
-                   <td><?php echo  ${{ singleObjectVariableName }}->title;?></td>
+                   {% for tableName, fieldName in tableFields %}
+<td><?php echo  ${{ singleObjectVariableName }}->{{ fieldName }};?></td>
+                   {% endfor %}
+                   
                    <td>
                       <a  class="btn btn-primary btn-sm" href="{{ filePrefix }}_edit_view.php?edit=<?php echo  ${{ singleObjectVariableName }}->id;?>" >Edit</a>
                       <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdrop" data-id="<?php echo  ${{ singleObjectVariableName }}->id;?>">
