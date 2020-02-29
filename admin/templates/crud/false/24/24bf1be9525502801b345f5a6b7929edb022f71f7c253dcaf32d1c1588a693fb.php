@@ -54,13 +54,24 @@ class __TwigTemplate_68ee56fbff2ec4d3c69b3a80a3234abd8b0d96cdb9c35706510660b6bc5
         }
         foreach ($context['_seq'] as $context["formFieldName"] => $context["fieldName"]) {
             // line 3
-            echo "
+            if (twig_in_filter($context["fieldName"], twig_get_array_keys_filter(($context["fields"] ?? null)))) {
+                // line 4
+                $context["foo"] = (($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 = ($context["fields"] ?? null)) && is_array($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4) || $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 instanceof ArrayAccess ? ($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4[$context["fieldName"]] ?? null) : null);
+                // line 5
+                if (twig_in_filter("VARCHAR", ($context["foo"] ?? null))) {
+                    // line 6
+                    echo twig_include($this->env, $context, "simpleTextField.php");
+                    echo "
 ";
-            // line 4
-            echo twig_include($this->env, $context, "simpleTextField.php");
-            echo "
-
+                }
+                // line 8
+                if (twig_in_filter("BOOLEAN", ($context["foo"] ?? null))) {
+                    // line 9
+                    echo twig_include($this->env, $context, "simpleBooleanField.php");
+                    echo "
 ";
+                }
+            }
             ++$context['loop']['index0'];
             ++$context['loop']['index'];
             $context['loop']['first'] = false;
@@ -73,13 +84,8 @@ class __TwigTemplate_68ee56fbff2ec4d3c69b3a80a3234abd8b0d96cdb9c35706510660b6bc5
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['formFieldName'], $context['fieldName'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 7
+        // line 13
         echo "
-
-
-
-
-
 
 ";
     }
@@ -96,7 +102,7 @@ class __TwigTemplate_68ee56fbff2ec4d3c69b3a80a3234abd8b0d96cdb9c35706510660b6bc5
 
     public function getDebugInfo()
     {
-        return array (  77 => 7,  60 => 4,  57 => 3,  40 => 2,  37 => 1,);
+        return array (  88 => 13,  70 => 9,  68 => 8,  63 => 6,  61 => 5,  59 => 4,  57 => 3,  40 => 2,  37 => 1,);
     }
 
     public function getSourceContext()

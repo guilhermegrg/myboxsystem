@@ -79,8 +79,6 @@
    <table class="table table-hover table-bordered table-striped">
        <thead class="thead-dark">
            <tr>
-           <th>#</th>
-           
                           <th>#</th>
                            <th>Name</th>
                            <th>Content</th>

@@ -144,14 +144,12 @@ class __TwigTemplate_f03c41349a19700b95f019faa17a60168821576846958248c277ce118d4
    <table class=\"table table-hover table-bordered table-striped\">
        <thead class=\"thead-dark\">
            <tr>
-           <th>#</th>
-           
            ";
-        // line 84
+        // line 82
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(($context["tableFields"] ?? null));
         foreach ($context['_seq'] as $context["tableName"] => $context["fieldName"]) {
-            // line 85
+            // line 83
             echo "               <th>";
             echo twig_escape_filter($this->env, $context["tableName"], "html", null, true);
             echo "</th>
@@ -160,7 +158,7 @@ class __TwigTemplate_f03c41349a19700b95f019faa17a60168821576846958248c277ce118d4
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['tableName'], $context['fieldName'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 87
+        // line 85
         echo "           
            <th>Actions</th>
            </tr>
@@ -171,14 +169,14 @@ class __TwigTemplate_f03c41349a19700b95f019faa17a60168821576846958248c277ce118d4
            
 
            \$";
-        // line 96
+        // line 94
         echo twig_escape_filter($this->env, ($context["listVariableName"] ?? null), "html", null, true);
         echo " = ";
         echo twig_escape_filter($this->env, ($context["className"] ?? null), "html", null, true);
         echo "::getPageObjects(\$page);
            
            foreach(\$";
-        // line 98
+        // line 96
         echo twig_escape_filter($this->env, ($context["listVariableName"] ?? null), "html", null, true);
         echo " as \$";
         echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
@@ -186,11 +184,11 @@ class __TwigTemplate_f03c41349a19700b95f019faa17a60168821576846958248c277ce118d4
                
                <tr>
                    ";
-        // line 101
+        // line 99
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(($context["tableFields"] ?? null));
         foreach ($context['_seq'] as $context["tableName"] => $context["fieldName"]) {
-            // line 102
+            // line 100
             echo "<td><?php echo  \$";
             echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
             echo "->";
@@ -201,17 +199,17 @@ class __TwigTemplate_f03c41349a19700b95f019faa17a60168821576846958248c277ce118d4
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['tableName'], $context['fieldName'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 104
+        // line 102
         echo "                   
                    <td>
                       <a  class=\"btn btn-primary btn-sm\" href=\"";
-        // line 106
+        // line 104
         echo twig_escape_filter($this->env, ($context["filePrefix"] ?? null), "html", null, true);
         echo "_edit_view.php?edit=<?php echo  \$";
         echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
         echo "->id;?>\" >Edit</a>
                       <button type=\"button\" class=\"btn btn-danger btn-sm\" data-toggle=\"modal\" data-target=\"#staticBackdrop\" data-id=\"<?php echo  \$";
-        // line 107
+        // line 105
         echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
         echo "->id;?>\">
                       Delete
@@ -237,7 +235,7 @@ class __TwigTemplate_f03c41349a19700b95f019faa17a60168821576846958248c277ce118d4
    
     <?php   
         Pagination::show(\"";
-        // line 130
+        // line 128
         echo twig_escape_filter($this->env, ($context["className"] ?? null), "html", null, true);
         echo "\");
     ?>
@@ -293,7 +291,7 @@ class __TwigTemplate_f03c41349a19700b95f019faa17a60168821576846958248c277ce118d4
 
     public function getDebugInfo()
     {
-        return array (  241 => 130,  215 => 107,  209 => 106,  205 => 104,  194 => 102,  190 => 101,  182 => 98,  175 => 96,  164 => 87,  155 => 85,  151 => 84,  132 => 70,  124 => 65,  119 => 63,  106 => 53,  92 => 42,  70 => 23,  65 => 21,  61 => 20,  42 => 4,  37 => 1,);
+        return array (  239 => 128,  213 => 105,  207 => 104,  203 => 102,  192 => 100,  188 => 99,  180 => 96,  173 => 94,  162 => 85,  153 => 83,  149 => 82,  132 => 70,  124 => 65,  119 => 63,  106 => 53,  92 => 42,  70 => 23,  65 => 21,  61 => 20,  42 => 4,  37 => 1,);
     }
 
     public function getSourceContext()
