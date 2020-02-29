@@ -4,6 +4,8 @@
 <?php include_once("Modality.php"); ?>
 <?php include_once("ModalityClass.php"); ?>
 <?php include_once("EmailMessageTemplate.php"); ?>
+<?php include_once("SMSTemplate.php"); ?>
+
 
 <?php
 
@@ -13,6 +15,7 @@
 //Modality::create();
 //ModalityClass::create();
 //EmailMessageTemplate::create();
+//SMSTemplate::create();
 
 
 ?>
