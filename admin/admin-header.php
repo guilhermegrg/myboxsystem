@@ -38,6 +38,9 @@
                   <li class="nav-item dropdown">
                       <a href="modality_class_read_list_view.php" class="nav-link">Classes</a>
                   </li>
+                  <li class="nav-item dropdown">
+                      <a href="email_template_read_list_view.php" class="nav-link">Email</a>
+                  </li>
 
 
               </ul>

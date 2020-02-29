@@ -34,7 +34,7 @@ class DBU {
         $columns = substr($columns,0,$length);
         
         $query ="CREATE TABLE `{$tablename}` (" . $columns . ")";
-//        var_dump($query);
+        var_dump($query);
         
         $conn = Database::getConnection();
         $result = $conn->exec($query);

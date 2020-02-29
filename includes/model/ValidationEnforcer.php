@@ -297,8 +297,12 @@ class VE {
 //        $class = new ReflectionClass(get_class($object));
         $vals = VU::getValidations($class);
         
+        if(!array_key_exists($fieldName,$vals))
+            return $html;
+        
         $rules = $vals[$fieldName];
         
+        if(isset($rules) && is_array($rules) && !empty($rules) )
         foreach($rules as $rule){
             $tester = VE::getTester($rule->type);
             
