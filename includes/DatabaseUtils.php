@@ -15,12 +15,21 @@ class DBU {
 //  `active` tinyint(1) NOT NULL DEFAULT 0
 //) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     
-    public static function create($tablename,$fields){
+    public static function create($tablename,$fields,$sqlExceptions){
         
         
         $columns = "";
         
         foreach($fields as $name=>$type){
+            
+            
+            $exceptions = $sqlExceptions[$name];
+            if($exceptions != null){
+                if(in_array("CREATE",$exceptions)){
+                    continue;
+                }
+            }
+            
             
             $columns.= "`{$name}` {$type}, ";
 

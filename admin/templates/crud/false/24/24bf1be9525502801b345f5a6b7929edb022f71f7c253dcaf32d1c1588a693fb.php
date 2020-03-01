@@ -65,8 +65,15 @@ class __TwigTemplate_68ee56fbff2ec4d3c69b3a80a3234abd8b0d96cdb9c35706510660b6bc5
 ";
                 }
                 // line 8
-                if (twig_in_filter("BOOLEAN", twig_upper_filter($this->env, ($context["foo"] ?? null)))) {
+                if (twig_in_filter("DOUBLE", twig_upper_filter($this->env, ($context["foo"] ?? null)))) {
                     // line 9
+                    echo twig_include($this->env, $context, "simpleTextField.php");
+                    echo "
+";
+                }
+                // line 11
+                if (twig_in_filter("BOOLEAN", twig_upper_filter($this->env, ($context["foo"] ?? null)))) {
+                    // line 12
                     echo twig_include($this->env, $context, "simpleBooleanField.php");
                     echo "
 ";
@@ -84,7 +91,7 @@ class __TwigTemplate_68ee56fbff2ec4d3c69b3a80a3234abd8b0d96cdb9c35706510660b6bc5
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['formFieldName'], $context['fieldName'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 13
+        // line 16
         echo "
 
 ";
@@ -102,7 +109,7 @@ class __TwigTemplate_68ee56fbff2ec4d3c69b3a80a3234abd8b0d96cdb9c35706510660b6bc5
 
     public function getDebugInfo()
     {
-        return array (  88 => 13,  70 => 9,  68 => 8,  63 => 6,  61 => 5,  59 => 4,  57 => 3,  40 => 2,  37 => 1,);
+        return array (  95 => 16,  77 => 12,  75 => 11,  70 => 9,  68 => 8,  63 => 6,  61 => 5,  59 => 4,  57 => 3,  40 => 2,  37 => 1,);
     }
 
     public function getSourceContext()

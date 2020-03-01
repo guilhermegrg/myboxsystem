@@ -4,7 +4,7 @@
 
 /** 
 TABLE:  modality_classes
-CUSTOM_SELECT_QUERY: SELECT {tableName.fields}, modalities.name as modality_name FROM {tableName} LEFT JOIN modalities ON modality_classes.modality_id=modalities.id
+CUSTOM_SELECT_QUERY: SELECT {tableName.fields}, modalities.name as modality_name FROM {tableName} LEFT JOIN modalities ON {tableName}.modality_id=modalities.id
 */
 class ModalityClass extends Model {
     
@@ -44,7 +44,7 @@ class ModalityClass extends Model {
     
     
         /** 
-    NOT-USED: QUERY, INSERT, UPDATE
+    NOT-USED: CREATE, QUERY, INSERT, UPDATE
     */
     public $modality_name;
 

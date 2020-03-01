@@ -78,7 +78,7 @@ class Model {
     public static function create(){
         $classname = get_called_class();
         $class = new ReflectionClass($classname);
-        
+        $instructions = RU::getSQLCRUDExceptions($class);
         
        $array =  RU::getPropertiesAndTypesArray($class);
 //       var_dump($array);
@@ -86,7 +86,7 @@ class Model {
         
        $tablename = RU::getTableName($class);
 //        echo "Table: $tablename<br>";
-        DBU::create($tablename,$array);
+        DBU::create($tablename,$array, $instructions);
         
     }
     
