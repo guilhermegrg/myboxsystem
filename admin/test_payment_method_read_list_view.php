@@ -97,11 +97,15 @@
            foreach($paymentMethods as $paymentMethod): ?>
                
                <tr>
-                   <td><?php echo  $paymentMethod->id;?></td>
-                   <td><?php echo  $paymentMethod->active;?></td>
-                   <td><?php echo  $paymentMethod->name;?></td>
-                   <td><?php echo  $paymentMethod->instructions;?></td>
-                                      
+                  
+                    <td><?php echo  $paymentMethod->id;?></td>
+                    <td><?php echo $paymentMethod->active==1?"<i class='fas fa-check text-success'></i>":"<i class='fas fa-times text-danger'></i>";?></td>
+                    <td><?php echo  $paymentMethod->name;?></td>
+                    <td><?php echo  $paymentMethod->instructions;?></td>
+                  
+                  
+
+                   
                    <td>
                       <a  class="btn btn-primary btn-sm" href="test_payment_method_edit_view.php?edit=<?php echo  $paymentMethod->id;?>" >Edit</a>
                       <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdrop" data-id="<?php echo  $paymentMethod->id;?>">

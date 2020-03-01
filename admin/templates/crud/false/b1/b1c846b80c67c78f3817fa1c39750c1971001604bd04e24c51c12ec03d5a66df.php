@@ -57,51 +57,62 @@ class __TwigTemplate_96aa317120b37659e4653346bf013035320ab37785eda165b6e1799cba0
         echo twig_escape_filter($this->env, ($context["className"] ?? null), "html", null, true);
         echo "();
 
-        ";
+";
         // line 16
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(($context["createFields"] ?? null));
         foreach ($context['_seq'] as $context["fieldname"] => $context["type"]) {
             // line 17
-            echo "\$";
-            echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
-            echo "->";
-            echo twig_escape_filter($this->env, $context["fieldname"], "html", null, true);
-            echo " = \$post[\"";
-            echo twig_escape_filter($this->env, $context["fieldname"], "html", null, true);
-            echo "\"];
-        ";
+            if (twig_in_filter($context["fieldname"], twig_get_array_keys_filter(($context["fields"] ?? null)))) {
+                // line 18
+                $context["foo"] = (($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 = ($context["fields"] ?? null)) && is_array($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4) || $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 instanceof ArrayAccess ? ($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4[$context["fieldname"]] ?? null) : null);
+                // line 19
+                if (twig_in_filter("BOOLEAN", twig_upper_filter($this->env, ($context["foo"] ?? null)))) {
+                    // line 20
+                    echo "        if(isset(\$post['";
+                    echo twig_escape_filter($this->env, $context["fieldname"], "html", null, true);
+                    echo "']))
+            \$";
+                    // line 21
+                    echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
+                    echo "->";
+                    echo twig_escape_filter($this->env, $context["fieldname"], "html", null, true);
+                    echo " = (\$post[\"";
+                    echo twig_escape_filter($this->env, $context["fieldname"], "html", null, true);
+                    echo "\"]==\"on\");
+        else
+            \$";
+                    // line 23
+                    echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
+                    echo "->";
+                    echo twig_escape_filter($this->env, $context["fieldname"], "html", null, true);
+                    echo " = false;
+";
+                } else {
+                    // line 25
+                    echo "        \$";
+                    echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
+                    echo "->";
+                    echo twig_escape_filter($this->env, $context["fieldname"], "html", null, true);
+                    echo " = \$post[\"";
+                    echo twig_escape_filter($this->env, $context["fieldname"], "html", null, true);
+                    echo "\"];
+";
+                }
+            }
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['fieldname'], $context['type'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 19
-        echo "         
-        
-//        \$";
-        // line 21
-        echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
-        echo "->name = \$post[\"name\"];
-//        \$";
-        // line 22
-        echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
-        echo "->title = \$post[\"title\"];
-//        \$";
-        // line 23
-        echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
-        echo "->content = \$post[\"content\"];
-        
-//        if(isset(\$post['active']))
-//            \$paymentMethod->active = (\$post[\"active\"]==\"on\");
-//        else
-//            \$paymentMethod->active = false;
+        // line 29
+        echo "        
         
         
                 
 //        \$discount->import(\$post);
         
         \$errors = \$";
-        // line 34
+        // line 35
         echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
         echo "->validate();
         
@@ -116,7 +127,7 @@ class __TwigTemplate_96aa317120b37659e4653346bf013035320ab37785eda165b6e1799cba0
 //            echo \"sending back to form to revalidate!<br>\";
             setError(\"Please correct the form and submit again\");
             setFormValidation(\"";
-        // line 46
+        // line 47
         echo twig_escape_filter($this->env, ($context["validationTAG"] ?? null), "html", null, true);
         echo "\",\$errors);
             
@@ -126,23 +137,23 @@ class __TwigTemplate_96aa317120b37659e4653346bf013035320ab37785eda165b6e1799cba0
         }else{
         
         echo \"Creating ";
-        // line 53
+        // line 54
         echo twig_escape_filter($this->env, ($context["nameForMessages"] ?? null), "html", null, true);
         echo "!!<br>\";
 //            \$active= (\$active==\"on\"?1:0);
             
             \$";
-        // line 56
+        // line 57
         echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
         echo "->save();
             
             
            setSuccess(\"Created new ";
-        // line 59
+        // line 60
         echo twig_escape_filter($this->env, ($context["nameForMessages"] ?? null), "html", null, true);
         echo " Nº \" . \$id); 
            send(\"";
-        // line 60
+        // line 61
         echo twig_escape_filter($this->env, ($context["filePrefix"] ?? null), "html", null, true);
         echo "_read_list_view.php\"); 
             exit;
@@ -154,7 +165,7 @@ class __TwigTemplate_96aa317120b37659e4653346bf013035320ab37785eda165b6e1799cba0
 //    \$value=\"\";
 //    \$active=\"off\";
         \$";
-        // line 69
+        // line 70
         echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
         echo " = new ";
         echo twig_escape_filter($this->env, ($context["className"] ?? null), "html", null, true);
@@ -184,7 +195,7 @@ class __TwigTemplate_96aa317120b37659e4653346bf013035320ab37785eda165b6e1799cba0
 
     public function getDebugInfo()
     {
-        return array (  158 => 69,  146 => 60,  142 => 59,  136 => 56,  130 => 53,  120 => 46,  105 => 34,  91 => 23,  87 => 22,  83 => 21,  79 => 19,  66 => 17,  62 => 16,  55 => 14,  40 => 2,  37 => 1,);
+        return array (  169 => 70,  157 => 61,  153 => 60,  147 => 57,  141 => 54,  131 => 47,  116 => 35,  108 => 29,  93 => 25,  86 => 23,  77 => 21,  72 => 20,  70 => 19,  68 => 18,  66 => 17,  62 => 16,  55 => 14,  40 => 2,  37 => 1,);
     }
 
     public function getSourceContext()

@@ -13,25 +13,20 @@
         
         ${{ singleObjectVariableName }} = new {{ className }}();
 
-        {% for fieldname, type in createFields %}
-${{ singleObjectVariableName }}->{{ fieldname }} = $post["{{ fieldname }}"];
-        {% endfor %}
-         
-        if(isset($post['active']))
-            $modality->active = ($post["active"]=="on");
+{% for fieldname, type in createFields %}
+{% if fieldname in fields|keys %}
+{% set foo = fields[fieldname] %}
+{% if 'BOOLEAN' in foo|upper  %}
+        if(isset($post['{{ fieldname }}']))
+            ${{ singleObjectVariableName }}->{{ fieldname }} = ($post["{{ fieldname }}"]=="on");
         else
-            $modality->active = false;
+            ${{ singleObjectVariableName }}->{{ fieldname }} = false;
+{% else %}
+        ${{ singleObjectVariableName }}->{{ fieldname }} = $post["{{ fieldname }}"];
+{% endif %}
+{% endif %}
+{% endfor %}
         
-        
-        
-//        ${{ singleObjectVariableName }}->name = $post["name"];
-//        ${{ singleObjectVariableName }}->title = $post["title"];
-//        ${{ singleObjectVariableName }}->content = $post["content"];
-        
-//        if(isset($post['active']))
-//            $paymentMethod->active = ($post["active"]=="on");
-//        else
-//            $paymentMethod->active = false;
         
         
                 

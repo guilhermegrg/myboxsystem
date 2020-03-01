@@ -14,22 +14,11 @@
         
         $paymentMethod->name = $post["name"];
         $paymentMethod->instructions = $post["instructions"];
-        $paymentMethod->active = $post["active"];
+        if(isset($post['active']))
+            $paymentMethod->active = ($post["active"]=="on");
+        else
+            $paymentMethod->active = false;
         $paymentMethod->id = $post["id"];
-                
-//        $id = $post["id"];
-//        $name = $post["name"];
-//        $title = $post["title"];
-//        $content = $post["content"];
-        
-        
-        
-        
-//        if(isset($post['active']))
-//            $paymentMethod->active = ($post["active"] == "on");
-//        else
-//            $paymentMethod->active = false;
-
         
         
         $errors = $paymentMethod->validate();

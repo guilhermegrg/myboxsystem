@@ -96,9 +96,19 @@
            foreach(${{ listVariableName }} as ${{ singleObjectVariableName }}): ?>
                
                <tr>
-                   {% for tableName, fieldName in tableFields %}
-<td><?php echo  ${{ singleObjectVariableName }}->{{ fieldName }};?></td>
-                   {% endfor %}
+                  
+{% for tableName, fieldname in tableFields %}
+{% if fieldname in fields|keys %}
+{% set foo = fields[fieldname] %}
+{% if 'BOOLEAN' in foo|upper  %}
+                    <td><?php echo ${{ singleObjectVariableName }}->{{ fieldname }}==1?"<i class='fas fa-check text-success'></i>":"<i class='fas fa-times text-danger'></i>";?></td>
+{% else %}
+                    <td><?php echo  ${{ singleObjectVariableName }}->{{ fieldname }};?></td>
+{% endif %}
+{% endif %}
+{% endfor %}                  
+                  
+
                    
                    <td>
                       <a  class="btn btn-primary btn-sm" href="{{ filePrefix }}_edit_view.php?edit=<?php echo  ${{ singleObjectVariableName }}->id;?>" >Edit</a>

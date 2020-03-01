@@ -12,23 +12,19 @@
         
         ${{ singleObjectVariableName }} = new {{ className }}();
         
-        {% for fieldname, type in fields %}
-${{ singleObjectVariableName }}->{{ fieldname }} = $post["{{ fieldname }}"];
-        {% endfor %}
-        
-//        $id = $post["id"];
-//        $name = $post["name"];
-//        $title = $post["title"];
-//        $content = $post["content"];
-        
-        
-        
-        
-//        if(isset($post['active']))
-//            $paymentMethod->active = ($post["active"] == "on");
-//        else
-//            $paymentMethod->active = false;
-
+{% for fieldname, type in fields %}
+{% if fieldname in fields|keys %}
+{% set foo = fields[fieldname] %}
+{% if 'BOOLEAN' in foo|upper  %}
+        if(isset($post['{{ fieldname }}']))
+            ${{ singleObjectVariableName }}->{{ fieldname }} = ($post["{{ fieldname }}"]=="on");
+        else
+            ${{ singleObjectVariableName }}->{{ fieldname }} = false;
+{% else %}
+        ${{ singleObjectVariableName }}->{{ fieldname }} = $post["{{ fieldname }}"];
+{% endif %}
+{% endif %}
+{% endfor %}
         
         
         $errors = ${{ singleObjectVariableName }}->validate();
