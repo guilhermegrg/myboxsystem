@@ -44,15 +44,28 @@
                   <li class="nav-item dropdown">
                       <a href="sms_template_read_list_view.php" class="nav-link">SMS</a>
                   </li>
+                  <li class="nav-item dropdown">
+                      <a href="class_access_template_read_list_view.php" class="nav-link">Class Templates</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a href="periodic_service_read_list_view.php" class="nav-link">Periodic Services</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a href="coach_profile_read_list_view.php" class="nav-link">Coach Profiles</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a href="membership_read_list_view.php" class="nav-link">Memberships</a>
+                  </li>
+
 
 
               </ul>
               <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
-                      <a href="" class="nav-link">Discounts</a>
+                      <a href="" class="nav-link">Profile</a>
                   </li>
                   <li class="nav-item">
-                      <a href="" class="nav-link">Users</a>
+                      <a href="" class="nav-link">Logout</a>
                   </li>
                   
               </ul>

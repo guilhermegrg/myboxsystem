@@ -7,6 +7,8 @@
 <?php include_once("SMSTemplate.php"); ?>
 <?php include_once("ClassAccessTemplate.php"); ?>
 <?php include_once("PeriodicService.php"); ?>
+<?php include_once("CoachProfile.php"); ?>
+<?php include_once("Membership.php"); ?>
 
 
 
@@ -26,6 +28,8 @@ if(isset($_POST['generate'])){
 //SMSTemplate::create();
 //ClassAccessTemplate::create();
 //PeriodicService::create();
+//CoachProfile::create();
+Membership::create();
 
 ?>
 
