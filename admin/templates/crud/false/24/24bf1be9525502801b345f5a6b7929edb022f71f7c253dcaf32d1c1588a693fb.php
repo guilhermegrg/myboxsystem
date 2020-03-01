@@ -58,14 +58,14 @@ class __TwigTemplate_68ee56fbff2ec4d3c69b3a80a3234abd8b0d96cdb9c35706510660b6bc5
                 // line 4
                 $context["foo"] = (($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 = ($context["fields"] ?? null)) && is_array($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4) || $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 instanceof ArrayAccess ? ($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4[$context["fieldName"]] ?? null) : null);
                 // line 5
-                if (twig_in_filter("VARCHAR", ($context["foo"] ?? null))) {
+                if (twig_in_filter("VARCHAR", twig_upper_filter($this->env, ($context["foo"] ?? null)))) {
                     // line 6
                     echo twig_include($this->env, $context, "simpleTextField.php");
                     echo "
 ";
                 }
                 // line 8
-                if (twig_in_filter("BOOLEAN", ($context["foo"] ?? null))) {
+                if (twig_in_filter("BOOLEAN", twig_upper_filter($this->env, ($context["foo"] ?? null)))) {
                     // line 9
                     echo twig_include($this->env, $context, "simpleBooleanField.php");
                     echo "

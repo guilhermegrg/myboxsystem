@@ -1,5 +1,5 @@
 
-<?php include "models/{{ className }}.php"; ?>
+<?php include "models/PaymentMethod.php"; ?>
 
 
 <?php
@@ -11,22 +11,16 @@
         $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 //        var_dump($post);
         
-        ${{ singleObjectVariableName }} = new {{ className }}();
+        $paymentMethod = new PaymentMethod();
 
-        {% for fieldname, type in createFields %}
-${{ singleObjectVariableName }}->{{ fieldname }} = $post["{{ fieldname }}"];
-        {% endfor %}
-         
-        if(isset($post['active']))
-            $modality->active = ($post["active"]=="on");
-        else
-            $modality->active = false;
+        $paymentMethod->name = $post["name"];
+        $paymentMethod->instructions = $post["instructions"];
+        $paymentMethod->active = $post["active"];
+                 
         
-        
-        
-//        ${{ singleObjectVariableName }}->name = $post["name"];
-//        ${{ singleObjectVariableName }}->title = $post["title"];
-//        ${{ singleObjectVariableName }}->content = $post["content"];
+//        $paymentMethod->name = $post["name"];
+//        $paymentMethod->title = $post["title"];
+//        $paymentMethod->content = $post["content"];
         
 //        if(isset($post['active']))
 //            $paymentMethod->active = ($post["active"]=="on");
@@ -37,7 +31,7 @@ ${{ singleObjectVariableName }}->{{ fieldname }} = $post["{{ fieldname }}"];
                 
 //        $discount->import($post);
         
-        $errors = ${{ singleObjectVariableName }}->validate();
+        $errors = $paymentMethod->validate();
         
 //        echo "<br><br><pre>";
 //        var_dump($errors);
@@ -49,21 +43,21 @@ ${{ singleObjectVariableName }}->{{ fieldname }} = $post["{{ fieldname }}"];
         {
 //            echo "sending back to form to revalidate!<br>";
             setError("Please correct the form and submit again");
-            setFormValidation("{{ validationTAG }}",$errors);
+            setFormValidation("PaymentMethod",$errors);
             
 //            send("discount_create_view.php");
 //            var_dump($_SESSION);
 //            exit;
         }else{
         
-        echo "Creating {{ nameForMessages }}!!<br>";
+        echo "Creating Payment Method!!<br>";
 //            $active= ($active=="on"?1:0);
             
-            ${{ singleObjectVariableName }}->save();
+            $paymentMethod->save();
             
             
-           setSuccess("Created new {{ nameForMessages }} Nº " . $id); 
-           send("{{ filePrefix }}_read_list_view.php"); 
+           setSuccess("Created new Payment Method Nº " . $id); 
+           send("test_payment_method_read_list_view.php"); 
             exit;
         }
         
@@ -72,7 +66,7 @@ ${{ singleObjectVariableName }}->{{ fieldname }} = $post["{{ fieldname }}"];
 //         $name="";
 //    $value="";
 //    $active="off";
-        ${{ singleObjectVariableName }} = new {{ className }}();
+        $paymentMethod = new PaymentMethod();
     }
 //echo "hello!";
 

@@ -18,34 +18,65 @@ $twig = new \Twig\Environment($loader, [
 //$twig = new \Twig\Environment($loader);
 
 
-$className = "SMSTemplate";
-$filePrefix = "sms_template";
-$validationTAG = "SMS_TEMPLATE";
-$listVariableName = "smsTemplates";
-$singleObjectVariableName = "sms";
-$listPageTitle = "SMS Templates";
-$nameForMessages = "SMS Template";
+//$className = "SMSTemplate";
+//$filePrefix = "sms_template";
+//$validationTAG = "SMS_TEMPLATE";
+//$listVariableName = "smsTemplates";
+//$singleObjectVariableName = "sms";
+//$listPageTitle = "SMS Templates";
+//$nameForMessages = "SMS Template";
+//
+//
+//
+////var_dump($createProps); 
+//
+//
+//$tableFields = [
+//    "#" => "id",
+//    "Name" => "name",
+//    "instructions" => 'content'
+//];
+//
+//$formFields = [
+//    "Name" => "name",
+//    "Content" => 'content'
+//];
+
+
+
+$className = "PaymentMethod";
+$filePrefix = "test_payment_method";
+$validationTAG = "PaymentMethod";
+$listVariableName = "paymentMethods";
+$singleObjectVariableName = "paymentMethod";
+$listPageTitle = "Payment Methods";
+$nameForMessages = "Payment Method";
+
+
+
+//var_dump($createProps); 
+
+
+$tableFields = [
+    "#" => "id",
+    "Active" => "active",
+    "Name" => "name",
+    "Instructions" => 'instructions',
+];
+
+$formFields = [
+    "Name" => "name",
+    "Instructions" => 'instructions',
+    "Active" => 'active'
+];
+
+
 
 include_once("../../models/$className.php");
 
 $class = new ReflectionClass($className);
 $allprops = RU::getPropertiesAndTypesArray($class);
 $createProps = RU::getOnlyCreateFields($class);
-
-var_dump($createProps); 
-
-
-$tableFields = [
-    "#" => "id",
-    "Name" => "name",
-    "Content" => 'content'
-];
-
-$formFields = [
-    "Name" => "name",
-    "Content" => 'content'
-];
-
 
 $vars = [
 'className' => $className,
