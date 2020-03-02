@@ -37,7 +37,7 @@ class SimpleRelationModel {
     public static function getFilledInCustomSelectQuery($class, $query){
         
         if(strrpos($query,"{tableName.fields}")!== false){
-            $fieldList = RelationModel::getFieldListWithTableName($class);
+            $fieldList = SimpleRelationModel::getFieldListWithTableName($class);
             $query = str_replace("{tableName.fields}",$fieldList,$query );
         }
         
@@ -57,7 +57,7 @@ class SimpleRelationModel {
             $tableName = RU::getTableName($class);
             $query = "SELECT * FROM $tableName ";
         }else{
-            $query = RelationModel::getFilledInCustomSelectQuery($class, $query);
+            $query = SimpleRelationModel::getFilledInCustomSelectQuery($class, $query);
         }
         
 //        echo "<br><br>Query: " . $query. "<br><br>";
@@ -139,7 +139,7 @@ class SimpleRelationModel {
         $class = new ReflectionClass($classname);
         $tablename = RU::getTableName($class);
         
-        $query = RelationModel::getSelectQuery($class);
+        $query = SimpleRelationModel::getSelectQuery($class);
         $parent_column_name = RU::getParentIDField($class);
 
         return DBU::getChildrenAsClassObjects($query,$classname, $parent_column_name, $parentId);
@@ -155,7 +155,7 @@ class SimpleRelationModel {
 //        echo "Calling class: $classname<br>";
 //        echo "ID: $id<br>";
 //        echo "Table: $tablename<br>";
-        $query = Model::getSelectQuery($class);
+        $query = SimpleRelationModel::getSelectQuery($class);
 
         
         return DBU::getClassObjectById($query,$tablename, $id, $classname);
@@ -185,7 +185,7 @@ class SimpleRelationModel {
         $class = new ReflectionClass($classname);
         $tablename = RU::getTableName($class);
         
-        $query = Model::getSelectQuery($class);
+        $query = SimpleRelationModel::getSelectQuery($class);
 
         return DBU::getPageItemsClassObjects($query,$classname, $page);
     }
@@ -196,7 +196,7 @@ class SimpleRelationModel {
         $class = new ReflectionClass($classname);
         $tablename = RU::getTableName($class);
         
-        $query = Model::getSelectQuery($class);
+        $query = SimpleRelationModel::getSelectQuery($class);
 
         return DBU::getPageItemsAssocArray($query,$page);
     }
@@ -207,7 +207,7 @@ class SimpleRelationModel {
         $class = new ReflectionClass($classname);
         $tablename = RU::getTableName($class);
         
-        $query = Model::getSelectQuery($class);
+        $query = SimpleRelationModel::getSelectQuery($class);
         
         return DBU::getFirstResultLike($query, $tablename .'.'. $fieldName, $fieldValue);
     }
@@ -219,7 +219,7 @@ class SimpleRelationModel {
         $prop = $class->getProperty($fieldName);
         $fieldValue = $prop->getValue($this);
         
-        $query = Model::getSelectQuery($class);
+        $query = SimpleRelationModel::getSelectQuery($class);
         
         return static::getFirstResultLike($query, $tablename.'.'.$fieldName,$fieldValue);
     }
@@ -230,7 +230,7 @@ class SimpleRelationModel {
         $class = new ReflectionClass($classname);
         $tablename = RU::getTableName($class);
         
-        $query = Model::getSelectQuery($class);
+        $query = SimpleRelationModel::getSelectQuery($class);
         
         return DBU::isDuplicateField($id, $query, $tablename.'.'.$fieldName, $fieldValue);
     }
@@ -275,7 +275,7 @@ class SimpleRelationModel {
         //echo "ID: {$this->id}<br>";
         
 //           if($this->id<=0){
-               echo "INSERT!<br>";
+//               echo "INSERT!<br>";
                $this->insert();
 //           }else{
 //               echo "UPDATE!<br>";

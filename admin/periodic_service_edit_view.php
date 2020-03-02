@@ -65,7 +65,7 @@ include "periodic_service_edit_process.php";
        <div class="form-group">
         <label for="classTemplate">Class Access Template:</label>
         <select class="form-control" id="classTemplate" name="class_access_template_id">
-        <?php $templates = ClassAccessTemplate::getPageObjects(1); 
+        <?php $templates = ClassAccessTemplate::getAllObjects(); 
             
             foreach($templates as $template){
                 $selected ="";

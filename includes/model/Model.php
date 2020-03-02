@@ -159,6 +159,17 @@ class Model {
     }
     
     
+    public static function getAllObjects(){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        $tablename = RU::getTableName($class);
+        
+        $query = Model::getSelectQuery($class);
+
+        return DBU::getAllAsClassObjects($query,$classname);
+    }
+ 
+    
     public static function getPageAssoc($page){
         $classname = get_called_class();
         $class = new ReflectionClass($classname);

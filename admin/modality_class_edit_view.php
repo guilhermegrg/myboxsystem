@@ -39,7 +39,7 @@ include "modality_class_edit_process.php";
     <div class="form-group">
         <label for="modality">Modality:</label>
         <select class="form-control" id="modality" name="modality_id">
-        <?php $mods = Modality::getPageObjects(1); 
+        <?php $mods = Modality::getAllObjects(); 
             
             foreach($mods as $modality){
                 $selected ="";

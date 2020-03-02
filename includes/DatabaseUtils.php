@@ -472,7 +472,19 @@ class DBU {
     }
     
     
+     public static function getAllAsClassObjects($query,$classname){
+        
+        $conn = Database::getConnection();
+        
     
+        $stmt = $conn->prepare($query);
+        
+        $result = $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, $classname);
+        $objectArray = $stmt->fetchAll();
+//        var_dump($rows);
+        return $objectArray;
+    }
 
     
     public static function isDuplicateField($id, $query, $fieldname, $fieldValue){
