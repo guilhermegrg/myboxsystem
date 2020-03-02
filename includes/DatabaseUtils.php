@@ -361,7 +361,7 @@ class DBU {
     
     
     
-    public static function updateChildren($tablename, $sqlExceptions, $parent_column_name, $parent_id, $child_column_name, $children){
+    public static function updateChildren($tablename, $sqlExceptions, $parent_column_name, $parent_id, $children){
         try{
 //        $tablename, $fields, $sqlExceptions
         $conn = Database::getConnection();
@@ -374,12 +374,12 @@ class DBU {
         $count = $stmt->rowCount();
             
             
-        $counter = 1;
+//        $counter = 1;
         foreach($children as $child){
-            $child[$child_column_name] = $counter;//auto increment contained child id
+//            $child[$child_column_name] = $counter;//auto increment contained child id
 //            $tablename, $fields, $sqlExceptions, $conn
             DBU::insertChild($tablename,$child,$sqlExceptions,$conn);
-            ++$counter;
+//            ++$counter;
         } 
             
         

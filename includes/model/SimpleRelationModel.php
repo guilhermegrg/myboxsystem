@@ -1,4 +1,3 @@
-
 <?php include_once($_SERVER['DOCUMENT_ROOT']."/myboxsystem/includes/DatabaseUtils.php"); ?>
 <?php include_once("ReflectionUtils.php"); ?>
 <?php include_once("ValidationUtils.php"); ?>
@@ -7,7 +6,7 @@
 <?php
 
 
-class RelationModel {
+class SimpleRelationModel {
     
     public static function getFieldListWithTableName($class){
         $tableName = RU::getTableName($class);
@@ -103,7 +102,7 @@ class RelationModel {
         $instructions = RU::getSQLCRUDExceptions($class);
         $tablename = RU::getTableName($class);
         $parent_column_name = RU::getParentIDField($class);        
-        $child_column_name = RU::getChildIDField($class);
+//        $child_column_name = RU::getChildIDField($class);
         
         
         
@@ -115,9 +114,9 @@ class RelationModel {
             ++$counter;
         }
    
-        var_dump($childrenFields);
+//        var_dump($childrenFields);
         
-        DBU::updateChildren($tablename, $instructions, $parent_column_name, $parentId, $child_column_name, $childrenFields);
+        DBU::updateChildren($tablename, $instructions, $parent_column_name, $parentId, $childrenFields);
         
         //commit transaction
     }
