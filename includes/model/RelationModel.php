@@ -97,6 +97,34 @@ class RelationModel {
         
     }
     
+    public static function updateChildren($parentId, $children){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        $instructions = RU::getSQLCRUDExceptions($class);
+        $tablename = RU::getTableName($class);
+        $parent_column_name = RU::getParentIDField($class);        
+        $child_column_name = RU::getChildIDField($class);
+        
+        
+        
+        $childrenFields = [];
+        $counter = 0;
+        foreach($children as $child){
+            $array =  RU::getPropertiesAndValuesArray($child);
+            $childrenFields[$counter] = $array;
+            ++$counter;
+        }
+   
+        var_dump($childrenFields);
+        
+        DBU::updateChildren($tablename, $instructions, $parent_column_name, $parentId, $child_column_name, $childrenFields);
+        
+        //commit transaction
+    }
+        
+    
+    
+    
     public static function deleteAllChildrenFromParent($parentId){
         $classname = get_called_class();
         $class = new ReflectionClass($classname);

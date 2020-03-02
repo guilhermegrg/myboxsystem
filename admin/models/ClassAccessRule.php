@@ -71,6 +71,43 @@ $test->period = 'MONTHLY';
 //var_dump($test);
 
 //ClassAccessRule::deleteAllChildrenFromParent(1);
+//var_dump(ClassAccessRule::getChildrenAsObjects(1));
+
+
+
+
+$test = new ClassAccessRule();
+$test->class_access_template_id = 1;
+$test->modality_class_id = 3;
+$list[0] = $test;
+
+$test = new ClassAccessRule();
+$test->class_access_template_id = 1;
+$test->modality_class_id = 3;
+$list[1] = $test;
+
+$test = new ClassAccessRule();
+$test->class_access_template_id = 1;
+$test->modality_class_id = 3;
+$list[2] = $test;
+
+$test = new ClassAccessRule();
+$test->class_access_template_id = 1;
+$test->modality_class_id = 3;
+$list[3] = $test;
+
+$test = new ClassAccessRule();
+$test->class_access_template_id = 1;
+$test->modality_class_id = 3;
+$list[4] = $test;
+
+
+var_dump($list);
+
+ClassAccessRule::updateChildren(1,$list);
+
+
+
 var_dump(ClassAccessRule::getChildrenAsObjects(1));
 
 ?>

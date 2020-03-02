@@ -297,6 +297,105 @@ class DBU {
     }
     
     
+    
+    public static function insertChild($tablename, $fields, $sqlExceptions, $conn){
+        $fieldNameList = "";
+        $bindValueNameList = "";
+        
+        
+        
+        foreach($fields as $key=>$value){
+            if($value === null)
+                continue;
+            
+            $exceptions = $sqlExceptions[$key];
+            if($exceptions != null){
+                if(in_array("INSERT",$exceptions)){
+                    continue;
+                }
+            }
+            
+            $fieldNameList.=$key . ", ";
+            $bindValueNameList.= ":".$key . ", ";
+        }
+        
+        
+        $length = strrpos($fieldNameList,", ");
+        $fieldNameList = substr($fieldNameList,0,$length);
+
+        $length2 = strrpos($bindValueNameList,", ");
+        $bindValueNameList = substr($bindValueNameList,0,$length2);
+
+        
+        
+        $query = "INSERT INTO {$tablename}({$fieldNameList}) VALUES ($bindValueNameList)";
+        $stmt = $conn->prepare($query);
+        
+        
+        
+        
+        foreach($fields as $key=>$value){
+            if($value === null)
+                continue;
+            
+            $exceptions = $sqlExceptions[$key];
+            if($exceptions != null){
+                if(in_array("INSERT",$exceptions)){
+                    continue;
+                }
+            }
+            
+            $stmt->bindValue($key,$value);
+        }
+        
+        
+//        echo "<br><br>Insert Query:<br>";
+//        var_dump($stmt);
+//        echo "<br><br>";
+        
+        $stmt->execute();
+//        $id = $conn->lastInsertId();
+//        
+//        return $id;
+    }    
+    
+    
+    
+    public static function updateChildren($tablename, $sqlExceptions, $parent_column_name, $parent_id, $child_column_name, $children){
+        try{
+//        $tablename, $fields, $sqlExceptions
+        $conn = Database::getConnection();
+        
+        $conn->beginTransaction();
+//        public static function deleteAllChildrenFromParent($tablename, $parent_column_name, $parent_id){
+        $stmt = $conn->prepare("DELETE FROM {$tablename} WHERE {$parent_column_name}=:parent_id");
+        $stmt->bindValue(':parent_id',$parent_id, PDO::PARAM_INT);
+        $result = $stmt->execute();
+        $count = $stmt->rowCount();
+            
+            
+        $counter = 1;
+        foreach($children as $child){
+            $child[$child_column_name] = $counter;//auto increment contained child id
+//            $tablename, $fields, $sqlExceptions, $conn
+            DBU::insertChild($tablename,$child,$sqlExceptions,$conn);
+            ++$counter;
+        } 
+            
+        
+        $conn->commit();
+        
+        }
+        catch ( PDOException $e ) { 
+            // Failed to insert the order into the database so we rollback any changes
+            $db->rollback();
+            throw $e;
+        }
+    }            
+            
+            
+
+    
 //    LEFT JOIN modalities ON modality_classes.modality_id=modalities.id
     
     public static function getPageItemsClassObjects($query,$classname, $page){
