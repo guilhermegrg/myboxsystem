@@ -9,6 +9,7 @@
 <?php include_once("PeriodicService.php"); ?>
 <?php include_once("CoachProfile.php"); ?>
 <?php include_once("Membership.php"); ?>
+<?php include_once("ClassAccessRule.php"); ?>
 
 
 
@@ -29,7 +30,8 @@ if(isset($_POST['generate'])){
 //ClassAccessTemplate::create();
 //PeriodicService::create();
 //CoachProfile::create();
-Membership::create();
+//Membership::create();
+//ClassAccessRule::create();
 
 ?>
 

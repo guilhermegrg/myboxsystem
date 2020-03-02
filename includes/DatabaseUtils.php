@@ -69,6 +69,28 @@ class DBU {
     }
     
     
+    public static function deleteAllChildrenFromParent($tablename, $parent_column_name, $parent_id){
+        $conn = Database::getConnection();
+        $stmt = $conn->prepare("DELETE FROM {$tablename} WHERE {$parent_column_name}=:parent_id");
+        $stmt->bindValue(':parent_id',$parent_id, PDO::PARAM_INT);
+        $result = $stmt->execute();
+        $count = $stmt->rowCount();
+            
+        return $count;
+    }
+    
+    public static function deleteChild($tablename, $parent_column_name, $parent_id, $child_column_name, $child_id){
+        $conn = Database::getConnection();
+        $stmt = $conn->prepare("DELETE FROM {$tablename} WHERE {$parent_column_name}=:parent_id AND {$child_column_name}=:child_id");
+        $stmt->bindValue(':parent_id',$parent_id, PDO::PARAM_INT);
+        $stmt->bindValue(':child_id',$child_id, PDO::PARAM_INT);
+        $result = $stmt->execute();
+        $count = $stmt->rowCount();
+            
+        return $count;
+    }
+    
+    
     public static function insert($tablename, $fields, $sqlExceptions){
         $fieldNameList = "";
         $bindValueNameList = "";
@@ -105,6 +127,8 @@ class DBU {
         $stmt = $conn->prepare($query);
         
         
+        
+        
         foreach($fields as $key=>$value){
             if($value === null)
                 continue;
@@ -118,6 +142,11 @@ class DBU {
             
             $stmt->bindValue($key,$value);
         }
+        
+        
+//        echo "<br><br>Insert Query:<br>";
+//        var_dump($stmt);
+//        echo "<br><br>";
         
         $stmt->execute();
         $id = $conn->lastInsertId();
@@ -235,12 +264,37 @@ class DBU {
            
     }
     
+    public static function getChildCount($tablename, $parent_column_name, $parent_id){
+        $conn = Database::getConnection();
+        $stmt = $conn->query("SELECT COUNT(*) FROM {$tablename} WHERE {$parent_column_name}={$parent_id}");
+        $result = $stmt->fetch();
+        //var_dump($result);
+        return $result[0];
+           
+    }
+    
+    
     public static function getTotalPages($tablename){
         $conn = Database::getConnection();
         $count = DBU::getCount($tablename);
         return ceil($count/DBU::$itemsPerPage);
     }
     
+    
+        
+    public static function getChildrenAsClassObjects($query,$classname, $parent_column_name, $parent_id){
+        
+        $conn = Database::getConnection();
+        
+        
+        $stmt = $conn->prepare("{$query} WHERE {$parent_column_name}={$parent_id}");
+        
+        $result = $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, $classname);
+        $objectArray = $stmt->fetchAll();
+//        var_dump($rows);
+        return $objectArray;
+    }
     
     
 //    LEFT JOIN modalities ON modality_classes.modality_id=modalities.id

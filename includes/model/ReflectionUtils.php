@@ -189,6 +189,45 @@ class RU{
         return $array;
     }
     
+    
+    public static function getRelationType($prop){
+        $comment = $prop->getDocComment();
+//        var_dump($comment);
+        return RU::getDocField("RELATION:", $comment);
+    }   
+    
+    
+    public static function getParentIDField($class){
+//        $class = new ReflectionClass(get_class($object));
+        $props = $class->getProperties();
+        
+        foreach($props as $prop){
+            $type = RU::getRelationType($prop);
+            
+            if($type == "PARENT_ID")
+                return $prop->getName();
+            
+        }
+        
+        return null;
+    }
+    
+        public static function getChildIDField($class){
+//        $class = new ReflectionClass(get_class($object));
+        $props = $class->getProperties();
+        
+        foreach($props as $prop){
+            $type = RU::getRelationType($prop);
+            
+            if($type == "CHILD_ID")
+                return $prop->getName();
+            
+        }
+        
+        return null;
+    }
+    
+    
 }
 
 //RU::getTableName(new RU());
