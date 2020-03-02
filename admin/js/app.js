@@ -10,11 +10,13 @@ $(document).ready(function(){
         var frequency = $("#frequency").val();
         var period = $("#period").val();
         
+        
+        var rowCount = $('#ruleList >tbody >tr').length;
 //        alert("Limited: " + limited + " freq: " + frequency + " period:" + period);
 //        $("#limited");
 //        $("#frequency");
 //        $("#period");
-        $("#ruleList > tbody:last-child").append("<tr><td>asdasd</td><td>QQQQQ</td><td>DDDDD</td><td>DDDD</td><td><input type='button' class='btn btn-primary deleteRule' name='' id='addRule' value='Delete'></td></tr>");
+        $("#ruleList > tbody:last-child").append("<tr id='row"+rowCount+"'><td>asdasd</td><td>QQQQQ</td><td>DDDDD</td><td>DDDD</td><td><input type='button' class='btn btn-primary deleteRule' name='' id='" +rowCount+"' value='Delete'></td></tr>");
         
 //        var form = $(this);
 //        
@@ -70,8 +72,10 @@ $(document).ready(function(){
 });
 
 
-$(document).on('click','.deleteRule',function(){
-    alert("Deleting rule!!!");
+$(document).on('click','.deleteRule',function(event){
+    var id = event.target.id;
+//    alert("Deleting rule!!!" + id);
+    $("#row"+id).remove();
 });
 
 function deleteTask(taskid){
