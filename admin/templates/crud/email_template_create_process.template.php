@@ -57,7 +57,7 @@
            $id = ${{ singleObjectVariableName }}->save();
             
             
-           setSuccess("Created new {{ nameForMessages }} Nº " . $id); 
+           setSuccess("Created new {{ nameForMessages }} Nº " . ${{ singleObjectVariableName }}->id); 
            send("{{ filePrefix }}_read_list_view.php"); 
             exit;
         }

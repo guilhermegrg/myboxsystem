@@ -54,7 +54,7 @@
             ${{ singleObjectVariableName }}->save();
 //           cleanFormValues("DISCOUNT");
             
-           setSuccess("Updated {{ nameForMessages }} Nº " . $id); 
+           setSuccess("Updated {{ nameForMessages }} Nº " . ${{ singleObjectVariableName }}->id); 
            send("{{ filePrefix }}_read_list_view.php"); 
             exit;
         }

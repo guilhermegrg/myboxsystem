@@ -129,6 +129,8 @@ $(document).ready(function(){
     $("#addRule").click(function(){
 //        event.preventDefault();
         
+        var rowCount = $('#ruleList >tbody >tr').length;
+        
         var modality_class_id = $("#modality_class").val();
         var limited = $("#limited").is(':checked');
         var frequency = $("#frequency").val();
@@ -145,7 +147,7 @@ $(document).ready(function(){
         classHTML+="</select>";
         
         
-        var limitedHTML = "<input type='checkbox' class='form-check-input ml-4' name='limited_array[]' " +  (limited?"checked":"")+ ">";
+        var limitedHTML = "<input type='checkbox' class='form-check-input ml-4' name='limited_array["+rowCount+"]' " +  (limited?"checked":"")+ ">";
         var freqHTML = "<input type='number' id='frequency' name='frequency_array[]' min='1' class='form-control' value="+frequency+" >";
         var selectPeriodHTML = "<select class='form-control  mr-4' id='period' name='period_array[]'><option value='WEEKLY' "+(period == "WEEKLY"?"selected":"")+" >WEEKLY</option>;<option value='MONTHLY' "+(period == "MONTHLY"?"selected":"")+">MONTHLY</option>;</select>";
 //        alert(class_choices);
@@ -154,7 +156,7 @@ $(document).ready(function(){
         
         
         
-        var rowCount = $('#ruleList >tbody >tr').length;
+        
 //        alert("Limited: " + limited + " freq: " + frequency + " period:" + period);
 //        $("#limited");
 //        $("#frequency");

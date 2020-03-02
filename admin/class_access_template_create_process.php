@@ -26,7 +26,8 @@
         $classAccessTemplate->name = $post["name"];
         
         
-        
+//         var_dump($limited_array);
+//        exit;
                 
 //        $discount->import($post);
         
@@ -52,26 +53,38 @@
         echo "Creating Class Access Template!!<br>";
 //            $active= ($active=="on"?1:0);
             
-            $id = $classAccessTemplate->save();
+            $classAccessTemplate->save();
+            
+            echo "New id:" . $classAccessTemplate->id . "<br>";
+//            exit;
             
             $children = [];
             
 
             foreach($modality_class_id_array as $key=>$value){
                 $rule = new ClassAccessRule();
-                $rule->modality_class_id = $value;
+                $rule->class_access_template_id = $classAccessTemplate->id;
                 $rule->id = $key+1;
-                $rule->limited = $limited_array[$key];
+                $rule->modality_class_id = $value;
+                
+                $isLimited = $limited_array[$key];
+                if(!isset($isLimited) || $isLimited ==  null)
+                    $limited = false;
+                else
+                    $limited = true;
+                
+                $rule->limited = $limited;
+                
                 $rule->frequency = $frequency_array[$key];
                 $rule->period = $period_array[$key];
                 $children[$key] = $rule ;
             }
 
-            ClassAccessRule::updateChildren($id,$children);
+            ClassAccessRule::updateChildren($classAccessTemplate->id,$children);
 
             
             
-           setSuccess("Created new Class Access Template Nº " . $id); 
+           setSuccess("Created new Class Access Template Nº " . $classAccessTemplate->id); 
            send("class_access_template_read_list_view.php"); 
             exit;
         }
