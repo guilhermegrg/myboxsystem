@@ -63,7 +63,7 @@ include "class_access_template_create_process.php";
             ?>
             </select>
 
-            <input type="checkbox" class="form-check-input ml-4" name="limited" checked>
+            <input type="checkbox" class="form-check-input ml-4" name="limited" id="limited" checked>
             <label for="limited" class="form-check-label mr-4" >Limited</label>
 
             <label for="price" class="mr-1">Frequency:</label>
@@ -71,7 +71,7 @@ include "class_access_template_create_process.php";
 
 
             <label for="period" class="mr-1">Period:</label>
-            <select class="form-control  mr-4" id="classTemplate" name="period">
+            <select class="form-control  mr-4" id="period" name="period">
                     <option value="WEEKLY">WEEKLY</option>";
                     <option value="MONTHLY">MONTHLY</option>";
             </select>

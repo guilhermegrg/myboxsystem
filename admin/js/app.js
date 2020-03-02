@@ -2,7 +2,20 @@ $(document).ready(function(){
     
     $("#addRule").click(function(){
 //        event.preventDefault();
-        alert("Clicked!");
+        
+        
+        
+        var modality_class_id = $("#modality_class").val();
+        var limited = $("#limited").is(':checked');
+        var frequency = $("#frequency").val();
+        var period = $("#period").val();
+        
+        alert("Limited: " + limited + " freq: " + frequency + " period:" + period);
+//        $("#limited");
+//        $("#frequency");
+//        $("#period");
+
+        
 //        var form = $(this);
 //        
 //        $("#name_error").html("");
