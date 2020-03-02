@@ -4,11 +4,13 @@ $(document).ready(function(){
 //        event.preventDefault();
         
         
+        var class_choices = <?php echo ?>
         
         var modality_class_id = $("#modality_class").val();
         var limited = $("#limited").is(':checked');
         var frequency = $("#frequency").val();
         var period = $("#period").val();
+        
         
         
         var rowCount = $('#ruleList >tbody >tr').length;
