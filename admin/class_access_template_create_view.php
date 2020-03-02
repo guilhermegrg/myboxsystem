@@ -50,6 +50,8 @@ include "class_access_template_create_process.php";
 </div>
 
 <!--    <form action="" method="post">-->
+   
+ 
     <div id="ruleForm" class="form-inline align-items-center mb-4">
     
        
@@ -81,9 +83,21 @@ include "class_access_template_create_process.php";
     
     </div>
 <!--    </form>-->
-    <div id="ruleList">
-        
-    </div>
+  <table class="table" id="ruleList">
+       <thead>
+           <tr>
+               <th>Class</th>
+               <th>Limited</th>
+               <th>Frequency</th>
+               <th>Period</th>
+               <th>Action</th>
+           </tr>
+       </thead>
+
+       <tbody>
+           
+       </tbody>
+   </table>
     
     
     <div class="form-group">

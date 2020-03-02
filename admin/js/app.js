@@ -10,11 +10,11 @@ $(document).ready(function(){
         var frequency = $("#frequency").val();
         var period = $("#period").val();
         
-        alert("Limited: " + limited + " freq: " + frequency + " period:" + period);
+//        alert("Limited: " + limited + " freq: " + frequency + " period:" + period);
 //        $("#limited");
 //        $("#frequency");
 //        $("#period");
-
+        $("#ruleList > tbody:last-child").append("<tr><td>asdasd</td><td>QQQQQ</td><td>DDDDD</td><td>DDDD</td><td><input type='button' class='btn btn-primary deleteRule' name='' id='addRule' value='Delete'></td></tr>");
         
 //        var form = $(this);
 //        
@@ -63,11 +63,16 @@ $(document).ready(function(){
         
     });
     
+   
+    
 //    $("#task-list").load('read.php');
     
 });
 
 
+$(document).on('click','.deleteRule',function(){
+    alert("Deleting rule!!!");
+});
 
 function deleteTask(taskid){
     if(confirm("Do you rally want to delete this task?")){
