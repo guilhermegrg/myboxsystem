@@ -49,11 +49,36 @@ include "periodic_service_edit_process.php";
           <?php echo getFormValidationField("PeriodicService","price"); ?>
         </div>
 </div>
+
 <div class="form-group">
-        <label for="class_access_template_name">Class Access Template:</label>
-        <input type="text" class="form-control <?php echo isValid("PeriodicService","class_access_template_name")?"":"is-invalid";?>" name="class_access_template_name" placeholder="Enter the class_access_template_name" value="<?php echo $periodicService->class_access_template_name; ?>" <?php echo PeriodicService::getHTMLValidationRule("class_access_template_name"); ?> >
+        <label for="classTemplate">Renewal:</label>
+        <select class="form-control" id="classTemplate" name="renewal">
+                <option value="MONTHLY" <?php echo $periodicService->renewal == "MONTHLY"?"selected":"";  ?>>MONTHLY</option>";
+                <option value="YEARLY"  <?php echo $periodicService->renewal == "YEARLY"?"selected":"";  ?>>YEARLY</option>";
+        </select>
+
         <div class="invalid-feedback">
-          <?php echo getFormValidationField("PeriodicService","class_access_template_name"); ?>
+          <?php echo getFormValidationField("PeriodicService","class_access_template_id"); ?>
+        </div>
+</div>      
+      
+       <div class="form-group">
+        <label for="classTemplate">Class Access Template:</label>
+        <select class="form-control" id="classTemplate" name="class_access_template_id">
+        <?php $templates = ClassAccessTemplate::getPageObjects(1); 
+            
+            foreach($templates as $template){
+                $selected ="";
+                if($template->id == $periodicService->class_access_template_id)
+                    $selected = "selected";
+                
+                echo "<option $selected value={$template->id} >{$template->name}</option>";
+            };
+        ?>
+        </select>
+
+        <div class="invalid-feedback">
+          <?php echo getFormValidationField("PeriodicService","class_access_template_id"); ?>
         </div>
 </div>
 

@@ -1,5 +1,5 @@
 <?php include "models/PeriodicService.php"; ?>
-
+<?php include "models/ClassAccessTemplate.php"; ?>
 
 
 <?php

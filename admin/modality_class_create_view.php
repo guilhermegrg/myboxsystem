@@ -63,7 +63,7 @@ include "modality_class_create_process.php";
             };
         ?>
         </select>
-<!--        <input type="text" class="form-control <?php echo isValid("MODALITY_CLASS","name")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $class->name; ?>" <?php echo ModalityClass::getHTMLValidationRule("name"); ?> >-->
+<!--        <input type="text" class="form-control <?php echo isValid("MODALITY_CLASS","modality")?"":"is-invalid";?>" name="name" placeholder="Enter the name" value="<?php echo $class->name; ?>" <?php echo ModalityClass::getHTMLValidationRule("modality"); ?> >-->
 <!--        pattern="[A-Za-z]{4,}"  title="More than 3 letters. No spaces!" required-->
         <div class="invalid-feedback">
           <?php echo getFormValidationField("MODALITY_CLASS","modality"); ?>
