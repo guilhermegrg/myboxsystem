@@ -49,8 +49,42 @@ include "class_access_template_create_process.php";
         </div>
 </div>
 
+<!--    <form action="" method="post">-->
+    <div id="ruleForm" class="form-inline align-items-center mb-4">
+    
+       
+            <label for="modality_class" class="mr-1">Class:</label>
+            <select class="form-control  mr-sm-2" id="modality_class" name="modality_class">
+            <?php $mods = ModalityClass::getAllObjects(); 
+
+                foreach($mods as $class){
+                    echo "<option value={$class->id} >{$class->modality_name} - {$class->name}</option>";
+                };
+            ?>
+            </select>
+
+            <input type="checkbox" class="form-check-input ml-4" name="limited" checked>
+            <label for="limited" class="form-check-label mr-4" >Limited</label>
+
+            <label for="price" class="mr-1">Frequency:</label>
+            <input type="number" id="frequency" name="frequency" min="1" class="form-control col-1 mr-4" value="3" >
 
 
+            <label for="period" class="mr-1">Period:</label>
+            <select class="form-control  mr-4" id="classTemplate" name="period">
+                    <option value="WEEKLY">WEEKLY</option>";
+                    <option value="MONTHLY">MONTHLY</option>";
+            </select>
+    
+
+            <input type="button" class="btn btn-primary" name="addRule" id="addRule" value="Add Rule">
+    
+    </div>
+<!--    </form>-->
+    <div id="ruleList">
+        
+    </div>
+    
     
     <div class="form-group">
         <a href="class_access_template_read_list_view.php" class="btn btn-secondary text-white">Cancel</a>

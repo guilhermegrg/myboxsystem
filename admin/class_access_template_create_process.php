@@ -1,5 +1,6 @@
 
 <?php include "models/ClassAccessTemplate.php"; ?>
+<?php include "models/ModalityClass.php"; ?>
 
 
 <?php
