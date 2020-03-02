@@ -137,17 +137,17 @@ $(document).ready(function(){
         
         var class_choices = <?php echo json_encode($mods); ?>;
         
-        var classHTML = "<select class='form-control  mr-sm-2' id='modality_class' name='modality_class[]'>";
+        var classHTML = "<select class='form-control  mr-sm-2' name='modality_class_id_array[]'>";
         for (let elem in class_choices) {
-            console.log(elem + " - "  +  class_choices[elem]);
-            classHTML+="<option value='"+elem+"' >"+class_choices[elem].modality_name+" - " + class_choices[elem].name + "</option>";
+            console.log(class_choices[elem].id + " - "  +  modality_class_id);
+            classHTML+="<option value='"+class_choices[elem].id+"' " + (class_choices[elem].id == modality_class_id?"selected":"")+ ">"+class_choices[elem].modality_name+" - " + class_choices[elem].name + "</option>";
         }
         classHTML+="</select>";
         
         
-        var limitedHTML = "<input type='checkbox' class='form-check-input ml-4' name='limited' id='limited' checked>";
-        var freqHTML = "<input type='number' id='frequency' name='frequency[]' min='1' class='form-control col-1 mr-4' value='"+frequency+"' >";
-        var selectPeriodHTML = "<select class='form-control  mr-4' id='period' name='period[]'><option value='WEEKLY'>WEEKLY</option>;<option value='MONTHLY'>MONTHLY</option>;</select>";
+        var limitedHTML = "<input type='checkbox' class='form-check-input ml-4' name='limited_array[]' " +  (limited?"checked":"")+ ">";
+        var freqHTML = "<input type='number' id='frequency' name='frequency_array[]' min='1' class='form-control' value="+frequency+" >";
+        var selectPeriodHTML = "<select class='form-control  mr-4' id='period' name='period_array[]'><option value='WEEKLY' "+(period == "WEEKLY"?"selected":"")+" >WEEKLY</option>;<option value='MONTHLY' "+(period == "MONTHLY"?"selected":"")+">MONTHLY</option>;</select>";
 //        alert(class_choices);
         
 

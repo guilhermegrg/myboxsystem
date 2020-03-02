@@ -54,7 +54,7 @@
         echo "Creating {{ nameForMessages }}!!<br>";
 //            $active= ($active=="on"?1:0);
             
-            ${{ singleObjectVariableName }}->save();
+           $id = ${{ singleObjectVariableName }}->save();
             
             
            setSuccess("Created new {{ nameForMessages }} Nº " . $id); 
