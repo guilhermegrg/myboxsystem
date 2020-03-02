@@ -28,7 +28,29 @@
         
 //         var_dump($limited_array);
 //        exit;
+        $children = [];
+            
+
+            foreach($modality_class_id_array as $key=>$value){
+                $rule = new ClassAccessRule();
+                $rule->class_access_template_id = $classAccessTemplate->id;
+                $rule->id = $key+1;
+                $rule->modality_class_id = $value;
                 
+               if(array_key_exists($key,$limited_array)){
+                   $limited = true;
+               }else
+                   $limited = false;
+               
+                
+                $rule->limited = $limited;
+                
+                $rule->frequency = $frequency_array[$key];
+                $rule->period = $period_array[$key];
+                $children[$key] = $rule ;
+            }                
+        
+        
 //        $discount->import($post);
         
         $errors = $classAccessTemplate->validate();
@@ -95,6 +117,7 @@
 //    $value="";
 //    $active="off";
         $classAccessTemplate = new ClassAccessTemplate();
+        $children = [];
     }
 //echo "hello!";
 

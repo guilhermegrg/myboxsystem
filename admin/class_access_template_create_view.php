@@ -10,7 +10,7 @@ include "class_access_template_create_process.php";
 
 //var_dump($discount);
 
-//var_dump($_SESSION);
+var_dump($children);
 //echo "active: " . $active;
 
 //echo "Errors: " . getFormValidationField("DISCOUNT","name"); 
@@ -95,7 +95,36 @@ include "class_access_template_create_process.php";
        </thead>
 
        <tbody>
+           <?php
+           $counter = 0;
+           foreach($children as $rule){
+               
+               
+        
+            $classHTML = "<select class='form-control  mr-sm-2' name='modality_class_id_array[]'>";
+               
+            foreach ($mods as $modclass) {
+//            console.log(class_choices[elem].id + " - "  +  modality_class_id);
+            $classHTML.="<option value='".$modclass->id."' " . ($modclass->id == $rule->modality_class_id?"selected":""). ">".$modclass->modality_name." - " . $modclass->name . "</option>";
+            }
+               
+            $classHTML.="</select>";
+        
+        
+            $limitedHTML = "<input type='checkbox' class='form-check-input ml-4' name='limited_array[".$counter."]' " .  ($rule->limited?"checked":""). ">";
+            $freqHTML = "<input type='number' id='frequency' name='frequency_array[]' min='1' class='form-control' value=".$rule->frequency." >";
+            $selectPeriodHTML = "<select class='form-control  mr-4' id='period' name='period_array[]'><option value='WEEKLY' ".($rule->period == "WEEKLY"?"selected":"")." >WEEKLY</option>;<option value='MONTHLY' ".($rule->period == "MONTHLY"?"selected":"").">MONTHLY</option>;</select>";
+               
+            
+             echo "<tr id='row".$counter."'><td>".$classHTML."</td><td>".$limitedHTML."</td><td>".$freqHTML."</td><td>".$selectPeriodHTML."</td><td><input type='button' class='btn btn-primary deleteRule' name='' id='" .$counter."' value='Delete'></td></tr>";
+            
+               
+               
+               
+               ++$counter;
+           }
            
+           ?>
        </tbody>
    </table>
     
@@ -141,7 +170,7 @@ $(document).ready(function(){
         
         var classHTML = "<select class='form-control  mr-sm-2' name='modality_class_id_array[]'>";
         for (let elem in class_choices) {
-            console.log(class_choices[elem].id + " - "  +  modality_class_id);
+//            console.log(class_choices[elem].id + " - "  +  modality_class_id);
             classHTML+="<option value='"+class_choices[elem].id+"' " + (class_choices[elem].id == modality_class_id?"selected":"")+ ">"+class_choices[elem].modality_name+" - " + class_choices[elem].name + "</option>";
         }
         classHTML+="</select>";

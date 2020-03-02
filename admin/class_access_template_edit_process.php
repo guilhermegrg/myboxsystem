@@ -1,4 +1,8 @@
+
 <?php include "models/ClassAccessTemplate.php"; ?>
+
+<?php include "models/ClassAccessRule.php"; ?>
+<?php include "models/ModalityClass.php"; ?>
 
 
 
@@ -15,6 +19,33 @@
         $classAccessTemplate->name = $post["name"];
         $classAccessTemplate->id = $post["id"];
         
+        
+        $modality_class_id_array = $post['modality_class_id_array'];
+        $limited_array = $post['limited_array'];
+        $frequency_array = $post['frequency_array'];
+        $period_array = $post['period_array'];
+ 
+    $children = [];
+            
+
+            foreach($modality_class_id_array as $key=>$value){
+                $rule = new ClassAccessRule();
+                $rule->class_access_template_id = $classAccessTemplate->id;
+                $rule->id = $key+1;
+                $rule->modality_class_id = $value;
+                
+               if(array_key_exists($key,$limited_array)){
+                   $limited = true;
+               }else
+                   $limited = false;
+               
+                
+                $rule->limited = $limited;
+                
+                $rule->frequency = $frequency_array[$key];
+                $rule->period = $period_array[$key];
+                $children[$key] = $rule ;
+            }                      
         
         $errors = $classAccessTemplate->validate();
  
@@ -43,7 +74,31 @@
             $classAccessTemplate->save();
 //           cleanFormValues("DISCOUNT");
             
-           setSuccess("Updated Class Access Template Nº " . $id); 
+               $children = [];
+            
+
+            foreach($modality_class_id_array as $key=>$value){
+                $rule = new ClassAccessRule();
+                $rule->class_access_template_id = $classAccessTemplate->id;
+                $rule->id = $key+1;
+                $rule->modality_class_id = $value;
+                
+                $isLimited = $limited_array[$key];
+                if(!isset($isLimited) || $isLimited ==  null)
+                    $limited = false;
+                else
+                    $limited = true;
+                
+                $rule->limited = $limited;
+                
+                $rule->frequency = $frequency_array[$key];
+                $rule->period = $period_array[$key];
+                $children[$key] = $rule ;
+            }
+
+            ClassAccessRule::updateChildren($classAccessTemplate->id,$children);
+            
+           setSuccess("Updated Class Access Template Nº " . $classAccessTemplate->id); 
            send("class_access_template_read_list_view.php"); 
             exit;
         }
@@ -65,6 +120,7 @@
         
         //load values from db
         $classAccessTemplate = ClassAccessTemplate::get($id);
+        $children = ClassAccessRule::getChildrenAsObjects($id);
 //        $name = $discount["name"];
 //        $value = $discount["value"];
 //        $active = $discount["active"];
