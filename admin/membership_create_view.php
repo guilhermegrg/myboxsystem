@@ -194,7 +194,90 @@ include "membership_create_process.php";
    </table>
 
 
+    <!--   mandatory services-->
+   
+    <div id="ruleForm" class="form-inline align-items-center mb-4">
     
+       
+            <label for="add_child_id_option" class="mr-1">Mandatory Services:</label>
+            <select class="form-control  mr-sm-2" id="add_mandatory_id_option">
+            <?php  
+                $services = PeriodicService::getAllObjects(); 
+                
+                foreach($services as $service){
+                    echo "<option value={$service->id} >{$service->name}</option>";
+                };
+            ?>
+            </select>
+
+            <input type="button" class="btn btn-primary" name="add" id="addMandatory" data-choice-flag="services" data-child-array="mandatory_id_array" data-child-selector="add_mandatory_id_option" data-list-table="mandatory-list" value="Add Mandatory Service">
+    
+    </div>
+<!--    </form>-->
+  <table class="table" id="mandatory-list">
+       <thead>
+           <tr>
+               <th>Mandatory Service</th>
+               <th>Action</th>
+           </tr>
+       </thead>
+
+       <tbody>
+           <?php
+         $counter = 0;
+           foreach($children_enroll as $relation){
+               
+              echo "<tr class='get-html-form' data-child-id='$relation->service_id' data-list-table='mandatory-list' ></tr>";
+            ++$counter;          
+           }
+           
+           ?>
+       </tbody>
+   </table>
+   
+      <!--   optional services-->
+   
+    <div id="ruleForm" class="form-inline align-items-center mb-4">
+    
+       
+            <label for="add_child_id_option" class="mr-1">Optional Services:</label>
+            <select class="form-control  mr-sm-2" id="add_optional_id_option">
+            <?php  
+                $services = PeriodicService::getAllObjects(); 
+                
+                foreach($services as $service){
+                    echo "<option value={$service->id} >{$service->name}</option>";
+                };
+            ?>
+            </select>
+
+            <input type="button" class="btn btn-primary" name="add" id="addOptional" data-choice-flag="services" data-child-array="optional_id_array" data-child-selector="add_optional_id_option" data-list-table="optional-list" value="Add Optional Service">
+    
+    </div>
+<!--    </form>-->
+  <table class="table" id="optional-list">
+       <thead>
+           <tr>
+               <th>Optional Service</th>
+               <th>Action</th>
+           </tr>
+       </thead>
+
+       <tbody>
+           <?php
+         $counter = 0;
+           foreach($children_enroll as $relation){
+               
+              echo "<tr class='get-html-form' data-child-id='$relation->service_id' data-list-table='optional-list' ></tr>";
+            ++$counter;          
+           }
+           
+           ?>
+       </tbody>
+   </table> 
+   
+   
+   
     <div class="form-group">
         <a href="membership_read_list_view.php" class="btn btn-secondary text-white">Cancel</a>
         <input type="submit" class="btn btn-primary" name="create" value="Create">
@@ -275,6 +358,8 @@ $(document).ready(function(){
     $("#addTableItem").click(funct);
     $("#addTableItem2").click(funct);
     $("#addEnroll").click(funct);
+    $("#addMandatory").click(funct);
+    $("#addOptional").click(funct);
     
     $( ".get-html-form" ).each(function( index ) {
 //  console.log( index + ": " + $( this ).text() );

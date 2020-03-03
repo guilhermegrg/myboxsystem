@@ -29,11 +29,11 @@
             $membership->active = false;
         
 //        registration managers
-        $manager_id_array = $post['manager_id_array'];
+        
         $children_managers = [];
             
-
-            foreach($manager_id_array as $key=>$value){
+        $manager_id_array = $post['manager_id_array'];
+        foreach($manager_id_array as $key=>$value){
                 $relation = new MembershipHasRegisterManager();
                 $relation->staff_id = $value;
                 $children_managers[$key] = $relation ;
