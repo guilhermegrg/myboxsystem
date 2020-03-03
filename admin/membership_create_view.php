@@ -224,15 +224,18 @@ function getHTMLForm(child_id, child_array, choice_flag="staff"){
         
 //        var rowCount = $('#ruleList >tbody >tr').length;
         var staff_choices = <?php echo json_encode($staffMembers); ?>;
-        var services_choices = <?php echo json_encode($staffMembers); ?>;
+        var services_choices = <?php echo json_encode($services); ?>;
         
         var choices = (choice_flag == "staff"? staff_choices:services_choices);
+    
+//        alert(choices);
         
         var classHTML = "<select class='form-control  mr-sm-2' name='"+child_array+"[]'>";
         for (let elem in choices) {
             var choice = choices[elem];
+            
 //            console.log(class_choices[elem].id + " - "  +  modality_class_id);
-            classHTML+="<option value='"+choice.id+"' " + (choice.id == child_id?"selected":"")+ ">"+ choice.user_name + "</option>";
+            classHTML+="<option value='"+choice.id+"' " + (choice.id == child_id?"selected":"")+ ">"+ (choice_flag == "staff"? choice.user_name:choice.name) + "</option>";
         }
         classHTML+="</select>";
 
@@ -243,10 +246,10 @@ function getHTMLForm(child_id, child_array, choice_flag="staff"){
 //        $("#ruleList > tbody:last-child").append();
 }    
 
-var funct = function(choice_flag="staff"){
+var funct = function(){
         
 //        var rowCount = $('#list >tbody >tr').length;
-        alert(choice_flag);
+//        alert(choice_flag);
     
         var choice_flag = $(this).attr("data-choice-flag");
     
@@ -256,9 +259,11 @@ var funct = function(choice_flag="staff"){
         var child_id = $("#"+child_selector).val();
         var child_array = $(this).attr("data-child-array");
 //        alert(discount_id);
-        
+    
+//        alert(choice_flag);
         var html = getHTMLForm(child_id,child_array,choice_flag);
 
+    
 //        alert(html);
         
         $("#"+child_list_table+" > tbody:last-child").append(html);
