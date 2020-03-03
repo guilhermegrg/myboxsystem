@@ -12,6 +12,7 @@
 <?php include_once("ClassAccessRule.php"); ?>
 <?php include_once("PeriodicServiceHasDiscount.php"); ?>
 <?php include_once("CoachProfileHasClass.php"); ?>
+<?php include_once("Staff.php"); ?>
 
 
 
@@ -39,6 +40,7 @@ if(isset($_POST['generate'])){
 //ClassAccessRule::create();
 //PeriodicServiceHasDiscount::create();
 //CoachProfileHasClass::create();
+Staff::create();
 
 ?>
 

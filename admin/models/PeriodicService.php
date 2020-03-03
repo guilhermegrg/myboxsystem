@@ -19,7 +19,7 @@ class PeriodicService extends Model {
     public $description;    
     
     /** TYPE: DOUBLE
-    VALIDATION: REGEX=([0-9]+)(.[0-9]+)? "Enter a number or percentage."
+    VALIDATION: REGEX=([0-9]+)(.[0-9]+)? "Enter a value."
     */
     public $price;
     

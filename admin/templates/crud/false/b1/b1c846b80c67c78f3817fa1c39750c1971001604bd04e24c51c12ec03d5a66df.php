@@ -142,7 +142,7 @@ class __TwigTemplate_96aa317120b37659e4653346bf013035320ab37785eda165b6e1799cba0
         echo "!!<br>\";
 //            \$active= (\$active==\"on\"?1:0);
             
-            \$";
+           \$id = \$";
         // line 57
         echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
         echo "->save();
@@ -151,7 +151,9 @@ class __TwigTemplate_96aa317120b37659e4653346bf013035320ab37785eda165b6e1799cba0
            setSuccess(\"Created new ";
         // line 60
         echo twig_escape_filter($this->env, ($context["nameForMessages"] ?? null), "html", null, true);
-        echo " Nº \" . \$id); 
+        echo " Nº \" . \$";
+        echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
+        echo "->id); 
            send(\"";
         // line 61
         echo twig_escape_filter($this->env, ($context["filePrefix"] ?? null), "html", null, true);
@@ -195,7 +197,7 @@ class __TwigTemplate_96aa317120b37659e4653346bf013035320ab37785eda165b6e1799cba0
 
     public function getDebugInfo()
     {
-        return array (  169 => 70,  157 => 61,  153 => 60,  147 => 57,  141 => 54,  131 => 47,  116 => 35,  108 => 29,  93 => 25,  86 => 23,  77 => 21,  72 => 20,  70 => 19,  68 => 18,  66 => 17,  62 => 16,  55 => 14,  40 => 2,  37 => 1,);
+        return array (  171 => 70,  159 => 61,  153 => 60,  147 => 57,  141 => 54,  131 => 47,  116 => 35,  108 => 29,  93 => 25,  86 => 23,  77 => 21,  72 => 20,  70 => 19,  68 => 18,  66 => 17,  62 => 16,  55 => 14,  40 => 2,  37 => 1,);
     }
 
     public function getSourceContext()

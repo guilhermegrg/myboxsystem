@@ -144,7 +144,9 @@ class __TwigTemplate_1b06888bcaf329637013bef00e98e69c44a50ed0c08ccbd3dacdf0b8181
            setSuccess(\"Updated ";
         // line 57
         echo twig_escape_filter($this->env, ($context["nameForMessages"] ?? null), "html", null, true);
-        echo " Nº \" . \$id); 
+        echo " Nº \" . \$";
+        echo twig_escape_filter($this->env, ($context["singleObjectVariableName"] ?? null), "html", null, true);
+        echo "->id); 
            send(\"";
         // line 58
         echo twig_escape_filter($this->env, ($context["filePrefix"] ?? null), "html", null, true);
@@ -212,7 +214,7 @@ class __TwigTemplate_1b06888bcaf329637013bef00e98e69c44a50ed0c08ccbd3dacdf0b8181
 
     public function getDebugInfo()
     {
-        return array (  179 => 78,  170 => 72,  162 => 67,  150 => 58,  146 => 57,  140 => 54,  127 => 44,  110 => 30,  106 => 28,  91 => 24,  84 => 22,  75 => 20,  70 => 19,  68 => 18,  66 => 17,  64 => 16,  60 => 15,  53 => 13,  37 => 1,);
+        return array (  181 => 78,  172 => 72,  164 => 67,  152 => 58,  146 => 57,  140 => 54,  127 => 44,  110 => 30,  106 => 28,  91 => 24,  84 => 22,  75 => 20,  70 => 19,  68 => 18,  66 => 17,  64 => 16,  60 => 15,  53 => 13,  37 => 1,);
     }
 
     public function getSourceContext()
