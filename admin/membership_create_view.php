@@ -152,7 +152,46 @@ include "membership_create_process.php";
    </table>
 
     
- 
+ <!--   enrollment services-->
+   
+    <div id="ruleForm" class="form-inline align-items-center mb-4">
+    
+       
+            <label for="add_child_id_option" class="mr-1">Enrollment Services:</label>
+            <select class="form-control  mr-sm-2" id="add_enroll_id_option">
+            <?php  
+                $services = PeriodicService::getAllObjects(); 
+                
+                foreach($services as $service){
+                    echo "<option value={$service->id} >{$service->name}</option>";
+                };
+            ?>
+            </select>
+
+            <input type="button" class="btn btn-primary" name="add" id="addEnroll" data-choice-flag="services" data-child-array="enroll_id_array" data-child-selector="add_enroll_id_option" data-list-table="enroll-list" value="Add Enrollment Service">
+    
+    </div>
+<!--    </form>-->
+  <table class="table" id="enroll-list">
+       <thead>
+           <tr>
+               <th>Periodic Service</th>
+               <th>Action</th>
+           </tr>
+       </thead>
+
+       <tbody>
+           <?php
+         $counter = 0;
+           foreach($children_enroll as $relation){
+               
+              echo "<tr class='get-html-form' data-child-id='$relation->service_id' data-list-table='enroll-list' ></tr>";
+            ++$counter;          
+           }
+           
+           ?>
+       </tbody>
+   </table>
 
 
     
@@ -181,10 +220,13 @@ include "membership_create_process.php";
    <script src="../vendors/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
 <script>
 
-function getHTMLForm(child_id, child_array){
+function getHTMLForm(child_id, child_array, choice_flag="staff"){
         
 //        var rowCount = $('#ruleList >tbody >tr').length;
-        var choices = <?php echo json_encode($staffMembers); ?>;
+        var staff_choices = <?php echo json_encode($staffMembers); ?>;
+        var services_choices = <?php echo json_encode($staffMembers); ?>;
+        
+        var choices = (choice_flag == "staff"? staff_choices:services_choices);
         
         var classHTML = "<select class='form-control  mr-sm-2' name='"+child_array+"[]'>";
         for (let elem in choices) {
@@ -201,18 +243,21 @@ function getHTMLForm(child_id, child_array){
 //        $("#ruleList > tbody:last-child").append();
 }    
 
-var funct = function(){
+var funct = function(choice_flag="staff"){
         
 //        var rowCount = $('#list >tbody >tr').length;
-        
+        alert(choice_flag);
+    
+        var choice_flag = $(this).attr("data-choice-flag");
+    
         var child_selector = $(this).attr("data-child-selector");
-         var child_list_table = $(this).attr("data-list-table");
+        var child_list_table = $(this).attr("data-list-table");
         
         var child_id = $("#"+child_selector).val();
         var child_array = $(this).attr("data-child-array");
 //        alert(discount_id);
         
-        var html = getHTMLForm(child_id,child_array);
+        var html = getHTMLForm(child_id,child_array,choice_flag);
 
 //        alert(html);
         
@@ -224,6 +269,7 @@ $(document).ready(function(){
     
     $("#addTableItem").click(funct);
     $("#addTableItem2").click(funct);
+    $("#addEnroll").click(funct);
     
     $( ".get-html-form" ).each(function( index ) {
 //  console.log( index + ": " + $( this ).text() );

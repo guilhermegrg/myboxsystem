@@ -2,7 +2,11 @@
 <?php include "models/Membership.php"; ?>
 <?php include "models/Staff.php"; ?>
 <?php include "models/MembershipHasRegisterManager.php"; ?>
+<?php include "models/MembershipHasRegisterCreator.php"; ?>
 <?php include "models/PeriodicService.php"; ?>
+<?php include "models/MembershipHasEnrollmentService.php"; ?>
+<?php include "models/MembershipHasMandatoryService.php"; ?>
+<?php include "models/MembershipHasOptionalService.php"; ?>
 
 
 

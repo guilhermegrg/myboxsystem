@@ -16,6 +16,9 @@
 <?php include_once("StaffHasCoachProfile.php"); ?>
 <?php include_once("MembershipHasRegisterManager.php"); ?>
 <?php include_once("MembershipHasRegisterCreator.php"); ?>
+<?php include_once("MembershipHasEnrollmentService.php"); ?>
+<?php include_once("MembershipHasOptionalService.php"); ?>
+<?php include_once("MembershipHasMandatoryService.php"); ?>
 
 
 
@@ -47,6 +50,9 @@ if(isset($_POST['generate'])){
 //StaffHasCoachProfile::create();
 //MembershipHasRegisterManager::create();
 //MembershipHasRegisterCreator::create();
+//MembershipHasEnrollmentService::create();
+//MembershipHasOptionalService::create();
+//MembershipHasMandatoryService::create();
 ?>
 
 
