@@ -3,9 +3,12 @@
 
 <?php include "admin-header.php"; ?>
 
+   
+
 <?php
 
 include "class_access_template_create_process.php";
+$mods = ModalityClass::getAllObjects(); 
                           
 
 //var_dump($discount);
@@ -21,7 +24,10 @@ include "class_access_template_create_process.php";
 //$rule = Discount::getHTMLValidationRule("name");
 //var_dump($rule);
 ?>
- 
+
+  
+  
+    
  <h4>Create Class Access Template</h4>
  
   
@@ -57,7 +63,7 @@ include "class_access_template_create_process.php";
        
             <label for="modality_class" class="mr-1">Class:</label>
             <select class="form-control  mr-sm-2" id="modality_class" name="modality_class">
-            <?php $mods = ModalityClass::getAllObjects(); 
+            <?php  
 
                 foreach($mods as $class){
                     echo "<option value={$class->id} >{$class->modality_name} - {$class->name}</option>";
@@ -96,11 +102,11 @@ include "class_access_template_create_process.php";
 
        <tbody>
            <?php
-//           $counter = 0;
+         $counter = 0;
            foreach($children as $rule){
                
-              echo "<script>return getHTMLForm($rule->modality_class_id,$rule->limited,$rule->frequency,$rule->period);</script>";
-                   
+              echo "<tr class='get-html-form' data-mod-class-id='$rule->modality_class_id' data-limited='$rule->limited' data-frequency='$rule->frequency' data-period='$rule->period' data-counter='$counter'></tr>";
+            ++$counter;          
            }
            
            ?>
@@ -132,9 +138,9 @@ include "class_access_template_create_process.php";
    <script src="../vendors/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
 <script>
 
-function getHTMLForm(modality_class_id,limited,frequency,period){
+function getHTMLForm(modality_class_id,limited,frequency,period, count){
         
-        var rowCount = $('#ruleList >tbody >tr').length;
+//        var rowCount = $('#ruleList >tbody >tr').length;
         var class_choices = <?php echo json_encode($mods); ?>;
         
         var classHTML = "<select class='form-control  mr-sm-2' name='modality_class_id_array[]'>";
@@ -145,7 +151,7 @@ function getHTMLForm(modality_class_id,limited,frequency,period){
         classHTML+="</select>";
         
         
-        var limitedHTML = "<input type='checkbox' class='form-check-input ml-4' name='limited_array["+rowCount+"]' " +  (limited?"checked":"")+ ">";
+        var limitedHTML = "<input type='checkbox' class='form-check-input ml-4' name='limited_array["+count+"]' " +  (limited==1?"checked":"")+ ">";
         var freqHTML = "<input type='number' id='frequency' name='frequency_array[]' min='1' class='form-control' value="+frequency+" >";
         var selectPeriodHTML = "<select class='form-control  mr-4' id='period' name='period_array[]'><option value='WEEKLY' "+(period == "WEEKLY"?"selected":"")+" >WEEKLY</option>;<option value='MONTHLY' "+(period == "MONTHLY"?"selected":"")+">MONTHLY</option>;</select>";
 
@@ -155,6 +161,7 @@ function getHTMLForm(modality_class_id,limited,frequency,period){
         
 //        $("#ruleList > tbody:last-child").append();
 }    
+   
     
 $(document).ready(function(){
     
@@ -167,13 +174,31 @@ $(document).ready(function(){
         var frequency = $("#frequency").val();
         var period = $("#period").val();
         
-        var html = getHTMLForm(modality_class_id,limited,frequency,period);
+        var html = getHTMLForm(modality_class_id,limited,frequency,period,rowCount);
 
-        alert(html);
+//        alert(html);
         
         $("#ruleList > tbody:last-child").append(html);
         
     });
+    
+    $( ".get-html-form" ).each(function( index ) {
+//  console.log( index + ": " + $( this ).text() );
+        var modality_class_id = $(this).attr("data-mod-class-id");
+        var limited = $(this).attr("data-limited");
+//        alert("modality_class_id" + modality_class_id);
+        var frequency = $(this).attr("data-frequency");
+        var period = $(this).attr("data-period");
+        var counter = $(this).attr("data-counter");
+        
+        $(this).remove();
+        
+        var html = getHTMLForm(modality_class_id,limited,frequency,period,counter);
+        $("#ruleList > tbody:last-child").append(html);
+        
+    });
+    
+   
     
 });
 
