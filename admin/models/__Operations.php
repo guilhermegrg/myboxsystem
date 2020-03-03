@@ -10,6 +10,8 @@
 <?php include_once("CoachProfile.php"); ?>
 <?php include_once("Membership.php"); ?>
 <?php include_once("ClassAccessRule.php"); ?>
+<?php include_once("PeriodicServiceHasDiscount.php"); ?>
+
 
 
 
@@ -32,6 +34,8 @@ if(isset($_POST['generate'])){
 //CoachProfile::create();
 //Membership::create();
 //ClassAccessRule::create();
+//PeriodicServiceHasDiscount::create();
+
 
 ?>
 

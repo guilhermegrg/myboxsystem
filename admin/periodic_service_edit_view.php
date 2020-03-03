@@ -82,6 +82,44 @@ include "periodic_service_edit_process.php";
         </div>
 </div>
 
+     <div id="ruleForm" class="form-inline align-items-center mb-4">
+    
+       
+            <label for="add_child_id_option" class="mr-1">Discount:</label>
+            <select class="form-control  mr-sm-2" id="add_child_id_option">
+            <?php  
+                $discounts = Discount::getAllObjects(); 
+                
+                foreach($discounts as $discount){
+                    echo "<option value={$discount->id} >{$discount->name}</option>";
+                };
+            ?>
+            </select>
+
+            <input type="button" class="btn btn-primary" name="add" id="addTableItem" value="Add Discount">
+    
+    </div>
+<!--    </form>-->
+  <table class="table" id="list">
+       <thead>
+           <tr>
+               <th>Discount</th>
+               <th>Action</th>
+           </tr>
+       </thead>
+
+       <tbody>
+           <?php
+         $counter = 0;
+           foreach($children as $discount){
+               
+              echo "<tr class='get-html-form' data-child-id='$discount->discount_id' ></tr>";
+            ++$counter;          
+           }
+           
+           ?>
+       </tbody>
+   </table>
 
 
     
@@ -95,8 +133,88 @@ include "periodic_service_edit_process.php";
               
        
 <?php cleanFormValidation("PeriodicService"); ?>
+
+    
+     
+          </div>
+      </div>
+      
+  </div>
    
+   
+   <script src="../vendors/jquery-3.4.1.min.js"></script>
+   <script src="../vendors/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+function getHTMLForm(discount_id){
+        
+//        var rowCount = $('#ruleList >tbody >tr').length;
+        var discount_choices = <?php echo json_encode($discounts); ?>;
+        
+        var classHTML = "<select class='form-control  mr-sm-2' name='discount_id_array[]'>";
+        for (let elem in discount_choices) {
+            var discount = discount_choices[elem];
+//            console.log(class_choices[elem].id + " - "  +  modality_class_id);
+            classHTML+="<option value='"+discount.id+"' " + (discount.id == discount_id?"selected":"")+ ">"+ discount.name + "</option>";
+        }
+        classHTML+="</select>";
+
+        var final = "<tr><td>"+classHTML+"</td><td><input type='button' class='btn btn-primary deleteListItem' value='Delete'></td></tr>";
+        
+        return final;
+        
+//        $("#ruleList > tbody:last-child").append();
+}    
+   
+    
+$(document).ready(function(){
+    
+    $("#addTableItem").click(function(){
+        
+        var rowCount = $('#list >tbody >tr').length;
+        
+        var discount_id = $("#add_child_id_option").val();
+        
+//        alert(discount_id);
+        
+        var html = getHTMLForm(discount_id);
+
+//        alert(html);
+        
+        $("#list > tbody:last-child").append(html);
+        
+    });
+    
+    $( ".get-html-form" ).each(function( index ) {
+//  console.log( index + ": " + $( this ).text() );
+        var discount_id = $(this).attr("data-child-id");
+
+        
+        $(this).remove();
+        
+        var html = getHTMLForm(discount_id);
+        $("#list > tbody:last-child").append(html);
+        
+    });
+    
+   
+    
+});
+
+
+$(document).on('click','.deleteListItem',function(event){
+//    var id = event.target.id;
+    var row = $(this).closest("tr");
+//    alert("Deleting rule!!! " + row);
+    row.remove();
+});
+
+
 
     
     
-<?php include "admin-footer.php"; ?>
+    
+
+</script>
+</body>
+</html>

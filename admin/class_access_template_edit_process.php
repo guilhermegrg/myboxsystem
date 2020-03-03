@@ -74,27 +74,27 @@
             $classAccessTemplate->save();
 //           cleanFormValues("DISCOUNT");
             
-               $children = [];
-            
-
-            foreach($modality_class_id_array as $key=>$value){
-                $rule = new ClassAccessRule();
-                $rule->class_access_template_id = $classAccessTemplate->id;
-                $rule->id = $key+1;
-                $rule->modality_class_id = $value;
-                
-                $isLimited = $limited_array[$key];
-                if(!isset($isLimited) || $isLimited ==  null)
-                    $limited = false;
-                else
-                    $limited = true;
-                
-                $rule->limited = $limited;
-                
-                $rule->frequency = $frequency_array[$key];
-                $rule->period = $period_array[$key];
-                $children[$key] = $rule ;
-            }
+//               $children = [];
+//            
+//
+//            foreach($modality_class_id_array as $key=>$value){
+//                $rule = new ClassAccessRule();
+//                $rule->class_access_template_id = $classAccessTemplate->id;
+//                $rule->id = $key+1;
+//                $rule->modality_class_id = $value;
+//                
+//                $isLimited = $limited_array[$key];
+//                if(!isset($isLimited) || $isLimited ==  null)
+//                    $limited = false;
+//                else
+//                    $limited = true;
+//                
+//                $rule->limited = $limited;
+//                
+//                $rule->frequency = $frequency_array[$key];
+//                $rule->period = $period_array[$key];
+//                $children[$key] = $rule ;
+//            }
 
             ClassAccessRule::updateChildren($classAccessTemplate->id,$children);
             

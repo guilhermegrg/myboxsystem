@@ -1,6 +1,8 @@
 
 <?php include "models/PeriodicService.php"; ?>
 <?php include "models/ClassAccessTemplate.php"; ?>
+<?php include "models/Discount.php"; ?>
+<?php include "models/PeriodicServiceHasDiscount.php"; ?>
 
 
 <?php
@@ -21,8 +23,15 @@
         $periodicService->class_access_template_id = $post["class_access_template_id"];
         
         
-        
-                
+        $discount_id_array = $post['discount_id_array'];
+        $children = [];
+            
+
+            foreach($discount_id_array as $key=>$value){
+                $relation = new PeriodicServiceHasDiscount();
+                $relation->discount_id = $value;
+                $children[$key] = $relation ;
+            }       
 //        $discount->import($post);
         
         $errors = $periodicService->validate();
@@ -50,7 +59,13 @@
             $periodicService->save();
             
             
-           setSuccess("Created new Periodic Service Nº " . $id); 
+            foreach($children as $child){
+                $child->periodic_service_id = $periodicService->id;
+            }
+            
+            PeriodicServiceHasDiscount::updateChildren($periodicService->id,$children);
+            
+           setSuccess("Created new Periodic Service Nº " . $periodicService->id); 
            send("periodic_service_read_list_view.php"); 
             exit;
         }
@@ -61,6 +76,7 @@
 //    $value="";
 //    $active="off";
         $periodicService = new PeriodicService();
+        $children = [];
     }
 //echo "hello!";
 
