@@ -1,5 +1,7 @@
 <?php include "models/User.php"; ?>
 <?php include "models/Staff.php"; ?>
+<?php include "models/CoachProfile.php"; ?>
+<?php include "models/StaffHasCoachProfile.php"; ?>
 
 
 
@@ -17,6 +19,18 @@
 //        $staffMember->user_name = $post["user_name"];
         $staffMember->session_price = $post["session_price"];
         $staffMember->id = $post["id"];
+        
+        
+        $coach_profile_id_array = $post['coach_profile_id_array'];
+        $children = [];
+            
+
+            foreach($coach_profile_id_array as $key=>$value){
+                $relation = new StaffHasCoachProfile();
+                $relation->staff_id = $staffMember->id;
+                $relation->coach_profile_id = $value;
+                $children[$key] = $relation ;
+            }       
         
         
         $errors = $staffMember->validate();
@@ -45,6 +59,7 @@
 //             echo "active 4: $active<br>";
             $staffMember->save();
 //           cleanFormValues("DISCOUNT");
+            StaffHasCoachProfile::updateChildren($staffMember->id,$children);
             
            setSuccess("Updated Staff Nº " . $staffMember->id); 
            send("staff_read_list_view.php"); 
@@ -68,6 +83,7 @@
         
         //load values from db
         $staffMember = Staff::get($id);
+        $children = StaffHasCoachProfile::getChildrenAsObjects($id);
 //        $name = $discount["name"];
 //        $value = $discount["value"];
 //        $active = $discount["active"];

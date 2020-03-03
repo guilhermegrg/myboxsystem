@@ -1,5 +1,7 @@
 <?php include "models/User.php"; ?>
 <?php include "models/Staff.php"; ?>
+<?php include "models/CoachProfile.php"; ?>
+<?php include "models/StaffHasCoachProfile.php"; ?>
 
 
 <?php
@@ -16,6 +18,15 @@
         $staffMember->user_id = $post["user_id"];
         $staffMember->session_price = $post["session_price"];
         
+        $coach_profile_id_array = $post['coach_profile_id_array'];
+        $children = [];
+            
+
+            foreach($coach_profile_id_array as $key=>$value){
+                $relation = new StaffHasCoachProfile();
+                $relation->coach_profile_id = $value;
+                $children[$key] = $relation ;
+            }       
         
         
                 
@@ -44,7 +55,12 @@
 //            $active= ($active=="on"?1:0);
             
            $id = $staffMember->save();
+           
+            foreach($children as $child){
+                $child->staff_id = $staffMember->id;
+            }
             
+            StaffHasCoachProfile::updateChildren($staffMember->id,$children);
             
            setSuccess("Created new Staff Nº " . $staffMember->id); 
            send("staff_read_list_view.php"); 
@@ -57,6 +73,7 @@
 //    $value="";
 //    $active="off";
         $staffMember = new Staff();
+        $children = [];
     }
 //echo "hello!";
 

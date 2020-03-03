@@ -10,6 +10,7 @@ class Staff extends Model {
     
     /** 
     TYPE: int(11) NOT NULL 
+    VALIDATION: NOT_NULL, NOT_DUPLICATED
     */
     public $user_id;
 
