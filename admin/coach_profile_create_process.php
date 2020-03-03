@@ -1,5 +1,8 @@
 
 <?php include "models/CoachProfile.php"; ?>
+<?php include "models/Modality.php"; ?>
+<?php include "models/ModalityClass.php"; ?>
+<?php include "models/CoachProfileHasClass.php"; ?>
 
 
 <?php
@@ -15,7 +18,15 @@
 
         $coachProfile->name = $post["name"];
         
-        
+        $class_id_array = $post['class_id_array'];
+        $children = [];
+            
+
+            foreach($class_id_array as $key=>$value){
+                $relation = new CoachProfileHasClass();
+                $relation->modality_class_id = $value;
+                $children[$key] = $relation ;
+            }       
         
                 
 //        $discount->import($post);
@@ -44,8 +55,13 @@
             
             $coachProfile->save();
             
+            foreach($children as $child){
+                $child->coach_profile_id = $coachProfile->id;
+            }
             
-           setSuccess("Created new Coach Profile Nº " . $id); 
+            CoachProfileHasClass::updateChildren($coachProfile->id,$children);
+            
+           setSuccess("Created new Coach Profile Nº " . $coachProfile->$id); 
            send("coach_profile_read_list_view.php"); 
             exit;
         }
@@ -56,6 +72,7 @@
 //    $value="";
 //    $active="off";
         $coachProfile = new CoachProfile();
+        $children = [];
     }
 //echo "hello!";
 

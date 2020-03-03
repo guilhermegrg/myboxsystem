@@ -1,4 +1,7 @@
 <?php include "models/CoachProfile.php"; ?>
+<?php include "models/Modality.php"; ?>
+<?php include "models/ModalityClass.php"; ?>
+<?php include "models/CoachProfileHasClass.php"; ?>
 
 
 
@@ -14,6 +17,18 @@
         
         $coachProfile->name = $post["name"];
         $coachProfile->id = $post["id"];
+        
+        
+        $class_id_array = $post['class_id_array'];
+        $children = [];
+            
+
+        foreach($class_id_array as $key=>$value){
+            $relation = new CoachProfileHasClass();
+            $relation->coach_profile_id = $coachProfile->id;
+            $relation->modality_class_id = $value;
+            $children[$key] = $relation ;
+        }
         
         
         $errors = $coachProfile->validate();
@@ -42,8 +57,9 @@
 //             echo "active 4: $active<br>";
             $coachProfile->save();
 //           cleanFormValues("DISCOUNT");
+            CoachProfileHasClass::updateChildren($coachProfile->id,$children);
             
-           setSuccess("Updated Coach Profile Nº " . $id); 
+           setSuccess("Updated Coach Profile Nº " . $coachProfile->$id); 
            send("coach_profile_read_list_view.php"); 
             exit;
         }
@@ -65,6 +81,7 @@
         
         //load values from db
         $coachProfile = CoachProfile::get($id);
+        $children = CoachProfileHasClass::getChildrenAsObjects($id);
 //        $name = $discount["name"];
 //        $value = $discount["value"];
 //        $active = $discount["active"];

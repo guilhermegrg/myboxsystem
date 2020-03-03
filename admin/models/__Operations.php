@@ -11,6 +11,7 @@
 <?php include_once("Membership.php"); ?>
 <?php include_once("ClassAccessRule.php"); ?>
 <?php include_once("PeriodicServiceHasDiscount.php"); ?>
+<?php include_once("CoachProfileHasClass.php"); ?>
 
 
 
@@ -21,6 +22,8 @@
 if(isset($_POST['generate'])){
       echo "<br>Generated table!<br><br>";
 }
+
+
 
 //Discount::create();
 //User::create();
@@ -35,7 +38,7 @@ if(isset($_POST['generate'])){
 //Membership::create();
 //ClassAccessRule::create();
 //PeriodicServiceHasDiscount::create();
-
+//CoachProfileHasClass::create();
 
 ?>
 
