@@ -1,4 +1,8 @@
+
 <?php include "models/Membership.php"; ?>
+<?php include "models/Staff.php"; ?>
+<?php include "models/MembershipHasRegisterManager.php"; ?>
+<?php include "models/PeriodicService.php"; ?>
 
 
 
@@ -20,6 +24,18 @@
         else
             $membership->active = false;
         $membership->id = $post["id"];
+
+        
+        $manager_id_array = $post['manager_id_array'];
+        $children = [];
+            
+
+            foreach($manager_id_array as $key=>$value){
+                $relation = new MembershipHasRegisterManager();
+                $relation->membership_id = $membership->id;
+                $relation->staff_id = $value;
+                $children[$key] = $relation ;
+            }       
         
         
         $errors = $membership->validate();
@@ -48,8 +64,9 @@
 //             echo "active 4: $active<br>";
             $membership->save();
 //           cleanFormValues("DISCOUNT");
+            MembershipHasRegisterManager::updateChildren($membership->id,$children);
             
-           setSuccess("Updated Membership Nº " . $id); 
+           setSuccess("Updated Membership Nº " . $membership->id); 
            send("membership_read_list_view.php"); 
             exit;
         }
@@ -71,6 +88,7 @@
         
         //load values from db
         $membership = Membership::get($id);
+        $children = MembershipHasRegisterManager::getChildrenAsObjects($id);
 //        $name = $discount["name"];
 //        $value = $discount["value"];
 //        $active = $discount["active"];

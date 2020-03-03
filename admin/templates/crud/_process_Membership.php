@@ -39,6 +39,7 @@ $tableFields = [
 
 $formFields = [
     "Name" => "name",
+    "Description" => "description",
     "RegisterURL" => "urlName",
     "Active" => "active"
 ];

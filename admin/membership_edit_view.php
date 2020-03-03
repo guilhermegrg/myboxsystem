@@ -36,6 +36,13 @@ include "membership_edit_process.php";
         </div>
 </div>
 <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" class="form-control <?php echo isValid("Membership","description")?"":"is-invalid";?>" name="description" placeholder="Enter the description" value="<?php echo $membership->description; ?>" <?php echo Membership::getHTMLValidationRule("description"); ?> >
+        <div class="invalid-feedback">
+          <?php echo getFormValidationField("Membership","description"); ?>
+        </div>
+</div>
+<div class="form-group">
         <label for="urlName">RegisterURL:</label>
         <input type="text" class="form-control <?php echo isValid("Membership","urlName")?"":"is-invalid";?>" name="urlName" placeholder="Enter the urlName" value="<?php echo $membership->urlName; ?>" <?php echo Membership::getHTMLValidationRule("urlName"); ?> >
         <div class="invalid-feedback">

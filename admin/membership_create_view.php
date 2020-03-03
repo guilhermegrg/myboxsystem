@@ -49,6 +49,13 @@ include "membership_create_process.php";
         </div>
 </div>
 <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" class="form-control <?php echo isValid("Membership","description")?"":"is-invalid";?>" name="description" placeholder="Enter the description" value="<?php echo $membership->description; ?>" <?php echo Membership::getHTMLValidationRule("description"); ?> >
+        <div class="invalid-feedback">
+          <?php echo getFormValidationField("Membership","description"); ?>
+        </div>
+</div>
+<div class="form-group">
         <label for="urlName">RegisterURL:</label>
         <input type="text" class="form-control <?php echo isValid("Membership","urlName")?"":"is-invalid";?>" name="urlName" placeholder="Enter the urlName" value="<?php echo $membership->urlName; ?>" <?php echo Membership::getHTMLValidationRule("urlName"); ?> >
         <div class="invalid-feedback">
@@ -60,6 +67,92 @@ include "membership_create_process.php";
         <label for="active" class="form-check-label" >Active:</label>
     </div>
 
+  
+   <!--registration  creators-->
+           
+   <div id="ruleForm" class="form-inline align-items-center mb-4">
+    
+       
+            <label for="add_child_id_option" class="mr-1">Registration Creators:</label>
+            <select class="form-control  mr-sm-2" id="add_creator_id_option">
+            <?php  
+                $staffMembers = Staff::getAllObjects(); 
+                
+                foreach($staffMembers as $staff){
+                    echo "<option value={$staff->id} >{$staff->user_name}</option>";
+                };
+            ?>
+            </select>
+
+            <input type="button" class="btn btn-primary" name="add" id="addTableItem2" data-child-array="creator_id_array" data-child-selector="add_creator_id_option" data-list-table="creator-list" value="Add Registration Creator">
+    
+    </div>
+<!--    </form>-->
+  <table class="table" id="creator-list">
+       <thead>
+           <tr>
+               <th>Coach Profile</th>
+               <th>Action</th>
+           </tr>
+       </thead>
+
+       <tbody>
+           <?php
+         $counter = 0;
+           foreach($children_creators as $relation){
+               
+              echo "<tr class='get-html-form' data-child-id='$relation->staff_id' data-list-table='creator-list' ></tr>";
+            ++$counter;          
+           }
+           
+           ?>
+       </tbody>
+   </table> 
+   
+   
+<!--   registration managers-->
+   
+    <div id="ruleForm" class="form-inline align-items-center mb-4">
+    
+       
+            <label for="add_child_id_option" class="mr-1">Registration Managers:</label>
+            <select class="form-control  mr-sm-2" id="add_manager_id_option">
+            <?php  
+                $staffMembers = Staff::getAllObjects(); 
+                
+                foreach($staffMembers as $staff){
+                    echo "<option value={$staff->id} >{$staff->user_name}</option>";
+                };
+            ?>
+            </select>
+
+            <input type="button" class="btn btn-primary" name="add" id="addTableItem" data-child-array="manager_id_array" data-child-selector="add_manager_id_option" data-list-table="manager-list" value="Add Registration Manager">
+    
+    </div>
+<!--    </form>-->
+  <table class="table" id="manager-list">
+       <thead>
+           <tr>
+               <th>Coach Profile</th>
+               <th>Action</th>
+           </tr>
+       </thead>
+
+       <tbody>
+           <?php
+         $counter = 0;
+           foreach($children_managers as $relation){
+               
+              echo "<tr class='get-html-form' data-child-id='$relation->staff_id' data-list-table='manager-list' ></tr>";
+            ++$counter;          
+           }
+           
+           ?>
+       </tbody>
+   </table>
+
+    
+ 
 
 
     
@@ -69,10 +162,100 @@ include "membership_create_process.php";
     </div>
 
     
-</form>   
-              
+</form>            
+            
        
 <?php cleanFormValidation("Membership"); ?>
 
     
-<?php include "admin-footer.php"; ?>
+
+    
+    
+          </div>
+      </div>
+      
+  </div>
+   
+   
+   <script src="../vendors/jquery-3.4.1.min.js"></script>
+   <script src="../vendors/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+function getHTMLForm(child_id, child_array){
+        
+//        var rowCount = $('#ruleList >tbody >tr').length;
+        var choices = <?php echo json_encode($staffMembers); ?>;
+        
+        var classHTML = "<select class='form-control  mr-sm-2' name='"+child_array+"[]'>";
+        for (let elem in choices) {
+            var choice = choices[elem];
+//            console.log(class_choices[elem].id + " - "  +  modality_class_id);
+            classHTML+="<option value='"+choice.id+"' " + (choice.id == child_id?"selected":"")+ ">"+ choice.user_name + "</option>";
+        }
+        classHTML+="</select>";
+
+        var final = "<tr><td>"+classHTML+"</td><td><input type='button' class='btn btn-primary deleteListItem' value='Delete'></td></tr>";
+        
+        return final;
+        
+//        $("#ruleList > tbody:last-child").append();
+}    
+
+var funct = function(){
+        
+//        var rowCount = $('#list >tbody >tr').length;
+        
+        var child_selector = $(this).attr("data-child-selector");
+         var child_list_table = $(this).attr("data-list-table");
+        
+        var child_id = $("#"+child_selector).val();
+        var child_array = $(this).attr("data-child-array");
+//        alert(discount_id);
+        
+        var html = getHTMLForm(child_id,child_array);
+
+//        alert(html);
+        
+        $("#"+child_list_table+" > tbody:last-child").append(html);
+        
+    };    
+    
+$(document).ready(function(){
+    
+    $("#addTableItem").click(funct);
+    $("#addTableItem2").click(funct);
+    
+    $( ".get-html-form" ).each(function( index ) {
+//  console.log( index + ": " + $( this ).text() );
+        var child_id = $(this).attr("data-child-id");
+        var child_array = $(this).attr("data-child-array");
+        var child_list_table = $(this).attr("data-list-table");
+        
+        $(this).remove();
+        
+        var html = getHTMLForm(child_id,child_array);
+        $("#"+child_list_table+ " > tbody:last-child").append(html);
+        
+    });
+    
+   
+    
+});
+
+
+$(document).on('click','.deleteListItem',function(event){
+//    var id = event.target.id;
+    var row = $(this).closest("tr");
+//    alert("Deleting rule!!! " + row);
+    row.remove();
+});
+
+
+
+    
+    
+    
+
+</script>
+</body>
+</html>

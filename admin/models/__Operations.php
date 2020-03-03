@@ -14,6 +14,8 @@
 <?php include_once("CoachProfileHasClass.php"); ?>
 <?php include_once("Staff.php"); ?>
 <?php include_once("StaffHasCoachProfile.php"); ?>
+<?php include_once("MembershipHasRegisterManager.php"); ?>
+<?php include_once("MembershipHasRegisterCreator.php"); ?>
 
 
 
@@ -43,7 +45,8 @@ if(isset($_POST['generate'])){
 //CoachProfileHasClass::create();
 //Staff::create();
 //StaffHasCoachProfile::create();
-
+//MembershipHasRegisterManager::create();
+//MembershipHasRegisterCreator::create();
 ?>
 
 
