@@ -18,16 +18,16 @@
         $staffMember->user_id = $post["user_id"];
         $staffMember->session_price = $post["session_price"];
         
-        $coach_profile_id_array = $post['coach_profile_id_array'];
+        
         $children = [];
-            
-
+        if(isset($post['coach_profile_id_array'])){
+        $coach_profile_id_array = $post['coach_profile_id_array'];
             foreach($coach_profile_id_array as $key=>$value){
                 $relation = new StaffHasCoachProfile();
                 $relation->coach_profile_id = $value;
                 $children[$key] = $relation ;
             }       
-        
+        }
         
                 
 //        $discount->import($post);

@@ -23,17 +23,19 @@
         $periodicService->id = $post["id"];
         
         
+             $children = [];
+        if(isset($post['discount_id_array'])){
         $discount_id_array = $post['discount_id_array'];
-        $children = [];
+        
             
 
             foreach($discount_id_array as $key=>$value){
                 $relation = new PeriodicServiceHasDiscount();
-                $relation->periodic_service_id = $periodicService->id;
                 $relation->discount_id = $value;
                 $children[$key] = $relation ;
-            }   
-        
+            }       
+//        $discount->import($post);
+        }
         $errors = $periodicService->validate();
  
 

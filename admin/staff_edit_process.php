@@ -21,16 +21,16 @@
         $staffMember->id = $post["id"];
         
         
-        $coach_profile_id_array = $post['coach_profile_id_array'];
         $children = [];
-            
-
+        if(isset($post['coach_profile_id_array'])){
+        $coach_profile_id_array = $post['coach_profile_id_array'];
             foreach($coach_profile_id_array as $key=>$value){
                 $relation = new StaffHasCoachProfile();
-                $relation->staff_id = $staffMember->id;
                 $relation->coach_profile_id = $value;
                 $children[$key] = $relation ;
             }       
+        }
+     
         
         
         $errors = $staffMember->validate();

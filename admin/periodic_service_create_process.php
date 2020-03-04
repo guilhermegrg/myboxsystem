@@ -23,8 +23,10 @@
         $periodicService->class_access_template_id = $post["class_access_template_id"];
         
         
-        $discount_id_array = $post['discount_id_array'];
         $children = [];
+        if(isset($post['discount_id_array'])){
+        $discount_id_array = $post['discount_id_array'];
+        
             
 
             foreach($discount_id_array as $key=>$value){
@@ -33,6 +35,7 @@
                 $children[$key] = $relation ;
             }       
 //        $discount->import($post);
+        }
         
         $errors = $periodicService->validate();
         
