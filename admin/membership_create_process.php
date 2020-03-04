@@ -28,67 +28,90 @@
         else
             $membership->active = false;
         
+
+//        registration creators
+
+        $children_creators = [];
+        if(isset($post['creator_id_array'])){    
+        $creator_id_array = $post['creator_id_array'];
+            foreach($creator_id_array as $key=>$value){
+                $relation = new MembershipHasRegisterCreator();
+                $relation->staff_id = $value;
+                $children_creators[$key] = $relation ;
+            }       
+        }
+
 //        registration managers
         
         $children_managers = [];
             
+        if(isset($post['manager_id_array'])){
         $manager_id_array = $post['manager_id_array'];
         foreach($manager_id_array as $key=>$value){
                 $relation = new MembershipHasRegisterManager();
                 $relation->staff_id = $value;
                 $children_managers[$key] = $relation ;
             }       
+        }        
 
-//        registration creators
-        $creator_id_array = $post['creator_id_array'];
-        $children_creators = [];
-            
-
-            foreach($creator_id_array as $key=>$value){
-                $relation = new MembershipHasRegisterCreator();
-                $relation->staff_id = $value;
-                $children_creators[$key] = $relation ;
-            }       
-        
-
-        $enroll_id_array = $post['enroll_id_array'];
         $children_enroll = [];
-            
-
+        if(isset($post['enroll_id_array'])){    
+        $enroll_id_array = $post['enroll_id_array'];
             foreach($enroll_id_array as $key=>$value){
                 $relation = new MembershipHasEnrollmentService();
                 $relation->service_id = $value;
                 $children_enroll[$key] = $relation ;
             }       
+        }
         
-        $mandatory_id_array = $post['mandatory_id_array'];
         $children_mandatory = [];
-            
-
+        if(isset($post['mandatory_id_array'])){    
+            $mandatory_id_array = $post['mandatory_id_array'];
             foreach($mandatory_id_array as $key=>$value){
                 $relation = new MembershipHasMandatoryService();
                 $relation->service_id = $value;
                 $children_mandatory[$key] = $relation ;
             }        
-
+        }
         
-        $optional_id_array = $post['optional_id_array'];
+        
         $children_optional = [];
+        if(isset($post['optional_id_array'])){    
+            $optional_id_array = $post['optional_id_array'];
             
-
             foreach($optional_id_array as $key=>$value){
                 $relation = new MembershipHasOptionalService();
                 $relation->service_id = $value;
                 $children_optional[$key] = $relation ;
             }         
 //        $discount->import($post);
+        }
+        
         
         $errors = $membership->validate();
-        
-//        echo "<br><br><pre>";
-//        var_dump($errors);
-//        echo "</pre><br><br>";
 
+        
+        echo "<br>Creators:<br><pre>";
+        var_dump($children_creators);
+        echo "</pre><br><br>";
+
+        echo "<br>Managers:<br><pre>";
+        var_dump($children_managers);
+        echo "</pre><br><br>";
+        
+        
+        echo "<br>Enrollment:<br><pre>";
+        var_dump($children_enroll);
+        echo "</pre><br><br>";
+
+        echo "<br>Mandatory:<br><pre>";
+        var_dump($children_mandatory);
+        echo "</pre><br><br>";
+
+        echo "<br>Optional:<br><pre>";
+        var_dump($children_optional);
+        echo "</pre><br><br>";
+        
 
         
         if(!empty($errors))

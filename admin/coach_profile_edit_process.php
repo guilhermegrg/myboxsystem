@@ -19,18 +19,19 @@
         $coachProfile->id = $post["id"];
         
         
-        $class_id_array = $post['class_id_array'];
         $children = [];
             
-
-        foreach($class_id_array as $key=>$value){
-            $relation = new CoachProfileHasClass();
-            $relation->coach_profile_id = $coachProfile->id;
-            $relation->modality_class_id = $value;
-            $children[$key] = $relation ;
+        if(isset($post['class_id_array'])){        
+        $class_id_array = $post['class_id_array'];
+            
+            foreach($class_id_array as $key=>$value){
+                $relation = new CoachProfileHasClass();
+                $relation->coach_profile_id = $coachProfile->id;
+                $relation->modality_class_id = $value;
+                $children[$key] = $relation ;
+            }
+        
         }
-        
-        
         $errors = $coachProfile->validate();
  
 

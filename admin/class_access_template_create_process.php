@@ -13,22 +13,26 @@
         
         $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 //        var_dump($post);
-        
+        $children = [];
 //        exit;
         
-        $modality_class_id_array = $post['modality_class_id_array'];
-        $limited_array = $post['limited_array'];
-        $frequency_array = $post['frequency_array'];
-        $period_array = $post['period_array'];
         
         $classAccessTemplate = new ClassAccessTemplate();
 
         $classAccessTemplate->name = $post["name"];
         
+
+        
+        if(isset($post['modality_class_id_array'])){
+            $modality_class_id_array = $post['modality_class_id_array'];
+            $limited_array = $post['limited_array'];
+            $frequency_array = $post['frequency_array'];
+            $period_array = $post['period_array'];
+
         
 //         var_dump($limited_array);
 //        exit;
-        $children = [];
+        
             
 
             foreach($modality_class_id_array as $key=>$value){
@@ -49,7 +53,7 @@
                 $rule->period = $period_array[$key];
                 $children[$key] = $rule ;
             }                
-        
+        }
         
 //        $discount->import($post);
         

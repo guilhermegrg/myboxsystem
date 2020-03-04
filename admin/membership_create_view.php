@@ -101,7 +101,7 @@ include "membership_create_process.php";
          $counter = 0;
            foreach($children_creators as $relation){
                
-              echo "<tr class='get-html-form' data-child-id='$relation->staff_id' data-list-table='creator-list' ></tr>";
+              echo "<tr class='get-html-form' data-child-id='$relation->staff_id' data-list-table='creator-list'  data-child-array='creator_id_array'  data-choice-flag='staff' ></tr>";
             ++$counter;          
            }
            
@@ -143,7 +143,7 @@ include "membership_create_process.php";
          $counter = 0;
            foreach($children_managers as $relation){
                
-              echo "<tr class='get-html-form' data-child-id='$relation->staff_id' data-list-table='manager-list' ></tr>";
+              echo "<tr class='get-html-form' data-child-id='$relation->staff_id' data-list-table='manager-list' data-child-array='manager_id_array'  data-choice-flag='staff' ></tr>";
             ++$counter;          
            }
            
@@ -175,7 +175,7 @@ include "membership_create_process.php";
   <table class="table" id="enroll-list">
        <thead>
            <tr>
-               <th>Periodic Service</th>
+               <th>Enrollment Service</th>
                <th>Action</th>
            </tr>
        </thead>
@@ -185,7 +185,7 @@ include "membership_create_process.php";
          $counter = 0;
            foreach($children_enroll as $relation){
                
-              echo "<tr class='get-html-form' data-child-id='$relation->service_id' data-list-table='enroll-list' ></tr>";
+              echo "<tr class='get-html-form' data-child-id='$relation->service_id' data-list-table='enroll-list' data-child-array='enroll_id_array'  data-choice-flag='services' ></tr>";
             ++$counter;          
            }
            
@@ -225,9 +225,9 @@ include "membership_create_process.php";
        <tbody>
            <?php
          $counter = 0;
-           foreach($children_enroll as $relation){
+           foreach($children_mandatory as $relation){
                
-              echo "<tr class='get-html-form' data-child-id='$relation->service_id' data-list-table='mandatory-list' ></tr>";
+              echo "<tr class='get-html-form' data-child-id='$relation->service_id' data-list-table='mandatory-list' data-child-array='mandatory_id_array'    data-choice-flag='services'  ></tr>";
             ++$counter;          
            }
            
@@ -266,9 +266,9 @@ include "membership_create_process.php";
        <tbody>
            <?php
          $counter = 0;
-           foreach($children_enroll as $relation){
+           foreach($children_optional as $relation){
                
-              echo "<tr class='get-html-form' data-child-id='$relation->service_id' data-list-table='optional-list' ></tr>";
+              echo "<tr class='get-html-form' data-child-id='$relation->service_id' data-list-table='optional-list' data-child-array='optional_id_array'   data-choice-flag='services' ></tr>";
             ++$counter;          
            }
            
@@ -311,7 +311,7 @@ function getHTMLForm(child_id, child_array, choice_flag="staff"){
         
         var choices = (choice_flag == "staff"? staff_choices:services_choices);
     
-//        alert(choices);
+//        alert(child_array);
         
         var classHTML = "<select class='form-control  mr-sm-2' name='"+child_array+"[]'>";
         for (let elem in choices) {
@@ -366,10 +366,11 @@ $(document).ready(function(){
         var child_id = $(this).attr("data-child-id");
         var child_array = $(this).attr("data-child-array");
         var child_list_table = $(this).attr("data-list-table");
+        var choice_flag = $(this).attr("data-choice-flag");
         
         $(this).remove();
         
-        var html = getHTMLForm(child_id,child_array);
+        var html = getHTMLForm(child_id,child_array,choice_flag);
         $("#"+child_list_table+ " > tbody:last-child").append(html);
         
     });

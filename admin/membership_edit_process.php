@@ -30,16 +30,68 @@
         $membership->id = $post["id"];
 
         
-        $manager_id_array = $post['manager_id_array'];
-        $children = [];
-            
 
-            foreach($manager_id_array as $key=>$value){
-                $relation = new MembershipHasRegisterManager();
-                $relation->membership_id = $membership->id;
+//        registration creators
+
+        $children_creators = [];
+        if(isset($post['creator_id_array'])){    
+        $creator_id_array = $post['creator_id_array'];
+            foreach($creator_id_array as $key=>$value){
+                $relation = new MembershipHasRegisterCreator();
                 $relation->staff_id = $value;
-                $children[$key] = $relation ;
+                $relation->membership_id = $membership->id;
+                $children_creators[$key] = $relation ;
             }       
+        }
+//        registration managers
+        
+        $children_managers = [];
+            
+        if(isset($post['manager_id_array'])){
+        $manager_id_array = $post['manager_id_array'];
+        foreach($manager_id_array as $key=>$value){
+                $relation = new MembershipHasRegisterManager();
+                $relation->staff_id = $value;
+                $relation->membership_id = $membership->id;
+                $children_managers[$key] = $relation ;
+            }       
+        }
+
+        $children_enroll = [];
+        if(isset($post['enroll_id_array'])){    
+        $enroll_id_array = $post['enroll_id_array'];
+            foreach($enroll_id_array as $key=>$value){
+                $relation = new MembershipHasEnrollmentService();
+                $relation->service_id = $value;
+                $relation->membership_id = $membership->id;
+                $children_enroll[$key] = $relation ;
+            }       
+        }
+        
+        $children_mandatory = [];
+        if(isset($post['mandatory_id_array'])){    
+            $mandatory_id_array = $post['mandatory_id_array'];
+            foreach($mandatory_id_array as $key=>$value){
+                $relation = new MembershipHasMandatoryService();
+                $relation->service_id = $value;
+                $relation->membership_id = $membership->id;
+                $children_mandatory[$key] = $relation ;
+            }        
+        }
+        
+        
+        $children_optional = [];
+        if(isset($post['optional_id_array'])){    
+            $optional_id_array = $post['optional_id_array'];
+            
+            foreach($optional_id_array as $key=>$value){
+                $relation = new MembershipHasOptionalService();
+                $relation->service_id = $value;
+                $relation->membership_id = $membership->id;
+                $children_optional[$key] = $relation ;
+            }         
+//        $discount->import($post);
+        }       
         
         
         $errors = $membership->validate();
@@ -68,7 +120,11 @@
 //             echo "active 4: $active<br>";
             $membership->save();
 //           cleanFormValues("DISCOUNT");
-            MembershipHasRegisterManager::updateChildren($membership->id,$children);
+            MembershipHasRegisterManager::updateChildren($membership->id,$children_managers);
+            MembershipHasRegisterCreator::updateChildren($membership->id,$children_creators);
+            MembershipHasEnrollmentService::updateChildren($membership->id,$children_enroll);
+            MembershipHasMandatoryService::updateChildren($membership->id,$children_mandatory);
+            MembershipHasOptionalService::updateChildren($membership->id,$children_optional);
             
            setSuccess("Updated Membership Nº " . $membership->id); 
            send("membership_read_list_view.php"); 
@@ -92,7 +148,16 @@
         
         //load values from db
         $membership = Membership::get($id);
-        $children = MembershipHasRegisterManager::getChildrenAsObjects($id);
+        $children_managers = MembershipHasRegisterManager::getChildrenAsObjects($id);
+        $children_creators = MembershipHasRegisterCreator::getChildrenAsObjects($id);
+        
+        $children_enroll = MembershipHasEnrollmentService::getChildrenAsObjects($id);
+        $children_mandatory = MembershipHasMandatoryService::getChildrenAsObjects($id);
+        $children_optional = MembershipHasOptionalService::getChildrenAsObjects($id);
+        
+     
+        
+        
 //        $name = $discount["name"];
 //        $value = $discount["value"];
 //        $active = $discount["active"];

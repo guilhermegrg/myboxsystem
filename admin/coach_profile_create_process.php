@@ -18,17 +18,18 @@
 
         $coachProfile->name = $post["name"];
         
-        $class_id_array = $post['class_id_array'];
         $children = [];
-            
-
+        
+        if(isset($post['class_id_array'])){
+        $class_id_array = $post['class_id_array'];
+        
             foreach($class_id_array as $key=>$value){
                 $relation = new CoachProfileHasClass();
                 $relation->modality_class_id = $value;
                 $children[$key] = $relation ;
             }       
         
-                
+        }
 //        $discount->import($post);
         
         $errors = $coachProfile->validate();

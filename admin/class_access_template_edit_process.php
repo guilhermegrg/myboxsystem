@@ -19,13 +19,15 @@
         $classAccessTemplate->name = $post["name"];
         $classAccessTemplate->id = $post["id"];
         
+        $children = [];
         
-        $modality_class_id_array = $post['modality_class_id_array'];
-        $limited_array = $post['limited_array'];
-        $frequency_array = $post['frequency_array'];
-        $period_array = $post['period_array'];
+        if(isset($post['modality_class_id_array'])){
+            $modality_class_id_array = $post['modality_class_id_array'];
+            $limited_array = $post['limited_array'];
+            $frequency_array = $post['frequency_array'];
+            $period_array = $post['period_array'];
  
-    $children = [];
+    
             
 
             foreach($modality_class_id_array as $key=>$value){
@@ -46,6 +48,7 @@
                 $rule->period = $period_array[$key];
                 $children[$key] = $rule ;
             }                      
+        }
         
         $errors = $classAccessTemplate->validate();
  
