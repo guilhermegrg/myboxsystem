@@ -4,7 +4,7 @@
 
 /** 
 TABLE:  membership_has_mandatory_services
-CUSTOM_SELECT_QUERY: SELECT {tableName.fields}, periodic_services.name as service_name FROM {tableName} LEFT JOIN periodic_services ON {tableName}.staff_id=periodic_services.id
+CUSTOM_SELECT_QUERY: SELECT {tableName.fields}, periodic_services.name as service_name FROM {tableName} LEFT JOIN periodic_services ON {tableName}.service_id=periodic_services.id
 
 */
 class MembershipHasMandatoryService extends SimpleRelationModel {

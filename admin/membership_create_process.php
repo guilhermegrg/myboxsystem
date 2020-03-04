@@ -90,28 +90,28 @@
         
         $errors = $membership->validate();
 
-        
-        echo "<br>Creators:<br><pre>";
-        var_dump($children_creators);
-        echo "</pre><br><br>";
-
-        echo "<br>Managers:<br><pre>";
-        var_dump($children_managers);
-        echo "</pre><br><br>";
-        
-        
-        echo "<br>Enrollment:<br><pre>";
-        var_dump($children_enroll);
-        echo "</pre><br><br>";
-
-        echo "<br>Mandatory:<br><pre>";
-        var_dump($children_mandatory);
-        echo "</pre><br><br>";
-
-        echo "<br>Optional:<br><pre>";
-        var_dump($children_optional);
-        echo "</pre><br><br>";
-        
+//        
+//        echo "<br>Creators:<br><pre>";
+//        var_dump($children_creators);
+//        echo "</pre><br><br>";
+//
+//        echo "<br>Managers:<br><pre>";
+//        var_dump($children_managers);
+//        echo "</pre><br><br>";
+//        
+//        
+//        echo "<br>Enrollment:<br><pre>";
+//        var_dump($children_enroll);
+//        echo "</pre><br><br>";
+//
+//        echo "<br>Mandatory:<br><pre>";
+//        var_dump($children_mandatory);
+//        echo "</pre><br><br>";
+//
+//        echo "<br>Optional:<br><pre>";
+//        var_dump($children_optional);
+//        echo "</pre><br><br>";
+//        
 
         
         if(!empty($errors))
@@ -129,16 +129,19 @@
 //            $active= ($active=="on"?1:0);
             
            $id = $membership->save();
+
+            
+            foreach($children_creators as $child){
+                $child->membership_id = $membership->id;
+            }
+            MembershipHasRegisterCreator::updateChildren($membership->id,$children_creators);
+            
             
             foreach($children_managers as $child){
                 $child->membership_id = $membership->id;
             }
             MembershipHasRegisterManager::updateChildren($membership->id,$children_managers);
             
-            foreach($children_creators as $child){
-                $child->membership_id = $membership->id;
-            }
-            MembershipHasRegisterCreator::updateChildren($membership->id,$children_managers);
             
             
             foreach($children_enroll as $child){
@@ -160,6 +163,31 @@
            setSuccess("Created new Membership Nº " . $membership->id); 
            send("membership_read_list_view.php"); 
             exit;
+            
+            
+//        echo "<br>Creators:<br><pre>";
+//        var_dump($children_creators);
+//        echo "</pre><br><br>";
+//
+//        echo "<br>Managers:<br><pre>";
+//        var_dump($children_managers);
+//        echo "</pre><br><br>";
+//        
+//        
+//        echo "<br>Enrollment:<br><pre>";
+//        var_dump($children_enroll);
+//        echo "</pre><br><br>";
+//
+//        echo "<br>Mandatory:<br><pre>";
+//        var_dump($children_mandatory);
+//        echo "</pre><br><br>";
+//
+//        echo "<br>Optional:<br><pre>";
+//        var_dump($children_optional);
+//        echo "</pre><br><br>";            
+//            
+            
+            
         }
         
     }else{

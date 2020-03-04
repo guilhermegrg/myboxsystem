@@ -120,8 +120,9 @@
 //             echo "active 4: $active<br>";
             $membership->save();
 //           cleanFormValues("DISCOUNT");
-            MembershipHasRegisterManager::updateChildren($membership->id,$children_managers);
             MembershipHasRegisterCreator::updateChildren($membership->id,$children_creators);
+            MembershipHasRegisterManager::updateChildren($membership->id,$children_managers);
+            
             MembershipHasEnrollmentService::updateChildren($membership->id,$children_enroll);
             MembershipHasMandatoryService::updateChildren($membership->id,$children_mandatory);
             MembershipHasOptionalService::updateChildren($membership->id,$children_optional);
@@ -148,15 +149,38 @@
         
         //load values from db
         $membership = Membership::get($id);
-        $children_managers = MembershipHasRegisterManager::getChildrenAsObjects($id);
         $children_creators = MembershipHasRegisterCreator::getChildrenAsObjects($id);
+        $children_managers = MembershipHasRegisterManager::getChildrenAsObjects($id);
+        
         
         $children_enroll = MembershipHasEnrollmentService::getChildrenAsObjects($id);
         $children_mandatory = MembershipHasMandatoryService::getChildrenAsObjects($id);
         $children_optional = MembershipHasOptionalService::getChildrenAsObjects($id);
         
      
-        
+              
+//        echo "<br>Creators:<br><pre>";
+//        var_dump($children_creators);
+//        echo "</pre><br><br>";
+//
+//        echo "<br>Managers:<br><pre>";
+//        var_dump($children_managers);
+//        echo "</pre><br><br>";
+//        
+//        
+//        echo "<br>Enrollment:<br><pre>";
+//        var_dump($children_enroll);
+//        echo "</pre><br><br>";
+//
+//        echo "<br>Mandatory:<br><pre>";
+//        var_dump($children_mandatory);
+//        echo "</pre><br><br>";
+//
+//        echo "<br>Optional:<br><pre>";
+//        var_dump($children_optional);
+//        echo "</pre><br><br>";
+//        
+ 
         
 //        $name = $discount["name"];
 //        $value = $discount["value"];
