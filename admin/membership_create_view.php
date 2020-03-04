@@ -88,7 +88,7 @@ include "membership_create_process.php";
     
     </div>
 <!--    </form>-->
-  <table class="table" id="creator-list">
+  <table class="table  table-sm " id="creator-list">
        <thead>
            <tr>
                <th>Coach Profile</th>
@@ -130,7 +130,7 @@ include "membership_create_process.php";
     
     </div>
 <!--    </form>-->
-  <table class="table" id="manager-list">
+  <table class="table table-sm" id="manager-list">
        <thead>
            <tr>
                <th>Coach Profile</th>
@@ -172,7 +172,7 @@ include "membership_create_process.php";
     
     </div>
 <!--    </form>-->
-  <table class="table" id="enroll-list">
+  <table class="table table-sm" id="enroll-list">
        <thead>
            <tr>
                <th>Enrollment Service</th>
@@ -214,7 +214,7 @@ include "membership_create_process.php";
     
     </div>
 <!--    </form>-->
-  <table class="table" id="mandatory-list">
+  <table class="table table-sm" id="mandatory-list">
        <thead>
            <tr>
                <th>Mandatory Service</th>
@@ -255,7 +255,7 @@ include "membership_create_process.php";
     
     </div>
 <!--    </form>-->
-  <table class="table" id="optional-list">
+  <table class="table table-sm" id="optional-list">
        <thead>
            <tr>
                <th>Optional Service</th>
