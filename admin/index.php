@@ -1,8 +1,3 @@
-<?php ob_start(); ?>
-<?php session_start(); ?>
-<?php require_once "../includes/db.php"; ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -103,68 +98,34 @@
                 <main>
                     <div class="container-fluid">
 
-
-
-  
-<!--
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-     
-      <div class="container">
-          <a href="" class="navbar-brand">
-              MyBoxSystem
-          </a>
-          <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
-          
-          <div class="collapse navbar-collapse" id="navbarNav" >
-              <ul class="navbar-nav">
-                  <li class="nav-item">
-                      <a href="discount_read_list_view.php" class="nav-link">Discounts</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="user_read_list_view.php" class="nav-link">Users</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="payment_method_read_list_view.php" class="nav-link">Payment Methods</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="modality_read_list_view.php" class="nav-link">Modality</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="modality_class_read_list_view.php" class="nav-link">Classes</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="email_template_read_list_view.php" class="nav-link">Email</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="sms_template_read_list_view.php" class="nav-link">SMS</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="class_access_template_read_list_view.php" class="nav-link">Class Templates</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="periodic_service_read_list_view.php" class="nav-link">Periodic Services</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="coach_profile_read_list_view.php" class="nav-link">Coach Profiles</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="membership_read_list_view.php" class="nav-link">Memberships</a>
-                  </li>
-
-
-
-              </ul>
-
-          </div>
-      </div>
-      
-    
-      
-      
-  </nav>
--->
-  
-
-     
-
-
+                   
+                   
+                   
+                   
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2019</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/datatables-demo.js"></script>
+    </body>
+</html>
