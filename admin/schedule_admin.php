@@ -1,13 +1,23 @@
 
 <?php include_once("../includes/functions.php") ?>
 
+<?php include "models/Modality.php"; ?>
+
 <?php include "admin-header.php"; ?>
 
 
    
    <?php 
 
-    
+
+    $modality_id = 0;
+
+    if(isset($_GET["modality"]))
+    {
+        $get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+        $modality_id = $get["modality"];
+        
+    }else
     if(isset($_GET["delete"]))
     {
         $get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
@@ -49,6 +59,29 @@
    
    
 <h4>Schedule</h4>
+  
+<div class="btn-group text-white" role="group" aria-label="Basic example">
+ <?php 
+    
+    
+    $list = Modality::getAllObjects();
+    foreach($list as $modality){
+        $active = "";
+        if($modality_id == $modality->id)
+            $active="active";
+        
+       echo "<a type='button' class='btn btn-secondary $active' href='?modality=$modality->id'>$modality->name</a>";
+    }
+    
+    ?>
+ 
+ 
+<!--
+  <a type="button" class="btn btn-secondary active" >Left</a>
+  <a type="button" class="btn btn-secondary">Middle</a>
+  <a type="button" class="btn btn-secondary">Right</a>
+-->
+</div>
    
      <?php displayMessages(); ?>
    
