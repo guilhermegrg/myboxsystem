@@ -11,15 +11,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
+        <title>Admin - MyBoxSystem</title>
         <link href="css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">MyBoxSystem</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
+            <a class="navbar-brand" href="index.html">MyBoxSystem</a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
             ><!-- Navbar Search-->
+<!--
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
                 <div class="input-group">
                     <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
@@ -28,13 +30,13 @@
                     </div>
                 </div>
             </form>
+-->
             <!-- Navbar-->
-            <ul class="navbar-nav ml-auto ml-md-0">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Activity Log</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="login.html">Logout</a>
                     </div>
@@ -47,52 +49,92 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html"
-                                ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard</a
-                            >
-                            <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"
-                                ><div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
+                            <a class="nav-link" href="index.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard</a>
+
+                            <div class="sb-sidenav-menu-heading">Coaches</div>
+                                <a class="nav-link" href="modality_read_list_view.php">Schedule</a>
+                                <a class="nav-link" href="user_read_list_view.php">Users</a>
+                                <a class="nav-link" href="class_access_template_read_list_view.php">Client Creation</a>
+                            
+                            
+                            <div class="sb-sidenav-menu-heading">Admin</div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdminMain" aria-expanded="false" aria-controls="collapseAdminMain">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Main
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
                             ></a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="layout-static.html">Static Navigation</a><a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a></nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
-                                ><div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Pages
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
-                            ></a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth"
-                                        >Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
-                                    ></a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="login.html">Login</a><a class="nav-link" href="register.html">Register</a><a class="nav-link" href="password.html">Forgot Password</a></nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError"
-                                        >Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
-                                    ></a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="401.html">401 Page</a><a class="nav-link" href="404.html">404 Page</a><a class="nav-link" href="500.html">500 Page</a></nav>
-                                    </div>
+                            <div class="collapse" id="collapseAdminMain" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="user_read_list_view.php">Users</a>
+                                    <a class="nav-link" href="modality_class_read_list_view.php">Password Resets</a>
+                                    <a class="nav-link" href="modality_class_read_list_view.php">Schedule</a>
+                                    <a class="nav-link" href="class_access_template_read_list_view.php">Client Creation</a>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html"
-                                ><div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts</a
-                            ><a class="nav-link" href="tables.html"
-                                ><div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables</a
-                            >
-                        </div>
-                    </div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdminActivity" aria-expanded="false" aria-controls="collapseAdminActivity">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Activity
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
+                            ></a>
+                            <div class="collapse" id="collapseAdminActivity" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="modality_class_read_list_view.php">Money</a>
+                                    <a class="nav-link" href="modality_class_read_list_view.php">Coaches</a>
+                                    <a class="nav-link" href="modality_class_read_list_view.php">Users</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdminPayment" aria-expanded="false" aria-controls="collapseAdminPayment">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Payments
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
+                            ></a>
+                            <div class="collapse" id="collapseAdminPayment" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="modality_class_read_list_view.php">Warning System</a>
+                                    <a class="nav-link" href="payment_method_read_list_view.php">Payment Methods</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdminConfig" aria-expanded="false" aria-controls="collapseAdminConfig">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Config
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
+                            ></a>
+                            <div class="collapse" id="collapseAdminConfig" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                   <a class="nav-link" href="modality_read_list_view.php">Modality</a>
+                                    <a class="nav-link" href="modality_class_read_list_view.php">Classes</a>
+                                    <a class="nav-link" href="class_access_template_read_list_view.php">Class Access Templates</a>
+                                    <a class="nav-link" href="discount_read_list_view.php">Discounts</a>
+                                    <a class="nav-link" href="periodic_service_read_list_view.php">Periodic Services</a>
+                                    <a class="nav-link" href="membership_read_list_view.php">Memberships</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdminPersonel" aria-expanded="false" aria-controls="collapseAdminPersonel">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Personel
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
+                            ></a>
+                            <div class="collapse" id="collapseAdminPersonel" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="coach_profile_read_list_view.php">Coach Profile</a>
+                                    <a class="nav-link" href="staff_read_list_view.php">Staff</a>
+                                </nav>
+                            </div>       
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdminMessages" aria-expanded="false" aria-controls="collapseAdminMessages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Messages
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
+                            ></a>
+                            <div class="collapse" id="collapseAdminMessages" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="email_template_read_list_view.php">Email 
+                                    Templates</a>
+                                    <a class="nav-link" href="sms_template_read_list_view.php">SMS Templates</a>
+                                </nav>
+                            </div>
+
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
                         Start Bootstrap
@@ -101,68 +143,12 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid">
+                    <div class="container-fluid mt-3">
 
 
 
   
-<!--
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-     
-      <div class="container">
-          <a href="" class="navbar-brand">
-              MyBoxSystem
-          </a>
-          <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
-          
-          <div class="collapse navbar-collapse" id="navbarNav" >
-              <ul class="navbar-nav">
-                  <li class="nav-item">
-                      <a href="discount_read_list_view.php" class="nav-link">Discounts</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="user_read_list_view.php" class="nav-link">Users</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="payment_method_read_list_view.php" class="nav-link">Payment Methods</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="modality_read_list_view.php" class="nav-link">Modality</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="modality_class_read_list_view.php" class="nav-link">Classes</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="email_template_read_list_view.php" class="nav-link">Email</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="sms_template_read_list_view.php" class="nav-link">SMS</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="class_access_template_read_list_view.php" class="nav-link">Class Templates</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="periodic_service_read_list_view.php" class="nav-link">Periodic Services</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="coach_profile_read_list_view.php" class="nav-link">Coach Profiles</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="membership_read_list_view.php" class="nav-link">Memberships</a>
-                  </li>
 
-
-
-              </ul>
-
-          </div>
-      </div>
-      
-    
-      
-      
-  </nav>
--->
   
 
      
