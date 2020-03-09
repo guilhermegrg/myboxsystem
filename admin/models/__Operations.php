@@ -35,6 +35,11 @@
 <?php include_once("ClassReservationHasPresences.php"); ?>
 <?php include_once("ClassReservationHasNotReserved.php"); ?>
 
+<?php include_once("UsageDiscount.php"); ?>
+
+
+
+
 
 <?php
 
@@ -76,9 +81,13 @@ if(isset($_POST['generate'])){
 //ClassScheduleMajorExceptionHasClasses::create();
 
 //ClassReservation::create();
-ClassReservationHasReservations::create();
-ClassReservationHasPresences::create();  
-ClassReservationHasNotReserved::create();
+//ClassReservationHasReservations::create();
+//ClassReservationHasPresences::create();  
+//ClassReservationHasNotReserved::create();
+
+
+//UsageDiscount::create();
+
 ?>
 
 

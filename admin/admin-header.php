@@ -54,9 +54,9 @@
                             Dashboard</a>
 
                             <div class="sb-sidenav-menu-heading">Coaches</div>
-                                <a class="nav-link" href="modality_read_list_view.php">Schedule</a>
+                                <a class="nav-link" href="schedule_coaches.php">Schedule</a>
                                 <a class="nav-link" href="user_read_list_view.php">Users</a>
-                                <a class="nav-link" href="class_access_template_read_list_view.php">Client Creation</a>
+                                <a class="nav-link" href="">Client Creation</a>
                             
                             
                             <div class="sb-sidenav-menu-heading">Admin</div>
@@ -68,9 +68,9 @@
                             <div class="collapse" id="collapseAdminMain" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="user_read_list_view.php">Users</a>
-                                    <a class="nav-link" href="modality_class_read_list_view.php">Password Resets</a>
-                                    <a class="nav-link" href="modality_class_read_list_view.php">Schedule</a>
-                                    <a class="nav-link" href="class_access_template_read_list_view.php">Client Creation</a>
+                                    <a class="nav-link" href="">Password Resets</a>
+                                    <a class="nav-link" href="schedule_admins.php">Schedule</a>
+                                    <a class="nav-link" href="">Client Creation</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdminActivity" aria-expanded="false" aria-controls="collapseAdminActivity">
@@ -107,6 +107,7 @@
                                     <a class="nav-link" href="modality_class_read_list_view.php">Classes</a>
                                     <a class="nav-link" href="class_access_template_read_list_view.php">Class Access Templates</a>
                                     <a class="nav-link" href="discount_read_list_view.php">Discounts</a>
+                                    <a class="nav-link" href="usage_discount_read_list_view.php">Usage Discounts</a>
                                     <a class="nav-link" href="periodic_service_read_list_view.php">Periodic Services</a>
                                     <a class="nav-link" href="membership_read_list_view.php">Memberships</a>
                                 </nav>
