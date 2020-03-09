@@ -20,7 +20,20 @@
 <?php include_once("MembershipHasOptionalService.php"); ?>
 <?php include_once("MembershipHasMandatoryService.php"); ?>
 
+<?php include_once("ClassSchedule.php"); ?>
+<?php include_once("ClassScheduleHasTimes.php"); ?>
 
+<?php include_once("ClassScheduleException.php"); ?>
+<?php include_once("ClassScheduleExceptionHasTimes.php"); ?>
+<?php include_once("ClassScheduleHasExceptions.php"); ?>
+
+<?php include_once("ClassScheduleMajorException.php"); ?>
+<?php include_once("ClassScheduleMajorExceptionHasClasses.php"); ?>
+
+<?php include_once("ClassReservation.php"); ?>
+<?php include_once("ClassReservationHasReservations.php"); ?>
+<?php include_once("ClassReservationHasPresences.php"); ?>
+<?php include_once("ClassReservationHasNotReserved.php"); ?>
 
 
 <?php
@@ -53,6 +66,19 @@ if(isset($_POST['generate'])){
 //MembershipHasEnrollmentService::create();
 //MembershipHasOptionalService::create();
 //MembershipHasMandatoryService::create();
+//ClassSchedule::create();
+//ClassScheduleHasTimes::create();
+//ClassScheduleException::create();
+//ClassScheduleExceptionHasTimes::create();
+//ClassScheduleHasExceptions::create();
+
+//ClassScheduleMajorException::create();
+//ClassScheduleMajorExceptionHasClasses::create();
+
+//ClassReservation::create();
+ClassReservationHasReservations::create();
+ClassReservationHasPresences::create();  
+ClassReservationHasNotReserved::create();
 ?>
 
 
