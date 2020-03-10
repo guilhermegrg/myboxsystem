@@ -1,6 +1,8 @@
 
 <?php include_once("../includes/functions.php") ?>
 
+<?php include_once("../includes/schedule-functions.php") ?>
+
 <?php include "models/Modality.php"; ?>
 <?php include "models/ModalityClass.php"; ?>
 
@@ -10,74 +12,13 @@
    
    <?php 
 
-    function getDates($date){
-//        echo " Date: $date ";
-        
-        
-        $time = strtotime($date);
-        
-//        echo " Time: $time ";
-        
-        $weekday = date('w', $time);
-//        echo " Weekday: $weekday ";
-        
-        $sundayTime = mktime(0, 0, 0, date("m", $time)  , date("d", $time)-$weekday, date("Y", $time));
-        
-//        echo " Sunday Time: $sundayTime ";
-        
-        $sundayDate = date('d-m-Y',$sundayTime);
-        
-//        echo " Sunday Date: $sundayDate ";
-        
-        $dates["Sunday"] = $sundayDate;
-        $dates["Monday"] = date('d-m-Y',mktime(0, 0, 0, date("m", $sundayTime)  , date("d", $sundayTime)+1, date("Y", $sundayTime)));
-        $dates["Tuesday"] = date('d-m-Y',mktime(0, 0, 0, date("m", $sundayTime)  , date("d", $sundayTime)+2, date("Y", $sundayTime)));
-        $dates["Wednesday"] = date('d-m-Y',mktime(0, 0, 0, date("m", $sundayTime)  , date("d", $sundayTime)+3, date("Y", $sundayTime)));
-        $dates["Thursday"] = date('d-m-Y',mktime(0, 0, 0, date("m", $sundayTime)  , date("d", $sundayTime)+4, date("Y", $sundayTime)));
-        $dates["Friday"] = date('d-m-Y',mktime(0, 0, 0, date("m", $sundayTime)  , date("d", $sundayTime)+5, date("Y", $sundayTime)));
-        $dates["Saturday"] = date('d-m-Y',mktime(0, 0, 0, date("m", $sundayTime)  , date("d", $sundayTime)+6, date("Y", $sundayTime)));
-        
-//        var_dump($dates);
-        return $dates;
-    }
 
-    function getPreviousWeek($date){
-        $time = strtotime($date);
-        
-//        echo " Time: $time ";
-        
-//        $weekday = date('w', $time);
-//        echo " Weekday: $weekday ";
-        
-        $prevWeekDayTime = mktime(0, 0, 0, date("m", $time)  , date("d", $time)-7, date("Y", $time));
-        $prevWeekDayDate = date('d-m-Y',$prevWeekDayTime);
-        
-        
-//                echo " Prev Date: $prevWeekDayDate ";
-        
-        return $prevWeekDayDate;
-    }
-
-    function getNextWeek($date){
-        $time = strtotime($date);
-        
-//        echo " Time: $time ";
-        
-//        $weekday = date('w', $time);
-//        echo " Weekday: $weekday ";
-        
-        $nextWeekDayTime = mktime(0, 0, 0, date("m", $time)  , date("d", $time)+7, date("Y", $time));
-        $nextWeekDayDate = date('d-m-Y',$nextWeekDayTime);
-        
-//        echo " Next Date: $nextWeekDayDate ";
-        
-        return $nextWeekDayDate;
-    }
 
 
     $modality_id = 0;
     $class_id = 0;
 
+    $today=date('d-m-Y');
     $date = date('d-m-Y');
     $dates = getDates($date);
 
@@ -166,7 +107,7 @@
             if($modality_id == $modality->id)
                 $active="active";
 
-           echo "<a type='button' class='btn btn-secondary $active' href='?modality=$modality->id'>$modality->name</a>";
+           echo "<a type='button' class='btn btn-secondary $active' href='?modality=$modality->id&date=$date'>$modality->name</a>";
         }
 
         ?>
@@ -189,7 +130,7 @@
                 if($class_id == $class->id)
                     $active="active";
 
-               echo "<a type='button' class='btn btn-secondary $active' href='?modality=$class->modality_id&class=$class->id'>$class->name</a>";
+               echo "<a type='button' class='btn btn-secondary $active' href='?modality=$class->modality_id&class=$class->id&date=$date'>$class->name</a>";
             }
         }
 
@@ -202,37 +143,42 @@
 <div class="row mt-3">
     <div class="btn-group text-white" role="group" aria-label="Date Selector">
      
-     <a type='button' class='btn ' href='<?php echo "?modality=$modality_id&class=$class_id&date=".getPreviousWeek($date); ?>'><i class='fas fa-chevron-left'></i> Previous</a>
-     <a type='button' class='btn '   href='<?php echo "?modality=$modality_id&class=$class_id&date=".getNextWeek($date); ?>'> Next <i class='fas fa-chevron-right'></i></a>
+         <a type='button' class='btn ' href='<?php echo "?modality=$modality_id&class=$class_id&date=".getPreviousWeek($date); ?>'><i class='fas fa-chevron-left'></i> Previous</a>
+         <a type='button' class='btn ' href='<?php echo "?modality=$modality_id&class=$class_id&date=".$today; ?>'>This Week</a>
+         <a type='button' class='btn '   href='<?php echo "?modality=$modality_id&class=$class_id&date=".getNextWeek($date); ?>'> Next <i class='fas fa-chevron-right'></i></a>
      </div>  
+     <div>
+         <a type='button' class='btn btn-primary '   href='schedule_create_view.php?date=<?php echo getAmericanFormat($date);?>'> New Schedule </a>
+         <a type='button' class='btn btn-primary '   href=''> New Major Exception </a>
+     </div>
 </div>  
   
-<div class="row">
-    <div class="col border text-center">
+<div class="row mt-3">
+    <div class="col border text-center <?php echo $today==$dates["a"]? "border-success":""; ?>">
     <h5>Sunday</h5>
     <p><?php echo $dates["Sunday"];?></p>      
     </div>
-    <div class="col border text-center">
+    <div class="col border text-center <?php echo $today==$dates["Monday"]? "border-success":""; ?>">
     <h5>Monday</h5>
     <p><?php echo $dates["Monday"];?></p>      
     </div>
-    <div class="col border text-center">
+    <div class="col border text-center <?php echo $today==$dates["Tuesday"]? "border-success":""; ?>">
     <h5>Tuesday</h5>
     <p><?php echo $dates["Tuesday"];?></p>      
     </div>
-    <div class="col border text-center">
+    <div class="col border text-center <?php echo $today==$dates["Wednesday"]? "border-success":""; ?>">
     <h5>Wednesday</h5>
     <p><?php echo $dates["Wednesday"];?></p>      
     </div>
-    <div class="col border text-center">
+    <div class="col border text-center <?php echo $today==$dates["Thursday"]? "border-success":""; ?>">
     <h5>Thursday</h5>
     <p><?php echo $dates["Thursday"];?></p>      
     </div>   
-    <div class="col border text-center">
+    <div class="col border text-center <?php echo $today==$dates["Friday"]? "border-success":""; ?>">
     <h5>Friday</h5>
     <p><?php echo $dates["Friday"];?></p>      
     </div> 
-    <div class="col border text-center">
+    <div class="col border text-center <?php echo $today==$dates["Saturday"]? "border-success":""; ?>">
     <h5>Saturday</h5>
     <p><?php echo $dates["Saturday"];?></p>      
     </div>
