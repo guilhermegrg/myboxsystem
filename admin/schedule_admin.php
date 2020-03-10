@@ -5,6 +5,8 @@
 
 <?php include "models/Modality.php"; ?>
 <?php include "models/ModalityClass.php"; ?>
+<?php include "models/ClassScheduleHasTimes.php"; ?>
+
 
 <?php include "admin-header.php"; ?>
 

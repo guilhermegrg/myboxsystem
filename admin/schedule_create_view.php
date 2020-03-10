@@ -35,7 +35,7 @@ include "schedule_create_process.php";
 
 //->getHTMLValidation();
 
-echo "Start Date: " . $schedule->startDate;
+//echo "Start Date: " . $schedule->startDate;
 
 ?>
   
@@ -84,6 +84,34 @@ echo "Start Date: " . $schedule->startDate;
     </div>
 </div>
      
+     
+<div class="form-inline align-items-center mb-2">       
+<div class="input-group mb-3">
+  <input type="time" class="form-control" aria-label="New Session Time" aria-describedby="addSessionTime" value="11:30" id="time">
+  <div class="input-group-append">
+    <button class="btn btn-primary" type="button" id="addSessionTime">Add New Time</button>
+  </div>
+</div>
+</div>
+    
+             
+<div class="row mb-4 mr-auto" >
+             <div class="col-3" id="time-list"> 
+                 <?php
+            $counter = 0;
+           foreach($session_times as $session){
+               
+              echo "<div class='get-html-form' data-time='$session'></div>";
+            ++$counter;          
+           }
+           
+           ?>
+             </div>
+              <div class="col-11" > 
+                 
+             </div>
+</div>                                       
+              
      
 <div class="form-inline align-items-center mb-4">      
 <div class="form-group">
@@ -178,8 +206,8 @@ echo "Start Date: " . $schedule->startDate;
 <div class="form-group">
             <label for="period" class="mr-2">Repetition:</label>
             <select class="form-control  mr-4" id="period" name="repetition">
-                    <option value="NONE">NONE</option>";
-                    <option value="WEEKLY">WEEKLY</option>";
+                    <option value="NONE" <?php echo $schedule->repetition == "NONE"?"selected":""; ?>>NONE</option>";
+                    <option value="WEEKLY" <?php echo $schedule->repetition == "WEEKLY"?"selected":""; ?>>WEEKLY</option>";
             </select>
     </div>          
        
@@ -226,5 +254,93 @@ echo "Start Date: " . $schedule->startDate;
        
 <?php cleanFormValidation("ClassSchedule"); ?>
 
+
+
+       
+           
+                    </div>
+                </main>
+                   <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2019</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="../vendors/jquery-3.4.1.min.js"></script>
+        <script src="../vendors/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/datatables-demo.js"></script>
+<script>
+
+function getHTMLForm(time){
+        
+        
+    var html = "<div class='input-group mb-2 timeParent '>";
+    html+="<input type='time' class='form-control' value='"+time+"' name='session_times[]'>";
+    html+="<div class='input-group-append'>";
+    html+="<button class='btn btn-danger deleteTime' type='button' >X</button>  </div></div>";
+
+    return html;
+        
+}    
+   
     
-<?php include "admin-footer.php"; ?>
+$(document).ready(function(){
+    
+    $("#addSessionTime").click(function(){
+        
+//        var rowCount = $('#time-list').length;
+        
+        var time = $("#time").val();
+        
+        var html = getHTMLForm(time);
+
+//        alert(html);
+        
+        $("#time-list").append(html);
+        
+    });
+    
+    $( ".get-html-form" ).each(function( index ) {
+        var time = $(this).attr("data-time");
+        $(this).remove();
+        
+        var html = getHTMLForm(time);
+        $("#time-list").append(html);
+        
+    });
+    
+   
+    
+});
+
+
+$(document).on('click','.deleteTime',function(event){
+//    var id = event.target.id;
+    var row = $(this).closest(".timeParent");
+//    alert("Deleting rule!!! " + row);
+    row.remove();
+});
+
+
+
+    
+    
+    
+
+</script>        
+    </body>
+</html>    
+        
+                
