@@ -49,6 +49,32 @@ class ModalityClass extends Model {
     public $modality_name;
 
     
+    public static function getModalityClasses($modality_id){
+        $classname = get_called_class();
+        $class = new ReflectionClass($classname);
+        $tablename = RU::getTableName($class);
+        
+        $query = RU::getCustomSelectQuery($class)." WHERE {tableName}.modality_id=:modality_id" ;
+        
+//        echo "<br>Query:<br>$query</br></br>";
+        
+        $query = Model::getFilledInCustomSelectQuery($class, $query);
+        
+//        echo "<br>Query:<br>$query</br></br>";
+        
+        $conn = Database::getConnection();
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue(":modality_id",$modality_id,PDO::PARAM_INT);
+        $out = $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, $classname);
+        $result = $stmt->fetchAll();
+//     
+//        var_dump($result);
+        
+        return $result;
+            
+    }
+    
 }
 
 

@@ -2,6 +2,7 @@
 <?php include_once("../includes/functions.php") ?>
 
 <?php include "models/Modality.php"; ?>
+<?php include "models/ModalityClass.php"; ?>
 
 <?php include "admin-header.php"; ?>
 
@@ -11,13 +12,23 @@
 
 
     $modality_id = 0;
+    $class_id = 0;
 
     if(isset($_GET["modality"]))
     {
         $get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
         $modality_id = $get["modality"];
         
-    }else
+    }
+
+    if(isset($_GET["class"]))
+    {
+        $get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+        $class_id = $get["class"];
+        
+    }
+
+
     if(isset($_GET["delete"]))
     {
         $get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
@@ -59,29 +70,54 @@
    
    
 <h4>Schedule</h4>
-  
-<div class="btn-group text-white" role="group" aria-label="Basic example">
- <?php 
-    
-    
-    $list = Modality::getAllObjects();
-    foreach($list as $modality){
-        $active = "";
-        if($modality_id == $modality->id)
-            $active="active";
-        
-       echo "<a type='button' class='btn btn-secondary $active' href='?modality=$modality->id'>$modality->name</a>";
-    }
-    
-    ?>
- 
- 
-<!--
-  <a type="button" class="btn btn-secondary active" >Left</a>
-  <a type="button" class="btn btn-secondary">Middle</a>
-  <a type="button" class="btn btn-secondary">Right</a>
--->
+
+
+<div class="row">
+    <div class="btn-group text-white" role="group" aria-label="Modality Selector">
+     <?php 
+
+
+        $list = Modality::getAllObjects();
+        foreach($list as $modality){
+            $active = "";
+
+            if($modality_id == 0 )
+                $modality_id = $modality->id;
+
+            if($modality_id == $modality->id)
+                $active="active";
+
+           echo "<a type='button' class='btn btn-secondary $active' href='?modality=$modality->id'>$modality->name</a>";
+        }
+
+        ?>
+
+    </div>                
 </div>
+
+<div class="row mt-3">
+    <div class="btn-group text-white" role="group" aria-label="Class Selector">
+     <?php 
+
+        if($modality_id > 0){
+            $list = ModalityClass::getModalityClasses($modality_id);
+            foreach($list as $class){
+                $active = "";
+
+                if($class_id == 0 )
+                    $class_id = $class->id;
+
+                if($class_id == $class->id)
+                    $active="active";
+
+               echo "<a type='button' class='btn btn-secondary $active' href='?modality=$class->modality_id&class=$class->id'>$class->name</a>";
+            }
+        }
+
+        ?>
+
+    </div>  
+</div>   
    
      <?php displayMessages(); ?>
    
