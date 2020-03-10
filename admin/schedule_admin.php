@@ -10,9 +10,88 @@
    
    <?php 
 
+    function getDates($date){
+//        echo " Date: $date ";
+        
+        
+        $time = strtotime($date);
+        
+//        echo " Time: $time ";
+        
+        $weekday = date('w', $time);
+//        echo " Weekday: $weekday ";
+        
+        $sundayTime = mktime(0, 0, 0, date("m", $time)  , date("d", $time)-$weekday, date("Y", $time));
+        
+//        echo " Sunday Time: $sundayTime ";
+        
+        $sundayDate = date('d-m-Y',$sundayTime);
+        
+//        echo " Sunday Date: $sundayDate ";
+        
+        $dates["Sunday"] = $sundayDate;
+        $dates["Monday"] = date('d-m-Y',mktime(0, 0, 0, date("m", $sundayTime)  , date("d", $sundayTime)+1, date("Y", $sundayTime)));
+        $dates["Tuesday"] = date('d-m-Y',mktime(0, 0, 0, date("m", $sundayTime)  , date("d", $sundayTime)+2, date("Y", $sundayTime)));
+        $dates["Wednesday"] = date('d-m-Y',mktime(0, 0, 0, date("m", $sundayTime)  , date("d", $sundayTime)+3, date("Y", $sundayTime)));
+        $dates["Thursday"] = date('d-m-Y',mktime(0, 0, 0, date("m", $sundayTime)  , date("d", $sundayTime)+4, date("Y", $sundayTime)));
+        $dates["Friday"] = date('d-m-Y',mktime(0, 0, 0, date("m", $sundayTime)  , date("d", $sundayTime)+5, date("Y", $sundayTime)));
+        $dates["Saturday"] = date('d-m-Y',mktime(0, 0, 0, date("m", $sundayTime)  , date("d", $sundayTime)+6, date("Y", $sundayTime)));
+        
+//        var_dump($dates);
+        return $dates;
+    }
+
+    function getPreviousWeek($date){
+        $time = strtotime($date);
+        
+//        echo " Time: $time ";
+        
+//        $weekday = date('w', $time);
+//        echo " Weekday: $weekday ";
+        
+        $prevWeekDayTime = mktime(0, 0, 0, date("m", $time)  , date("d", $time)-7, date("Y", $time));
+        $prevWeekDayDate = date('d-m-Y',$prevWeekDayTime);
+        
+        
+//                echo " Prev Date: $prevWeekDayDate ";
+        
+        return $prevWeekDayDate;
+    }
+
+    function getNextWeek($date){
+        $time = strtotime($date);
+        
+//        echo " Time: $time ";
+        
+//        $weekday = date('w', $time);
+//        echo " Weekday: $weekday ";
+        
+        $nextWeekDayTime = mktime(0, 0, 0, date("m", $time)  , date("d", $time)+7, date("Y", $time));
+        $nextWeekDayDate = date('d-m-Y',$nextWeekDayTime);
+        
+//        echo " Next Date: $nextWeekDayDate ";
+        
+        return $nextWeekDayDate;
+    }
+
 
     $modality_id = 0;
     $class_id = 0;
+
+    $date = date('d-m-Y');
+    $dates = getDates($date);
+
+//    var_dump($dates);
+    getPreviousWeek($date);
+    getNextWeek($date);
+
+    if(isset($_GET["date"]))
+    {
+        $get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+        $date = $get["date"];
+        $dates = getDates($date);
+        
+    }
 
     if(isset($_GET["modality"]))
     {
@@ -118,6 +197,46 @@
 
     </div>  
 </div>   
+ 
+ 
+<div class="row mt-3">
+    <div class="btn-group text-white" role="group" aria-label="Date Selector">
+     
+     <a type='button' class='btn ' href='<?php echo "?modality=$modality_id&class=$class_id&date=".getPreviousWeek($date); ?>'><i class='fas fa-chevron-left'></i> Previous</a>
+     <a type='button' class='btn '   href='<?php echo "?modality=$modality_id&class=$class_id&date=".getNextWeek($date); ?>'> Next <i class='fas fa-chevron-right'></i></a>
+     </div>  
+</div>  
+  
+<div class="row">
+    <div class="col border text-center">
+    <h5>Sunday</h5>
+    <p><?php echo $dates["Sunday"];?></p>      
+    </div>
+    <div class="col border text-center">
+    <h5>Monday</h5>
+    <p><?php echo $dates["Monday"];?></p>      
+    </div>
+    <div class="col border text-center">
+    <h5>Tuesday</h5>
+    <p><?php echo $dates["Tuesday"];?></p>      
+    </div>
+    <div class="col border text-center">
+    <h5>Wednesday</h5>
+    <p><?php echo $dates["Wednesday"];?></p>      
+    </div>
+    <div class="col border text-center">
+    <h5>Thursday</h5>
+    <p><?php echo $dates["Thursday"];?></p>      
+    </div>   
+    <div class="col border text-center">
+    <h5>Friday</h5>
+    <p><?php echo $dates["Friday"];?></p>      
+    </div> 
+    <div class="col border text-center">
+    <h5>Saturday</h5>
+    <p><?php echo $dates["Saturday"];?></p>      
+    </div>
+</div>  
    
      <?php displayMessages(); ?>
    
